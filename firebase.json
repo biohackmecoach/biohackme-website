@@ -1,0 +1,340 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": []
+    }
+  ],
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "hosting": [
+    {
+      "site": "biohackme-app-379de",
+      "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/copy-of-contact",
+        "destination": "/about",
+        "type": 301
+      },
+      {
+        "source": "/post/:id",
+        "destination": "/blog/:id",
+        "type": 301
+      },
+      {
+        "source": "/copy-of-media",
+        "destination": "/my-book",
+        "type": 301
+      },
+      {
+        "source": "/copy-of-thank-you",
+        "destination": "/freebie",
+        "type": 301
+      },
+      {
+        "source": "/copy-of-home",
+        "destination": "/superchargeyourlife",
+        "type": 301
+      },
+      {
+        "source": "/copy-of-freebie",
+        "destination": "/freebie",
+        "type": 301
+      },
+      {
+        "source": "/services",
+        "destination": "/superchargeyourlife",
+        "type": 301
+      },
+      {
+        "source": "/programs",
+        "destination": "/masterclass",
+        "type": 301
+      },
+      {
+        "source": "/coaching",
+        "destination": "/superchargeyourlife",
+        "type": 301
+      },
+      {
+        "source": "/book",
+        "destination": "/my-book",
+        "type": 301
+      },
+      {
+        "source": "/speaking",
+        "destination": "/talks",
+        "type": 301
+      },
+      {
+        "source": "/retreat",
+        "destination": "/retreats",
+        "type": 301
+      },
+      {
+        "source": "/corporate",
+        "destination": "/consultancy",
+        "type": 301
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|avif)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(woff|woff2|ttf|otf|eot)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "/sitemap.xml",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml"
+          }
+        ]
+      },
+      {
+        "source": "/robots.txt",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          },
+          {
+            "key": "Content-Type",
+            "value": "text/plain"
+          }
+        ]
+      },
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "X-Frame-Options",
+            "value": "SAMEORIGIN"
+          },
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "X-XSS-Protection",
+            "value": "1; mode=block"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "Permissions-Policy",
+            "value": "camera=(), microphone=(), geolocation=()"
+          }
+        ]
+      }
+    ]
+    },
+    {
+      "target": "biohackme-com-au",
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "redirects": [
+        {
+          "source": "/copy-of-contact",
+          "destination": "/about",
+          "type": 301
+        },
+        {
+          "source": "/post/:id",
+          "destination": "/blog/:id",
+          "type": 301
+        },
+        {
+          "source": "/copy-of-media",
+          "destination": "/my-book",
+          "type": 301
+        },
+        {
+          "source": "/copy-of-thank-you",
+          "destination": "/freebie",
+          "type": 301
+        },
+        {
+          "source": "/copy-of-home",
+          "destination": "/superchargeyourlife",
+          "type": 301
+        },
+        {
+          "source": "/copy-of-freebie",
+          "destination": "/freebie",
+          "type": 301
+        },
+        {
+          "source": "/services",
+          "destination": "/superchargeyourlife",
+          "type": 301
+        },
+        {
+          "source": "/programs",
+          "destination": "/masterclass",
+          "type": 301
+        },
+        {
+          "source": "/coaching",
+          "destination": "/superchargeyourlife",
+          "type": 301
+        },
+        {
+          "source": "/book",
+          "destination": "/my-book",
+          "type": 301
+        },
+        {
+          "source": "/speaking",
+          "destination": "/talks",
+          "type": 301
+        },
+        {
+          "source": "/retreat",
+          "destination": "/retreats",
+          "type": 301
+        },
+        {
+          "source": "/corporate",
+          "destination": "/consultancy",
+          "type": 301
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|avif)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(js|css)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(woff|woff2|ttf|otf|eot)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "/sitemap.xml",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/xml"
+            }
+          ]
+        },
+        {
+          "source": "/robots.txt",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=86400"
+            },
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ]
+        },
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "X-Frame-Options",
+              "value": "SAMEORIGIN"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "1; mode=block"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "strict-origin-when-cross-origin"
+            },
+            {
+              "key": "Permissions-Policy",
+              "value": "camera=(), microphone=(), geolocation=()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

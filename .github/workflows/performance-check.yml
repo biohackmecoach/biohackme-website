@@ -1,0 +1,80 @@
+name: Performance Check
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    # Run every Sunday at 6am
+    - cron: '0 6 * * 0'
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build site
+      run: npm run build
+
+    - name: Run Lighthouse CI
+      uses: treosh/lighthouse-ci-action@v11
+      with:
+        urls: |
+          https://www.biohackme.com.au
+          https://www.biohackme.com.au/retreats
+          https://www.biohackme.com.au/blog
+        uploadArtifacts: true
+        temporaryPublicStorage: true
+
+    - name: Check Performance Scores
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const lighthouseResults = JSON.parse(fs.readFileSync('.lighthouseci/manifest.json', 'utf8'));
+
+          let failedChecks = [];
+
+          for (const result of lighthouseResults) {
+            const scores = result.summary;
+
+            // Check if mobile performance is below 70
+            if (scores.performance < 0.70) {
+              failedChecks.push(`${result.url}: Performance ${Math.round(scores.performance * 100)}/100`);
+            }
+
+            // Check if accessibility is below 90
+            if (scores.accessibility < 0.90) {
+              failedChecks.push(`${result.url}: Accessibility ${Math.round(scores.accessibility * 100)}/100`);
+            }
+          }
+
+          if (failedChecks.length > 0) {
+            core.setFailed('Performance checks failed:\n' + failedChecks.join('\n'));
+          }
+
+    - name: Create Issue on Performance Degradation
+      if: failure() && github.event_name == 'schedule'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: '⚡ Performance Degradation Detected',
+            body: 'Weekly performance check found issues. Mobile performance may have dropped below 70. Check the Actions tab for Lighthouse reports.',
+            labels: ['performance', 'automated']
+          })

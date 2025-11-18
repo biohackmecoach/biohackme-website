@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioHackMe Redirect Manager</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .redirect-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto auto;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .redirect-form input, .redirect-form select {
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .redirect-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn {
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .btn:hover {
+            background: #5a67d8;
+        }
+        .btn-danger {
+            background: #e53e3e;
+        }
+        .btn-danger:hover {
+            background: #c53030;
+        }
+        .redirect-list {
+            margin-top: 20px;
+        }
+        .redirect-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto auto auto;
+            gap: 10px;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+        }
+        .redirect-item:hover {
+            background: #e8f4f8;
+        }
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-301 { background: #48bb78; color: white; }
+        .status-302 { background: #ed8936; color: white; }
+        .export-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f0f8ff;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .code-output {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            white-space: pre;
+            margin-top: 10px;
+        }
+        .test-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff5f5;
+            border-radius: 8px;
+            border-left: 4px solid #e53e3e;
+        }
+        .migration-tips {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0fff4;
+            border-radius: 8px;
+            border-left: 4px solid #48bb78;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 BioHackMe.com.au Redirect Manager</h1>
+            <p>Manage URL redirects for your Wix → React site migration</p>
+        </div>
+
+        <div class="redirect-form">
+            <input type="text" id="oldUrl" placeholder="Old URL (e.g., /about)" />
+            <input type="text" id="newUrl" placeholder="New URL (e.g., /about)" />
+            <select id="redirectType">
+                <option value="301">301 Permanent</option>
+                <option value="302">302 Temporary</option>
+            </select>
+            <button class="btn" onclick="addRedirect()">Add Redirect</button>
+        </div>
+
+        <div class="redirect-list" id="redirectList">
+            <!-- Redirects will be displayed here -->
+        </div>
+
+        <div class="export-section">
+            <h3>📄 Export Options</h3>
+            <button class="btn" onclick="exportFirebase()">Export Firebase</button>
+            <button class="btn" onclick="exportApache()">Export .htaccess</button>
+            <button class="btn" onclick="exportCSV()">Export CSV</button>
+
+            <div id="codeOutput" class="code-output" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>🧪 Test Redirects</h3>
+            <input type="text" id="testUrl" placeholder="Test URL (e.g., /about)" style="margin-right: 10px; padding: 8px;">
+            <button class="btn" onclick="testRedirect()">Test Redirect</button>
+            <div id="testResult" style="margin-top: 10px; font-weight: bold;"></div>
+        </div>
+
+        <div class="migration-tips">
+            <h3>💡 Migration Tips</h3>
+            <ul>
+                <li><strong>Current Site URLs:</strong> Map all existing Wix URLs to new React routes</li>
+                <li><strong>SEO Priority:</strong> Use 301 redirects for permanent moves to preserve rankings</li>
+                <li><strong>Test First:</strong> Deploy redirects to staging before production</li>
+                <li><strong>Monitor:</strong> Track 404 errors after migration</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let redirects = [
+            // Existing Pages (Keep Active)
+            { old: '/', new: '/', type: '301' },
+            { old: '/contact', new: '/contact', type: '301' },
+            { old: '/talks', new: '/talks', type: '301' },
+            { old: '/my-book', new: '/my-book', type: '301' },
+            { old: '/media', new: '/media', type: '301' },
+            { old: '/blog', new: '/blog', type: '301' },
+            { old: '/freebie', new: '/freebie', type: '301' },
+            { old: '/superchargeyourlife', new: '/superchargeyourlife', type: '301' },
+            { old: '/guide', new: '/guide', type: '301' },
+            { old: '/popup', new: '/popup', type: '301' },
+            { old: '/thank-you', new: '/thank-you', type: '301' },
+            { old: '/biohackme-thank-you', new: '/thank-you', type: '301' },
+
+            // CSV Import Redirects (From User's Export)
+            { old: '/copy-of-media', new: '/my-book', type: '301' },
+            { old: '/copy-of-thank-you', new: '/popup', type: '301' },
+            { old: '/copy-of-home', new: '/superchargeyourlife', type: '301' },
+            { old: '/copy-of-freebie', new: '/guide', type: '301' },
+
+            // Firebase Config Redirects (Already Active)
+            { old: '/copy-of-contact', new: '/about', type: '301' },
+            { old: '/post/:id', new: '/blog/:id', type: '301' },
+            { old: '/services', new: '/superchargeyourlife', type: '301' },
+            { old: '/programs', new: '/masterclass', type: '301' },
+            { old: '/coaching', new: '/superchargeyourlife', type: '301' },
+            { old: '/book', new: '/my-book', type: '301' },
+            { old: '/speaking', new: '/talks', type: '301' },
+            { old: '/retreat', new: '/retreats', type: '301' },
+            { old: '/corporate', new: '/consultancy', type: '301' }
+        ];
+
+        function renderRedirects() {
+            const container = document.getElementById('redirectList');
+            container.innerHTML = redirects.map((redirect, index) => `
+                <div class="redirect-item">
+                    <div><strong>${redirect.old}</strong></div>
+                    <div>${redirect.new}</div>
+                    <div class="status-badge status-${redirect.type}">${redirect.type}</div>
+                    <button class="btn btn-danger" onclick="removeRedirect(${index})">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        function addRedirect() {
+            const oldUrl = document.getElementById('oldUrl').value.trim();
+            const newUrl = document.getElementById('newUrl').value.trim();
+            const redirectType = document.getElementById('redirectType').value;
+
+            if (!oldUrl || !newUrl) {
+                alert('Please enter both old and new URLs');
+                return;
+            }
+
+            // Ensure URLs start with /
+            const normalizedOldUrl = oldUrl.startsWith('/') ? oldUrl : '/' + oldUrl;
+            const normalizedNewUrl = newUrl.startsWith('/') ? newUrl : '/' + newUrl;
+
+            redirects.push({
+                old: normalizedOldUrl,
+                new: normalizedNewUrl,
+                type: redirectType
+            });
+
+            document.getElementById('oldUrl').value = '';
+            document.getElementById('newUrl').value = '';
+            renderRedirects();
+        }
+
+        function removeRedirect(index) {
+            redirects.splice(index, 1);
+            renderRedirects();
+        }
+
+        function exportFirebase() {
+            const firebaseRedirects = redirects.map(r => ({
+                source: r.old,
+                destination: r.new,
+                type: parseInt(r.type)
+            }));
+
+            const firebaseConfig = {
+                hosting: {
+                    public: "dist",
+                    ignore: ["firebase.json", "**/.*", "**/node_modules/**"],
+                    rewrites: [
+                        {
+                            source: "**",
+                            destination: "/index.html"
+                        }
+                    ],
+                    redirects: firebaseRedirects
+                }
+            };
+
+            const output = JSON.stringify(firebaseConfig, null, 2);
+            showCode(output);
+        }
+
+        function exportApache() {
+            const htaccess = redirects.map(r =>
+                `RewriteRule ^${r.old.substring(1)}$ ${r.new} [R=${r.type},L]`
+            ).join('\n');
+
+            const output = `RewriteEngine On\n\n# BioHackMe.com.au Redirects\n${htaccess}`;
+            showCode(output);
+        }
+
+        function exportCSV() {
+            const csv = 'Old URL,New URL,Redirect Type\n' +
+                redirects.map(r => `${r.old},${r.new},${r.type}`).join('\n');
+            showCode(csv);
+        }
+
+        function showCode(code) {
+            const output = document.getElementById('codeOutput');
+            output.textContent = code;
+            output.style.display = 'block';
+        }
+
+        function testRedirect() {
+            const testUrl = document.getElementById('testUrl').value.trim();
+            const resultDiv = document.getElementById('testResult');
+
+            if (!testUrl) {
+                resultDiv.textContent = 'Please enter a URL to test';
+                resultDiv.style.color = 'red';
+                return;
+            }
+
+            const normalizedTestUrl = testUrl.startsWith('/') ? testUrl : '/' + testUrl;
+            const redirect = redirects.find(r => r.old === normalizedTestUrl);
+
+            if (redirect) {
+                resultDiv.textContent = `✅ ${normalizedTestUrl} → ${redirect.new} (${redirect.type})`;
+                resultDiv.style.color = 'green';
+            } else {
+                resultDiv.textContent = `❌ No redirect found for ${normalizedTestUrl}`;
+                resultDiv.style.color = 'red';
+            }
+        }
+
+        // Initialize
+        renderRedirects();
+    </script>
+</body>
+</html>

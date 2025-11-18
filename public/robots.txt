@@ -1,0 +1,60 @@
+# Robots.txt for BiohackMe Australia
+# SEO-optimised for maximum Google indexing and ranking
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /temp/
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /.git/
+Disallow: /.vscode/
+Disallow: /.firebase/
+Disallow: /functions/
+Disallow: /*.json$
+Disallow: /*.log$
+Disallow: /*.config.*
+Disallow: /thank-you
+Disallow: /popup
+Disallow: /biohackme-thank-you
+Disallow: /success
+Disallow: /error
+Disallow: /404
+Disallow: /test
+Disallow: /dev
+Disallow: /staging
+Disallow: /demo
+Disallow: /openai-test
+Disallow: /grok-connection
+Disallow: /lead-test
+Disallow: /*?*
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Crawl-delay: 1
+
+User-agent: AhrefsBot
+Disallow: /
+User-agent: MJ12bot
+Disallow: /
+User-agent: DotBot
+Disallow: /
+User-agent: SemrushBot
+Disallow: /
+User-agent: YandexBot
+Disallow: /
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: facebookexternalhit
+Allow: /
+User-agent: Twitterbot
+Allow: /
+User-agent: LinkedInBot
+Allow: /
+
+Sitemap: https://www.biohackme.com.au/sitemap.xml

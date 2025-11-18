@@ -1,0 +1,44 @@
+/* EMERGENCY FIX: How We Work Together Images - Perfect Circle Fit */
+
+/* Target the specific section images for perfect circular fit */
+img[alt="BioHackMe Talks"],
+img[alt="1:1 Coaching"],
+img[alt="Retreats"] {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 50% !important;
+}
+
+/* Container fixes for circular containers */
+.w-48.h-48.mx-auto.rounded-full,
+.w-56.h-56.mx-auto.rounded-full {
+    overflow: hidden !important;
+    background: #E9EFF2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.w-48.h-48.mx-auto.rounded-full img,
+.w-56.h-56.mx-auto.rounded-full img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 50% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+}
+
+/* Force override using attribute selectors for perfect circle fit */
+[alt*="BioHackMe"],
+[alt*="Coaching"],
+[alt*="Retreats"] {
+    object-fit: cover !important;
+    object-position: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50% !important;
+}

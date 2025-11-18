@@ -1,0 +1,973 @@
+import { useState, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
+import { 
+  BarChart3, 
+  Users, 
+  FileText, 
+  Settings, 
+  Eye, 
+  Mail, 
+  Phone,
+  Calendar,
+  Upload,
+  Download,
+  Plus,
+  Edit3,
+  Trash2,
+  Search,
+  Filter,
+  TrendingUp,
+  Globe,
+  ShoppingBag,
+  BookOpen,
+  Target,
+  Heart,
+  Star,
+  Clock,
+  AlertCircle,
+  CheckCircle2,
+  Mic,
+  Video
+} from 'lucide-react'
+import GoogleMeetIntegration from '../components/GoogleMeetIntegration'
+import GoogleFormsIntegration from '../components/GoogleFormsIntegration'
+import APISetupWizard from '../components/APISetupWizard'
+import FathomSetupWizard from '../components/FathomSetupWizard'
+import LinkedInLeadAgent from '../agents/LinkedInLeadAgent'
+import GrokConnection from '../agents/GrokConnection'
+
+// Client data interface
+interface Client {
+  id: string
+  name: string
+  email: string
+  phone?: string
+  status: 'active' | 'inactive' | 'prospect'
+  program: 'Supercharge Your Life' | 'Masterclass' | 'Consultation' | 'Book Reader'
+  joinDate: string
+  lastContact: string
+  notes: string
+  files: ClientFile[]
+  progressData: ProgressData
+}
+
+interface ClientFile {
+  id: string
+  name: string
+  type: 'assessment' | 'plan' | 'session-notes' | 'resource' | 'photo'
+  uploadDate: string
+  size: string
+  url: string
+}
+
+interface ProgressData {
+  biohackingWheel: {
+    sleep: number
+    mood: number
+    body: number
+    environment: number
+    energy: number
+    relationships: number
+    health: number
+    brain: number
+    date: string
+  }
+  goals: string[]
+  achievements: string[]
+  challengeAreas: string[]
+}
+
+// Website analytics interface
+interface WebsiteAnalytics {
+  visitors: {
+    today: number
+    thisWeek: number
+    thisMonth: number
+    trend: number
+  }
+  pageViews: {
+    homepage: number
+    book: number
+    coaching: number
+    masterclass: number
+    shop: number
+  }
+  conversions: {
+    bookSales: number
+    coachingSignups: number
+    masterclassEnrolments: number
+    emailSignups: number
+  }
+  topPages: Array<{
+    page: string
+    views: number
+    conversion: number
+  }>
+}
+
+export default function AdminPage() {
+  const [activeSection, setActiveSection] = useState('clients')
+  const [clients, setClients] = useState<Client[]>([])
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null)
+  const [analytics, setAnalytics] = useState<WebsiteAnalytics | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterStatus, setFilterStatus] = useState<string>('all')
+  const [showFathomIntegration, setShowFathomIntegration] = useState(false)
+
+  // Load data on mount
+  useEffect(() => {
+    loadClients()
+    loadAnalytics()
+  }, [])
+
+  const loadClients = () => {
+    // In a real app, this would fetch from your database
+    const mockClients: Client[] = [
+      {
+        id: '1',
+        name: 'Sarah Johnson',
+        email: 'sarah@example.com',
+        phone: '+61 423 456 789',
+        status: 'active',
+        program: 'Supercharge Your Life',
+        joinDate: '2024-01-15',
+        lastContact: '2024-02-28',
+        notes: 'Excellent progress with sleep optimisation. Struggling with stress management during work transitions.',
+        files: [
+          {
+            id: '1',
+            name: 'Initial Assessment.pdf',
+            type: 'assessment',
+            uploadDate: '2024-01-15',
+            size: '2.4 MB',
+            url: '/client-files/sarah-assessment.pdf'
+          },
+          {
+            id: '2',
+            name: 'Week 4 Progress Photo.jpg',
+            type: 'photo',
+            uploadDate: '2024-02-12',
+            size: '1.8 MB',
+            url: '/client-files/sarah-progress.jpg'
+          }
+        ],
+        progressData: {
+          biohackingWheel: {
+            sleep: 8,
+            mood: 6,
+            body: 7,
+            environment: 9,
+            energy: 7,
+            relationships: 8,
+            health: 8,
+            brain: 6,
+            date: '2024-02-28'
+          },
+          goals: ['Improve sleep quality', 'Reduce stress', 'Increase energy'],
+          achievements: ['Consistent 7+ hours sleep', 'Morning routine established'],
+          challengeAreas: ['Work stress management', 'Evening wind-down routine']
+        }
+      },
+      {
+        id: '2',
+        name: 'Michael Chen',
+        email: 'michael.chen@email.com',
+        phone: '+61 404 567 890',
+        status: 'active',
+        program: 'Masterclass',
+        joinDate: '2024-02-01',
+        lastContact: '2024-03-01',
+        notes: 'High achiever, very motivated. Completed foundation masterclass. Interested in advanced brain training.',
+        files: [
+          {
+            id: '3',
+            name: 'Biohacking Wheel Assessment.pdf',
+            type: 'assessment',
+            uploadDate: '2024-02-01',
+            size: '1.2 MB',
+            url: '/client-files/michael-wheel.pdf'
+          }
+        ],
+        progressData: {
+          biohackingWheel: {
+            sleep: 7,
+            mood: 8,
+            body: 9,
+            environment: 7,
+            energy: 8,
+            relationships: 6,
+            health: 8,
+            brain: 9,
+            date: '2024-03-01'
+          },
+          goals: ['Optimise cognitive performance', 'Build better relationships', 'Maintain fitness'],
+          achievements: ['Completed foundation masterclass', 'Implemented morning routine'],
+          challengeAreas: ['Work-life balance', 'Social connections']
+        }
+      },
+      {
+        id: '3',
+        name: 'Emma Wilson',
+        email: 'emma.w@outlook.com',
+        status: 'prospect',
+        program: 'Book Reader',
+        joinDate: '2024-02-20',
+        lastContact: '2024-02-20',
+        notes: 'Downloaded free guide. Interested in personalised coaching but concerned about time commitment.',
+        files: [],
+        progressData: {
+          biohackingWheel: {
+            sleep: 5,
+            mood: 4,
+            body: 5,
+            environment: 6,
+            energy: 3,
+            relationships: 7,
+            health: 4,
+            brain: 6,
+            date: '2024-02-20'
+          },
+          goals: [],
+          achievements: [],
+          challengeAreas: []
+        }
+    ]
+    setClients(mockClients)
+  }
+
+  const loadAnalytics = () => {
+    // Mock analytics data
+    const mockAnalytics: WebsiteAnalytics = {
+      visitors: {
+        today: 234,
+        thisWeek: 1847,
+        thisMonth: 7932,
+        trend: 12.5
+      },
+      pageViews: {
+        homepage: 3421,
+        book: 1234,
+        coaching: 567,
+        masterclass: 892,
+        shop: 445
+      },
+      conversions: {
+        bookSales: 23,
+        coachingSignups: 7,
+        masterclassEnrolments: 34,
+        emailSignups: 156
+      },
+      topPages: [
+        { page: '/my-book', views: 1234, conversion: 1.9 },
+        { page: '/masterclass', views: 892, conversion: 3.8 },
+        { page: '/superchargeyourlife', views: 567, conversion: 1.2 },
+        { page: '/shop', views: 445, conversion: 0.8 }
+      ]
+    }
+    setAnalytics(mockAnalytics)
+  }
+
+  const filteredClients = clients.filter(client => {
+    const matchesSearch = client.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         client.email.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesFilter = filterStatus === 'all' || client.status === filterStatus
+    return matchesSearch && matchesFilter
+  })
+
+  const handleSessionComplete = (session: any) => {
+    // Add session files to client profile
+    if (selectedClient) {
+      const newFiles = [
+        {
+          id: Date.now().toString(),
+          name: `${session.title} - Transcript.txt`,
+          type: 'session-notes' as const,
+          uploadDate: new Date().toLocaleDateString(),
+          size: '15 KB',
+          url: '#',
+          content: session.transcript
+        },
+        {
+          id: (Date.now() + 1).toString(),
+          name: `${session.title} - Summary.pdf`,
+          type: 'session-notes' as const,
+          uploadDate: new Date().toLocaleDateString(),
+          size: '8 KB',
+          url: '#',
+          content: session.summary
+        },
+        {
+          id: (Date.now() + 2).toString(),
+          name: `${session.title} - Action Items.txt`,
+          type: 'session-notes' as const,
+          uploadDate: new Date().toLocaleDateString(),
+          size: '3 KB',
+          url: '#',
+          content: session.actionItems?.join('\n') || ''
+        }
+      ]
+
+      const updatedClient = {
+        ...selectedClient,
+        files: [...selectedClient.files, ...newFiles],
+        lastContact: new Date().toLocaleDateString(),
+        notes: selectedClient.notes + `\n\n[${new Date().toLocaleDateString()}] Session completed via Fathom AI. Key topics: ${session.summary}`
+      }
+
+      setClients(clients.map(c => c.id === selectedClient.id ? updatedClient : c))
+      setSelectedClient(updatedClient)
+      
+      console.log('Session files automatically uploaded to client profile')
+    }
+  }
+
+  const handleClientCreation = (formData: any) => {
+    // Create new client from Google Form data
+    const newClient: Client = {
+      id: Date.now().toString(),
+      ...formData
+    }
+
+    setClients([newClient, ...clients])
+    console.log('New client created from Google Form:', newClient.name)
+  }
+
+  const renderDashboard = () => (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">Admin Dashboard</h2>
+      
+      {/* Key Metrics */}
+      {analytics && (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center">
+                <Eye className="w-8 h-8 text-blue-500" />
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-600">Today's Visitors</p>
+                  <p className="text-2xl font-bold text-gray-900">{analytics.visitors.today}</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center">
+                <Users className="w-8 h-8 text-green-500" />
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-600">Active Clients</p>
+                  <p className="text-2xl font-bold text-gray-900">{clients.filter(c => c.status === 'active').length}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center">
+                <ShoppingBag className="w-8 h-8 text-purple-500" />
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-600">Monthly Sales</p>
+                  <p className="text-2xl font-bold text-gray-900">{analytics.conversions.bookSales}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center">
+                <TrendingUp className="w-8 h-8 text-orange-500" />
+                <div className="ml-4">
+                  <p className="text-sm font-medium text-gray-600">Growth</p>
+                  <p className="text-2xl font-bold text-gray-900">+{analytics.visitors.trend}%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Website Performance */}
+          <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Website Performance</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="text-md font-medium text-gray-700 mb-3">Page Views This Month</h4>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Homepage</span>
+                    <span className="text-sm font-medium text-gray-900">{analytics.pageViews.homepage}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Book Page</span>
+                    <span className="text-sm font-medium text-gray-900">{analytics.pageViews.book}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Masterclass</span>
+                    <span className="text-sm font-medium text-gray-900">{analytics.pageViews.masterclass}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Coaching</span>
+                    <span className="text-sm font-medium text-gray-900">{analytics.pageViews.coaching}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="text-md font-medium text-gray-700 mb-3">Conversions</h4>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Book Sales</span>
+                    <span className="text-sm font-medium text-green-600">{analytics.conversions.bookSales}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Coaching Signups</span>
+                    <span className="text-sm font-medium text-green-600">{analytics.conversions.coachingSignups}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Masterclass Enrolments</span>
+                    <span className="text-sm font-medium text-green-600">{analytics.conversions.masterclassEnrolments}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">Email Signups</span>
+                    <span className="text-sm font-medium text-blue-600">{analytics.conversions.emailSignups}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Recent Client Activity */}
+      <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Client Activity</h3>
+        <div className="space-y-3">
+          {clients.filter(c => c.status === 'active').slice(0, 5).map(client => (
+            <div key={client.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center">
+                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-medium text-sm">
+                  {client.name.charAt(0)}
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-gray-900">{client.name}</p>
+                  <p className="text-xs text-gray-500">{client.program}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-xs text-gray-500">Last contact</p>
+                <p className="text-sm font-medium text-gray-900">{client.lastContact}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderClients = () => (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold text-gray-900">Client Management</h2>
+        <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center">
+          <Plus className="w-4 h-4 mr-2" />
+          Add Client
+        </button>
+      </div>
+
+      {/* Search and Filter */}
+      <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1">
+            <div className="relative">
+              <Search className="w-5 h-5 absolute left-3 top-3 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search clients..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+          </div>
+          <div>
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="all">All Status</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+              <option value="prospect">Prospect</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Clients List */}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Program</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Contact</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {filteredClients.map((client) => (
+                <tr key={client.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-medium">
+                        {client.name.charAt(0)}
+                      </div>
+                      <div className="ml-4">
+                        <div className="text-sm font-medium text-gray-900">{client.name}</div>
+                        <div className="text-sm text-gray-500">{client.email}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className="text-sm text-gray-900">{client.program}</span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                      client.status === 'active' ? 'bg-green-100 text-green-800' :
+                      client.status === 'inactive' ? 'bg-gray-100 text-gray-800' :
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {client.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {client.lastContact}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button
+                      onClick={() => setSelectedClient(client)}
+                      className="text-blue-600 hover:text-blue-900 mr-3"
+                    >
+                      View
+                    </button>
+                    <button className="text-gray-600 hover:text-gray-900 mr-3">
+                      <Edit3 className="w-4 h-4" />
+                    </button>
+                    <button className="text-red-600 hover:text-red-900">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderClientDetail = () => {
+    if (!selectedClient) return null
+
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <button
+              onClick={() => setSelectedClient(null)}
+              className="mr-4 text-gray-600 hover:text-gray-900"
+            >
+              ← Back
+            </button>
+            <h2 className="text-2xl font-bold text-gray-900">{selectedClient.name}</h2>
+          </div>
+          <div className="flex space-x-3">
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+              <Mail className="w-4 h-4 mr-2 inline" />
+              Email
+            </button>
+            <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+              <Phone className="w-4 h-4 mr-2 inline" />
+              Call
+            </button>
+            <button 
+              onClick={() => setShowFathomIntegration(!showFathomIntegration)}
+              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            >
+              <Video className="w-4 h-4 mr-2 inline" />
+              Google Meet Sessions
+            </button>
+          </div>
+        </div>
+
+        {/* Fathom Integration */}
+        {showFathomIntegration && (
+          <div className="mb-6">
+            <GoogleMeetIntegration
+              clientId={selectedClient.id}
+              onSessionComplete={handleSessionComplete}
+            />
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Client Info */}
+          <div className="lg:col-span-2 space-y-6">
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Client Information</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Email</label>
+                  <p className="mt-1 text-sm text-gray-900">{selectedClient.email}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Phone</label>
+                  <p className="mt-1 text-sm text-gray-900">{selectedClient.phone || 'Not provided'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Program</label>
+                  <p className="mt-1 text-sm text-gray-900">{selectedClient.program}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Status</label>
+                  <span className={`mt-1 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                    selectedClient.status === 'active' ? 'bg-green-100 text-green-800' :
+                    selectedClient.status === 'inactive' ? 'bg-gray-100 text-gray-800' :
+                    'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {selectedClient.status}
+                  </span>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Join Date</label>
+                  <p className="mt-1 text-sm text-gray-900">{selectedClient.joinDate}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Last Contact</label>
+                  <p className="mt-1 text-sm text-gray-900">{selectedClient.lastContact}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Biohacking Wheel */}
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Latest Biohacking Wheel Assessment</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {Object.entries(selectedClient.progressData.biohackingWheel).map(([key, value]) => {
+                  if (key === 'date') return null
+                  return (
+                    <div key={key} className="text-center">
+                      <div className="text-2xl font-bold text-blue-600">{value}/10</div>
+                      <div className="text-sm text-gray-600 capitalize">{key}</div>
+                    </div>
+                  )
+                })}
+              </div>
+              <p className="text-sm text-gray-500 mt-4">Last updated: {selectedClient.progressData.biohackingWheel.date}</p>
+            </div>
+
+            {/* Notes */}
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Notes</h3>
+              <textarea
+                defaultValue={selectedClient.notes}
+                rows={4}
+                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Add notes about this client..."
+              />
+              <button className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                Save Notes
+              </button>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Files */}
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Files</h3>
+                <button className="text-blue-600 hover:text-blue-900">
+                  <Upload className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="space-y-3">
+                {selectedClient.files.map((file) => (
+                  <div key={file.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center">
+                      <FileText className="w-5 h-5 text-gray-400 mr-3" />
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">{file.name}</p>
+                        <p className="text-xs text-gray-500">{file.size} • {file.uploadDate}</p>
+                      </div>
+                    </div>
+                    <button className="text-gray-400 hover:text-gray-600">
+                      <Download className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Goals & Progress */}
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Goals & Progress</h3>
+              
+              {selectedClient.progressData.goals.length > 0 && (
+                <div className="mb-4">
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Current Goals</h4>
+                  <ul className="space-y-1">
+                    {selectedClient.progressData.goals.map((goal, index) => (
+                      <li key={index} className="text-sm text-gray-600 flex items-center">
+                        <Target className="w-3 h-3 text-blue-500 mr-2" />
+                        {goal}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selectedClient.progressData.achievements.length > 0 && (
+                <div className="mb-4">
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Achievements</h4>
+                  <ul className="space-y-1">
+                    {selectedClient.progressData.achievements.map((achievement, index) => (
+                      <li key={index} className="text-sm text-gray-600 flex items-center">
+                        <CheckCircle2 className="w-3 h-3 text-green-500 mr-2" />
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selectedClient.progressData.challengeAreas.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Challenge Areas</h4>
+                  <ul className="space-y-1">
+                    {selectedClient.progressData.challengeAreas.map((challenge, index) => (
+                      <li key={index} className="text-sm text-gray-600 flex items-center">
+                        <AlertCircle className="w-3 h-3 text-orange-500 mr-2" />
+                        {challenge}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const sidebarItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
+    { id: 'clients', label: 'Client CRM', icon: Users },
+    { id: 'linkedin', label: 'LinkedIn Leads', icon: Globe },
+    { id: 'grok', label: 'Grok AI Platform', icon: Brain },
+    { id: 'forms', label: 'Google Forms', icon: FileText },
+    { id: 'analytics', label: 'Analytics', icon: TrendingUp },
+    { id: 'settings', label: 'Settings', icon: Settings }
+  ]
+
+  return (
+    <div className="min-h-screen bg-gray-100 flex">
+      <Helmet>
+        <title>Admin Dashboard - BiohackMe</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+
+      {/* Sidebar */}
+      <div className="w-64 bg-white shadow-sm">
+        <div className="p-6 border-b border-gray-200">
+          <div className="flex items-center">
+            <img 
+              src="/images/biohackme-logo.png" 
+              alt="BiohackMe"
+              className="w-8 h-8 object-contain mr-3"
+            />
+            <h1 className="text-xl font-bold text-gray-900">Admin</h1>
+          </div>
+        </div>
+        
+        <nav className="mt-6">
+          {sidebarItems.map((item) => {
+            const Icon = item.icon
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveSection(item.id)
+                  setSelectedClient(null)
+                }}
+                className={`w-full flex items-center px-6 py-3 text-left hover:bg-gray-50 transition-colours ${
+                  activeSection === item.id ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' : 'text-gray-700'
+                }`}
+              >
+                <Icon className="w-5 h-5 mr-3" />
+                {item.label}
+              </button>
+            )
+          })}
+        </nav>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 overflow-hidden">
+        <div className="p-8">
+          {selectedClient ? renderClientDetail() :
+           activeSection === 'dashboard' ? renderDashboard() :
+           activeSection === 'clients' ? renderClients() :
+           activeSection === 'linkedin' ? (
+             <div className="space-y-6">
+               <div className="flex items-center justify-between mb-6">
+                 <h2 className="text-2xl font-bold text-gray-900">LinkedIn Lead Generation</h2>
+                 <div className="flex space-x-3">
+                   <button
+                     onClick={() => setActiveSection('clients')}
+                     className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center text-sm"
+                   >
+                     <Users className="w-4 h-4 mr-2" />
+                     View All CRM Clients
+                   </button>
+                 </div>
+               </div>
+               <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                 <LinkedInLeadAgent />
+               </div>
+             </div>
+           ) :
+           activeSection === 'grok' ? (
+             <div className="space-y-6">
+               <div className="flex items-center justify-between mb-6">
+                 <h2 className="text-2xl font-bold text-gray-900">Grok AI Platform</h2>
+                 <div className="flex space-x-3">
+                   <button
+                     onClick={() => setActiveSection('clients')}
+                     className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 flex items-center text-sm"
+                   >
+                     <Users className="w-4 h-4 mr-2" />
+                     View All CRM Clients
+                   </button>
+                 </div>
+               </div>
+               <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                 <GrokConnection />
+               </div>
+             </div>
+           ) :
+           activeSection === 'forms' ? (
+             <div className="space-y-6">
+               <h2 className="text-2xl font-bold text-gray-900 mb-6">Google Forms Integration</h2>
+               <GoogleFormsIntegration onClientCreate={handleClientCreation} />
+             </div>
+           ) :
+           activeSection === 'settings' ? (
+             <div className="space-y-6">
+               <h2 className="text-2xl font-bold text-gray-900 mb-6">Settings & API Setup</h2>
+               
+               {/* API Setup Tabs */}
+               <div className="bg-white rounded-lg border border-gray-200">
+                 <div className="border-b border-gray-200">
+                   <nav className="-mb-px flex space-x-8 px-6">
+                     <button
+                       onClick={() => setActiveSection('google-setup')}
+                       className="py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                     >
+                       🔵 Google Forms API
+                     </button>
+                     <button
+                       onClick={() => setActiveSection('fathom-setup')}
+                       className="py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                     >
+                       📹 Google Meet Setup
+                     </button>
+                   </nav>
+                 </div>
+                 <div className="p-6">
+                   <APISetupWizard onComplete={() => console.log('API setup completed!')} />
+                 </div>
+               </div>
+             </div>
+           ) :
+           activeSection === 'fathom-setup' ? (
+             <div className="space-y-6">
+               <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                 <h2 className="text-2xl font-bold text-gray-900 mb-6">📹 Google Meet Setup (FREE)</h2>
+                 
+                 <div className="space-y-6">
+                   <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                     <h3 className="font-semibold text-green-800 mb-2">✅ No API Setup Required!</h3>
+                     <p className="text-green-700">Google Meet integration works without any API credentials or paid plans.</p>
+                   </div>
+
+                   <div className="grid md:grid-cols-2 gap-6">
+                     <div className="space-y-4">
+                       <h3 className="text-lg font-semibold text-gray-900">Step 1: Enable Recording</h3>
+                       <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
+                         <li>Start your Google Meet call</li>
+                         <li>Click the three dots (⋯) menu</li>
+                         <li>Select "Record meeting"</li>
+                         <li>Recordings auto-save to Google Drive</li>
+                       </ol>
+                     </div>
+
+                     <div className="space-y-4">
+                       <h3 className="text-lg font-semibold text-gray-900">Step 2: Import to CRM</h3>
+                       <ol className="list-decimal list-inside space-y-2 text-sm text-gray-700">
+                         <li>Go to any client profile</li>
+                         <li>Click "Google Meet Sessions"</li>
+                         <li>Click "New Session"</li>
+                         <li>Upload recording and add notes</li>
+                       </ol>
+                     </div>
+                   </div>
+
+                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                     <h4 className="font-medium text-blue-800 mb-2">💡 Pro Tips:</h4>
+                     <ul className="text-sm text-blue-700 space-y-1 list-disc list-inside">
+                       <li>Use Google's free transcription: Drive → Recording → Generate transcript</li>
+                       <li>Recordings are automatically organized by date in Google Drive</li>
+                       <li>Upload transcripts to client profiles for easy searching</li>
+                       <li>Add action items and session notes directly in the CRM</li>
+                     </ul>
+                   </div>
+
+                   <div className="flex space-x-3">
+                     <button
+                       onClick={() => setActiveSection('clients')}
+                       className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"
+                     >
+                       Start Using Google Meet Sessions
+                     </button>
+                     <button
+                       onClick={() => setActiveSection('settings')}
+                       className="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                     >
+                       Back to Settings
+                     </button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           ) :
+           activeSection === 'google-setup' ? (
+             <div className="space-y-6">
+               <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+                 <h2 className="text-2xl font-bold text-gray-900 mb-6">🔵 Google Forms API Setup</h2>
+                 <APISetupWizard onComplete={() => {
+                   setActiveSection('settings')
+                   console.log('Google API setup completed!')
+                 }} />
+               </div>
+             </div>
+           ) :
+           <div className="text-center text-gray-500 mt-20">
+             <h2 className="text-2xl font-semibold mb-4">Coming Soon</h2>
+             <p>This section is under development.</p>
+           </div>
+          }
+        </div>
+      </div>
+    </div>
+  )
+}
