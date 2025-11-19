@@ -1,10 +1,12 @@
 import * as functions from 'firebase-functions';
 import { cors } from './cors';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-// Mailchimp configuration
-const MAILCHIMP_API_KEY = 'a0ea152d1144e3b3d7d6c117d914e686-us4';
-const AUDIENCE_ID = 'e84f95f298';
-const DATACENTER = 'us4'; // Extracted from API key
+// Mailchimp configuration - load from environment variables
+const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
+const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
+const DATACENTER = process.env.MAILCHIMP_DATA_CENTER;
 
 interface MailchimpSubscriber {
   email_address: string;

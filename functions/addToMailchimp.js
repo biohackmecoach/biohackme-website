@@ -1,9 +1,11 @@
 const functions = require('firebase-functions')
 const fetch = require('node-fetch')
+require('dotenv').config()
 
-const MAILCHIMP_API_KEY = 'a0ea152d1144e3b3d7d6c117d914e686-us4'
-const AUDIENCE_ID = 'e84f95f298'
-const DATA_CENTER = 'us4'
+// Load Mailchimp configuration from environment variables
+const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY
+const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID
+const DATA_CENTER = process.env.MAILCHIMP_DATA_CENTER
 
 exports.addToMailchimp = functions.https.onCall(async (data, context) => {
   try {
