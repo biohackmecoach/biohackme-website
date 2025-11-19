@@ -12,11 +12,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="/fonts/JWCo.Marker-Regular.otf" as="font" type="font/otf" crossorigin>
-    
+
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    
+    <link rel="dns-prefetch" href="https://chimpstatic.com">
+
     <!-- PWA Configuration -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#022D4E">
@@ -25,11 +26,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="BiohackMe">
 
-    <!-- EMERGENCY FIX for cut-off images -->
-    <link rel="stylesheet" href="/emergency-fix.css">
+    <!-- EMERGENCY FIX for cut-off images - Load async to avoid render blocking -->
+    <link rel="preload" href="/emergency-fix.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/emergency-fix.css"></noscript>
 
-    <!-- Mailchimp Connected Site Script -->
-    <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/8a04dd2b9d4f2f7e2e577c7bc/12969e82a9859f909f8b6b66a.js");</script>
+    <!-- Mailchimp Connected Site Script - Deferred to avoid blocking -->
+    <script id="mcjs" defer>!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.defer=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/8a04dd2b9d4f2f7e2e577c7bc/12969e82a9859f909f8b6b66a.js");</script>
 
     <title>BiohackMe - Biohacking Australia</title>
   </head>
