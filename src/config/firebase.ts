@@ -6,14 +6,16 @@ import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
 import { getAnalytics } from 'firebase/analytics';
 
+// Hardcoded config - Firebase config is public and safe to commit
+// (These are meant to be exposed in client-side code)
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyB8ldJZ7oUdyur0DbkcnjW4QAf27wOpMPM",
+  authDomain: "biohackme-app-379de.firebaseapp.com",
+  projectId: "biohackme-app-379de",
+  storageBucket: "biohackme-app-379de.firebasestorage.app",
+  messagingSenderId: "593310303438",
+  appId: "1:593310303438:web:8b470c8b391917ff667c9f",
+  measurementId: "G-TFEE1C2RVZ"
 };
 
 // Initialize Firebase

@@ -8,17 +8,17 @@ export default function DNAPackagePage() {
   return (
     <>
       <Helmet>
-        <title>DNA Methylation Testing Australia $599 | NutriPATH Genetic Test | BioHackMe</title>
-        <meta name="description" content="Unlock your genetic blueprint with DNA methylation testing. Understand MTHFR, COMT & detox genes. NutriPATH lab analysis + personalised health plan. Results consultation included. Test once, use for life. $599 Australia-wide." />
+        <title>DNA Methylation Testing Australia $699 | NutriPATH Genetic Test | BioHackMe</title>
+        <meta name="description" content="Unlock your genetic blueprint with DNA methylation testing. Understand MTHFR, COMT & detox genes. NutriPATH lab analysis + personalised health plan. Results consultation included. Test once, use for life. $699 Australia-wide." />
         <meta name="keywords" content="DNA methylation test Australia, MTHFR testing, COMT gene test, genetic testing Australia, NutriPATH methylation test, detoxification genes, nutrient metabolism genes, genetic health testing, personalised nutrition, epigenetics Australia, functional medicine testing, methylation SNPs, genetic wellness test" />
-        <meta property="og:title" content="DNA Methylation Testing Package $599 | Genetic Health Testing Australia" />
+        <meta property="og:title" content="DNA Methylation Testing Package $699 | Genetic Health Testing Australia" />
         <meta property="og:description" content="Discover how your genes affect nutrient metabolism, detoxification and cellular health. NutriPATH lab test + expert consultation with Camilla." />
         <meta property="og:type" content="product" />
         <meta property="og:url" content="https://www.biohackme.com.au/dna-package" />
-        <meta property="product:price:amount" content="599" />
+        <meta property="product:price:amount" content="699" />
         <meta property="product:price:currency" content="AUD" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="DNA Methylation Testing Australia $599" />
+        <meta name="twitter:title" content="DNA Methylation Testing Australia $699" />
         <meta name="twitter:description" content="Unlock your genetic blueprint. MTHFR, COMT & detox genes. NutriPATH lab + personalised health plan." />
         <link rel="canonical" href="https://www.biohackme.com.au/dna-package" />
         <script type="application/ld+json">
@@ -33,7 +33,7 @@ export default function DNAPackagePage() {
             },
             "offers": {
               "@type": "Offer",
-              "price": "599",
+              "price": "699",
               "priceCurrency": "AUD",
               "availability": "https://schema.org/InStock",
               "url": "https://www.biohackme.com.au/dna-package"
@@ -60,10 +60,10 @@ export default function DNAPackagePage() {
               },
               {
                 "@type": "Question",
-                "name": "What's included in the $599 DNA testing package?",
+                "name": "What's included in the $699 DNA testing package?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "The $599 package includes: NutriPATH Methylation Genetic Test with laboratory analysis, comprehensive analysis of key methylation genes (MTHFR, COMT, detoxification genes), a results consultation with Camilla Thompson, and a personalised health and nutrition plan based on your genetic profile."
+                  "text": "The $699 package includes: NutriPATH Methylation Genetic Test with laboratory analysis, comprehensive analysis of key methylation genes (MTHFR, COMT, detoxification genes), a results consultation with Camilla Thompson, and a personalised health and nutrition plan based on your genetic profile."
                 }
               },
               {
@@ -182,10 +182,10 @@ export default function DNAPackagePage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
               <div className="inline-block bg-white rounded-full px-8 py-4 shadow-xl">
-                <p className="text-4xl font-bold text-ocean">$599</p>
+                <p className="text-4xl font-bold text-ocean">$699</p>
               </div>
               <a
-                href="https://buy.stripe.com/7sY28tdEFbKy19h7aS5Ne04"
+                href="https://buy.stripe.com/4gMaEZ589eWKdW3fHo5Ne07"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition-all duration-300 shadow-xl"
@@ -343,11 +343,11 @@ export default function DNAPackagePage() {
               </p>
               <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                 <div className="bg-white rounded-2xl px-8 py-6 shadow-xl">
-                  <p className="text-4xl font-bold text-ocean mb-1">$599</p>
+                  <p className="text-4xl font-bold text-ocean mb-1">$699</p>
                   <p className="text-sm text-charcoal/60">Complete package • One-time investment</p>
                 </div>
                 <a
-                  href="https://buy.stripe.com/7sY28tdEFbKy19h7aS5Ne04"
+                  href="https://buy.stripe.com/4gMaEZ589eWKdW3fHo5Ne07"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center bg-white text-ocean px-10 py-5 rounded-full font-bold text-lg hover:shadow-2xl transition-all duration-300"

@@ -383,7 +383,7 @@ export default function AboutPage() {
             Download my complete media kit including high-resolution photos, bio, speaking topics, and press materials.
           </p>
           <a
-            href="/media-kit.pdf"
+            href="/BioHackMe-Media-Kit.pdf"
             download
             className="inline-flex items-center bg-white text-ocean px-8 py-3 rounded-full font-semibold hover:bg-ice transition-all duration-300 shadow-lg"
           >

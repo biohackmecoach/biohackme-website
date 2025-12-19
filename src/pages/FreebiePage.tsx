@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { subscribeToMailchimp } from '../utils/mailchimp'
+import { functions } from '../config/firebase'
+import { httpsCallable } from 'firebase/functions'
 
 export default function FreebiePage() {
   const [formData, setFormData] = useState({
@@ -22,14 +23,18 @@ export default function FreebiePage() {
 
     setIsSubmitting(true)
 
-    // Subscribe to Mailchimp
-    const result = await subscribeToMailchimp({
-      email: formData.email,
-      firstName: formData.firstName,
-      source: 'freebie-download'
-    })
+    try {
+      // Call Firebase Function directly to add to Mailchimp
+      const addToMailchimp = httpsCallable(functions, 'addToMailchimp')
 
-    if (result.success) {
+      const result = await addToMailchimp({
+        email: formData.email.trim().toLowerCase(),
+        firstName: formData.firstName,
+        source: 'freebie-download'
+      })
+
+      console.log('✅ Freebie Lead added to Mailchimp:', result)
+
       setShowSuccess(true)
 
       // Trigger download after successful subscription
@@ -39,8 +44,18 @@ export default function FreebiePage() {
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-    } else {
-      alert('Failed to subscribe. Please try again.')
+
+    } catch (error) {
+      console.error('❌ Mailchimp subscription failed:', error)
+      // Still show success and download - don't block user
+      setShowSuccess(true)
+
+      const link = document.createElement('a')
+      link.href = '/biohackme-guide.pdf'
+      link.download = 'BiohackMe-Guide.pdf'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
     }
 
     setIsSubmitting(false)

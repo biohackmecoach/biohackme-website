@@ -205,6 +205,21 @@ const ShopPage = () => {
       image: "/shop-images/ultrahuman.png",
       link: "https://ultrahumanhealthcare.pxf.io/yqYrvN",
       discount: "BIOHACKME10"
+    },
+    {
+      id: 15,
+      name: "Creation Cacao Ceremonial Cacao",
+      category: "Superfoods & Nutrition",
+      benefit: "Pure ceremonial grade cacao that delivers sustained energy, mental clarity, and mood enhancement without the caffeine crash",
+      bullets: [
+        "Rich in theobromine for long-lasting energy without jitters, plus higher iron content than red meat",
+        "Supports hormone balance, crushes sugar cravings, and enhances mood through natural bliss chemicals",
+        "Improves circulation, blood flow, and cardiovascular health with potent flavanols and nitric oxide",
+        "Affordable ceremonial grade cacao that supports education initiatives with every purchase"
+      ],
+      image: "/shop-images/CREATION CACAO DARK LOGO.png",
+      link: "https://creationcacao.com.au/collections/powerful-ceremonial-cacao-at-a-reasonable-price?sca_ref=10163296.feI1nsbQqbyn5Geu",
+      discount: "10% OFF"
     }
   ];
 

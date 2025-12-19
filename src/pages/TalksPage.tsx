@@ -635,7 +635,7 @@ export default function TalksPage() {
                   </div>
                   <div className="mt-4">
                     <a
-                      href="/media-kit.pdf"
+                      href="/BioHackMe-Media-Kit.pdf"
                       download
                       className="inline-flex items-center bg-gradient-to-r from-ocean to-sky text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
                     >

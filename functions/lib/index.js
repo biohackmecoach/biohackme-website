@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handlePaymentWebhook = exports.scheduleSession = exports.createUserProfile = exports.createDailyRoom = exports.getPaymentStatus = exports.handlePaymentSuccess = exports.createCheckoutSession = exports.completeAssessment = exports.subscribeToMasterclass = exports.subscribeToNewsletter = exports.testOpenAI = exports.generateContent = void 0;
+exports.handlePaymentWebhook = exports.scheduleSession = exports.createUserProfile = exports.createDailyRoom = exports.downloadPDF = exports.getPaymentStatus = exports.handlePaymentSuccess = exports.createCheckoutSession = exports.addToMailchimp = exports.completeAssessment = exports.subscribeToMasterclass = exports.subscribeToNewsletter = exports.testOpenAI = exports.generateContent = void 0;
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
@@ -13,11 +13,13 @@ var mailchimp_1 = require("./mailchimp");
 Object.defineProperty(exports, "subscribeToNewsletter", { enumerable: true, get: function () { return mailchimp_1.subscribeToNewsletter; } });
 Object.defineProperty(exports, "subscribeToMasterclass", { enumerable: true, get: function () { return mailchimp_1.subscribeToMasterclass; } });
 Object.defineProperty(exports, "completeAssessment", { enumerable: true, get: function () { return mailchimp_1.completeAssessment; } });
+Object.defineProperty(exports, "addToMailchimp", { enumerable: true, get: function () { return mailchimp_1.addToMailchimp; } });
 // Export Stripe functions
 const stripe_1 = require("./stripe");
 Object.defineProperty(exports, "createCheckoutSession", { enumerable: true, get: function () { return stripe_1.createCheckoutSession; } });
 Object.defineProperty(exports, "handlePaymentSuccess", { enumerable: true, get: function () { return stripe_1.handlePaymentSuccess; } });
 Object.defineProperty(exports, "getPaymentStatus", { enumerable: true, get: function () { return stripe_1.getPaymentStatus; } });
+Object.defineProperty(exports, "downloadPDF", { enumerable: true, get: function () { return stripe_1.downloadPDF; } });
 // Daily.co integration functions
 exports.createDailyRoom = functions.https.onCall(async (data, context) => {
     // Check if user is authenticated

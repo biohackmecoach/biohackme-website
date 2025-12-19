@@ -16,14 +16,14 @@ export default function CoachingServicesPage() {
     <>
       <Helmet>
         <title>DNA Methylation Coaching Australia | Genetic Health Coach Sydney | BioHackMe</title>
-        <meta name="description" content="World-leading DNA methylation coaching & epigenetics testing in Australia. Personalised genetic health plans, biohacking protocols & 1:1 coaching with Camilla Thompson. DNA testing from $599." />
+        <meta name="description" content="World-leading DNA methylation coaching & epigenetics testing in Australia. Personalised genetic health plans, biohacking protocols & 1:1 coaching with Camilla Thompson. DNA testing from $699." />
         <meta name="keywords" content="DNA methylation coaching Australia, epigenetics coach Sydney, DNA testing Australia, genetic health coach, DNA methylation test, epigenetic coaching, personalised DNA health plan, biohacking DNA coach Australia, genetic wellness coaching Sydney, DNA health optimisation" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.biohackme.com.au/coaching" />
         <meta property="og:title" content="DNA Methylation Coaching Australia | Genetic Health Optimisation" />
-        <meta property="og:description" content="Australia's premier DNA methylation coaching. Unlock your genetic potential with personalised epigenetic testing & coaching. DNA packages from $599." />
+        <meta property="og:description" content="Australia's premier DNA methylation coaching. Unlock your genetic potential with personalised epigenetic testing & coaching. DNA packages from $699." />
         <meta property="og:image" content="https://www.biohackme.com.au/dna-coaching-preview.jpg" />
 
         {/* Twitter */}
@@ -65,7 +65,7 @@ export default function CoachingServicesPage() {
                 "@type": "Offer",
                 "name": "DNA Methylation Package",
                 "description": "Comprehensive DNA methylation test, detailed reports, results debrief, and tailored health plan",
-                "price": "599",
+                "price": "699",
                 "priceCurrency": "AUD",
                 "availability": "https://schema.org/InStock",
                 "url": "https://www.biohackme.com.au/coaching"
@@ -144,7 +144,7 @@ export default function CoachingServicesPage() {
                 "name": "How much does DNA methylation testing cost in Australia?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Our DNA Methylation Package costs $599 + GST and includes the comprehensive DNA methylation test, detailed reports, a 1-hour results debrief session, and a tailored health plan based on your genetic expression patterns."
+                  "text": "Our DNA Methylation Package costs $699 + GST and includes the comprehensive DNA methylation test, detailed reports, a 1-hour results debrief session, and a tailored health plan based on your genetic expression patterns."
                 }
               },
               {
@@ -569,7 +569,7 @@ export default function CoachingServicesPage() {
                     <div className="bg-white rounded-xl p-6">
                       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div>
-                          <p className="text-3xl font-bold text-emerald-600 mb-1">$599 + GST</p>
+                          <p className="text-3xl font-bold text-emerald-600 mb-1">$699 + GST</p>
                           <p className="text-sm text-charcoal/60">One-time investment • Complete package</p>
                         </div>
                         <a

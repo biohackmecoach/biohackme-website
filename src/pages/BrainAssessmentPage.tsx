@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { subscribeToMailchimp } from '../utils/mailchimp'
 
 const BrainAssessmentPage: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState(1)

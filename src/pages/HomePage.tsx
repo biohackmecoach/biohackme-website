@@ -118,7 +118,7 @@ export default function HomePage() {
                   "name": "DNA Methylation Testing Package",
                   "description": "Comprehensive genetic testing with personalized health plan"
                 },
-                "price": "599",
+                "price": "699",
                 "priceCurrency": "AUD"
               },
               {

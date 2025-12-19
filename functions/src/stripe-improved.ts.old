@@ -1,0 +1,239 @@
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
+import { sendMasterclassWelcomeEmail, createPDFAccessToken, generatePDFDownloadLink } from './email-sender';
+
+// Initialize Stripe with your secret key
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+/**
+ * IMPROVED WEBHOOK HANDLER
+ * This version sends immediate emails with download links
+ * No reliance on Mailchimp automation delays
+ */
+export const handlePaymentSuccessImproved = functions.https.onRequest(async (req, res): Promise<void> => {
+  const sig = req.headers['stripe-signature'] as string;
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  // Log webhook received
+  console.log('✅ Webhook received at:', new Date().toISOString());
+
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(req.rawBody, sig, webhookSecret);
+    console.log('✅ Webhook signature verified');
+  } catch (err) {
+    console.error('❌ Webhook signature verification failed:', err);
+    res.status(400).send(`Webhook signature verification failed: ${err}`);
+    return;
+  }
+
+  // Log webhook event
+  await admin.firestore().collection('webhook_logs').add({
+    eventType: event.type,
+    timestamp: admin.firestore.FieldValue.serverTimestamp(),
+    sessionId: event.data.object.id || null,
+    status: 'received'
+  });
+
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    console.log('💳 Processing payment for session:', session.id);
+
+    try {
+      // Get customer email from session
+      const customerEmail = session.customer_email || session.customer_details?.email;
+
+      if (!customerEmail) {
+        console.error('❌ No customer email found in session');
+        res.status(400).send('No customer email');
+        return;
+      }
+
+      console.log('📧 Customer email:', customerEmail);
+
+      // Step 1: Create or update user in Firestore
+      const userRef = admin.firestore().collection('users').doc();
+      const userId = userRef.id;
+
+      await userRef.set({
+        email: customerEmail,
+        stripeCustomerId: session.customer,
+        access: {
+          masterclass: true,
+          masterclassDate: admin.firestore.FieldValue.serverTimestamp()
+        },
+        createdAt: admin.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+
+      console.log('✅ User access granted in Firestore:', userId);
+
+      // Step 2: Create payment record
+      await admin.firestore().collection('payments').doc(session.id).set({
+        sessionId: session.id,
+        userId: userId,
+        userEmail: customerEmail,
+        stripeCustomerId: session.customer,
+        paymentIntentId: session.payment_intent,
+        amountPaid: session.amount_total,
+        currency: session.currency,
+        productType: 'masterclass',
+        status: 'completed',
+        completedAt: admin.firestore.FieldValue.serverTimestamp()
+      });
+
+      console.log('✅ Payment recorded');
+
+      // Step 3: Add to Mailchimp with tags
+      try {
+        const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
+        const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
+        const DATACENTER = MAILCHIMP_API_KEY?.split('-')[1];
+
+        if (MAILCHIMP_API_KEY && AUDIENCE_ID) {
+          const emailHash = require('crypto').createHash('md5').update(customerEmail.toLowerCase()).digest('hex');
+          const updateUrl = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members/${emailHash}`;
+
+          await fetch(updateUrl, {
+            method: 'PUT',
+            headers: {
+              'Authorization': `Basic ${Buffer.from(`anystring:${MAILCHIMP_API_KEY}`).toString('base64')}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email_address: customerEmail,
+              status_if_new: 'subscribed',
+              status: 'subscribed',
+              tags: [
+                { name: 'masterclass-customer', status: 'active' },
+                { name: 'paid-customer', status: 'active' },
+                { name: 'high-value-customer', status: 'active' }
+              ]
+            }),
+          });
+
+          console.log('✅ Mailchimp tags applied');
+        }
+      } catch (mailchimpError) {
+        console.error('⚠️  Mailchimp error (non-critical):', mailchimpError);
+      }
+
+      // Step 4: Generate PDF access token
+      const pdfToken = await createPDFAccessToken(customerEmail, 'masterclass');
+      const pdfDownloadLink = generatePDFDownloadLink(pdfToken);
+
+      console.log('✅ PDF access token generated:', pdfToken);
+
+      // Step 5: Send immediate welcome email with download links
+      const accessLink = `https://biohackme.com.au/masterclass-access?email=${encodeURIComponent(customerEmail)}`;
+      const loginInstructions = `Your masterclass is accessible at any time using this email: ${customerEmail}. Simply visit the access link above and you'll be automatically logged in.`;
+
+      const emailSent = await sendMasterclassWelcomeEmail({
+        email: customerEmail,
+        firstName: session.customer_details?.name?.split(' ')[0],
+        accessLink: accessLink,
+        pdfDownloadLink: pdfDownloadLink,
+        loginInstructions: loginInstructions
+      });
+
+      if (emailSent) {
+        console.log('✅ Welcome email sent successfully');
+      } else {
+        console.error('⚠️  Email sending failed (will rely on Mailchimp automation)');
+      }
+
+      // Step 6: Log successful processing
+      await admin.firestore().collection('webhook_logs').add({
+        eventType: event.type,
+        sessionId: session.id,
+        customerEmail: customerEmail,
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
+        status: 'processed_successfully',
+        emailSent: emailSent,
+        accessGranted: true
+      });
+
+      console.log('✅ Webhook processing complete for:', customerEmail);
+
+      res.json({
+        received: true,
+        processed: true,
+        email_sent: emailSent
+      });
+      return;
+
+    } catch (error) {
+      console.error('❌ Error processing payment completion:', error);
+
+      // Log error
+      await admin.firestore().collection('webhook_logs').add({
+        eventType: event.type,
+        sessionId: session.id,
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
+        status: 'error',
+        error: String(error)
+      });
+
+      res.status(500).json({ error: 'Processing failed' });
+      return;
+    }
+  }
+
+  res.json({ received: true });
+  return;
+});
+
+/**
+ * Download handler for PDF resources
+ * Validates token and serves PDF
+ */
+export const downloadPDF = functions.https.onRequest(async (req, res): Promise<void> => {
+  const token = req.query.token as string;
+
+  if (!token) {
+    res.status(400).send('Token required');
+    return;
+  }
+
+  try {
+    // Verify token
+    const tokenQuery = await admin.firestore()
+      .collection('download_tokens')
+      .where('token', '==', token)
+      .where('used', '==', false)
+      .limit(1)
+      .get();
+
+    if (tokenQuery.empty) {
+      res.status(404).send('Invalid or expired token');
+      return;
+    }
+
+    const tokenDoc = tokenQuery.docs[0];
+    const tokenData = tokenDoc.data();
+
+    // Check expiry if set
+    if (tokenData.expiresAt && tokenData.expiresAt.toDate() < new Date()) {
+      res.status(410).send('Token expired');
+      return;
+    }
+
+    // Mark token as used (optional - remove if you want reusable links)
+    // await tokenDoc.ref.update({ used: true });
+
+    // Redirect to PDF in Firebase Storage or serve directly
+    const pdfPath = 'masterclass-resources/biohacking-basics-guide.pdf';
+    const bucket = admin.storage().bucket();
+    const file = bucket.file(pdfPath);
+
+    const [url] = await file.getSignedUrl({
+      action: 'read',
+      expires: Date.now() + 3600000, // 1 hour
+    });
+
+    res.redirect(url);
+
+  } catch (error) {
+    console.error('Error processing download:', error);
+    res.status(500).send('Download failed');
+  }
+});

@@ -7,11 +7,11 @@ admin.initializeApp();
 export { generateContent, testOpenAI } from './openai';
 
 // Export Mailchimp functions
-export { subscribeToNewsletter, subscribeToMasterclass, completeAssessment } from './mailchimp';
+export { subscribeToNewsletter, subscribeToMasterclass, completeAssessment, addToMailchimp } from './mailchimp';
 
 // Export Stripe functions
-import { createCheckoutSession, handlePaymentSuccess, getPaymentStatus } from './stripe';
-export { createCheckoutSession, handlePaymentSuccess, getPaymentStatus };
+import { createCheckoutSession, handlePaymentSuccess, getPaymentStatus, downloadPDF } from './stripe';
+export { createCheckoutSession, handlePaymentSuccess, getPaymentStatus, downloadPDF };
 
 // Daily.co integration functions
 export const createDailyRoom = functions.https.onCall(async (data, context) => {

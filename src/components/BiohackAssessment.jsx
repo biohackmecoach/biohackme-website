@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { functions } from '../config/firebase';
+import { httpsCallable } from 'firebase/functions';
 
 const BiohackAssessment = () => {
   const [scores, setScores] = useState({});
   const [totalRated, setTotalRated] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: '',
-    email: '',
-    phone: ''
+    email: ''
   });
   const [showSuccess, setShowSuccess] = useState(false);
   const [showConsentScreen, setShowConsentScreen] = useState(true);
@@ -135,23 +135,27 @@ const BiohackAssessment = () => {
     setShowConsentScreen(false);
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
 
-    // Here you would integrate with your CRM/email service
-    // Example integrations:
-    // - ConvertKit API
-    // - Mailchimp API
-    // - Zapier webhook
-    // - Your backend API
+    // Call Firebase Function to add to Mailchimp with assessment-lead tag
+    try {
+      const addToMailchimp = httpsCallable(functions, 'addToMailchimp');
 
-    console.log('Lead captured:', { ...formData, scores });
+      const result = await addToMailchimp({
+        email: formData.email.trim().toLowerCase(),
+        source: 'assessment-nurture'
+      });
 
-    // For demo purposes
+      console.log('✅ Assessment Lead added to Mailchimp:', result);
+    } catch (emailError) {
+      console.error('❌ Assessment API call failed:', emailError);
+      // Still proceed to show success message even if there's a network error
+    }
+
+    // Show success message and results
     setShowSuccess(true);
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 5000);
+    setShowResults(true);
   };
 
   const getAverageScore = () => {
@@ -378,10 +382,36 @@ const BiohackAssessment = () => {
                 </div>
               </div>
 
+              {/* All 8 Pillar Scores */}
+              <div className="mb-12">
+                <h3 className="text-2xl font-light text-ocean mb-8 text-center">◯ Your Complete Health Breakdown</h3>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  {pillars.map((pillar) => {
+                    const score = scores[pillar.name] || 0;
+                    const percentage = (score / 10) * 100;
+                    return (
+                      <div key={pillar.name} className="bg-gradient-to-r from-ice to-cloud rounded-xl p-4 border border-sky/20">
+                        <div className="flex justify-between items-center mb-2">
+                          <h4 className="text-lg font-medium text-ocean">{pillar.name}</h4>
+                          <span className="text-2xl font-bold text-ocean">{score}/10</span>
+                        </div>
+                        <div className="w-full bg-white rounded-full h-3">
+                          <div
+                            className="bg-gradient-to-r from-ocean to-sky h-3 rounded-full transition-all duration-300"
+                            style={{ width: `${percentage}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* Recommendations */}
               <div className="mb-12">
-                <h3 className="text-2xl font-light text-ocean mb-8 text-center">◯ Your Top Priority Areas & Anchor Actions</h3>
-                
+                <h3 className="text-2xl font-light text-ocean mb-8 text-center">◯ Your Top Priority Areas & Recommendations</h3>
+
                 <div className="space-y-6">
                   {getLowestScores().map(([pillar, rating], index) => {
                     const rec = recommendations[pillar];
@@ -391,7 +421,7 @@ const BiohackAssessment = () => {
                           {index + 1}. {rec.title} (Current: {rating}/10)
                         </h4>
                         <p className="text-charcoal/80 mb-3">
-                          <strong>◯ Anchor Action:</strong> {rec.recommendation}
+                          <strong>◯ Start Here:</strong> {rec.recommendation}
                         </p>
                         <p className="text-charcoal/80">
                           <strong>◇ Biohack:</strong> {rec.hack}
@@ -400,31 +430,22 @@ const BiohackAssessment = () => {
                     );
                   })}
                 </div>
-                
+
                 <div className="mt-8 bg-gradient-to-r from-sky/20 to-ocean/20 rounded-2xl p-6 border border-ocean/30">
-                  <h4 className="text-lg font-medium text-ocean mb-3">◈ The Biohacking Stack Effect</h4>
-                  <p className="text-charcoal/80">Focus on your #1 priority area first. Once that habit is anchored (typically 2-4 weeks), add the next. This creates a compound effect where each improvement amplifies the others!</p>
+                  <h4 className="text-lg font-medium text-ocean mb-3">◈ How To Use These Recommendations</h4>
+                  <p className="text-charcoal/80">Focus on your #1 priority area first. Once that habit is established (typically 2-4 weeks), add the next. This creates a compound effect where each improvement amplifies the others!</p>
                 </div>
               </div>
 
               {/* Lead Capture */}
               <div className="bg-gradient-to-r from-ocean to-sky rounded-2xl p-8 text-white text-center">
-                <h3 className="text-2xl font-light mb-4">Ready to Transform Your Health?</h3>
+                <h3 className="text-2xl font-light mb-4">Get Your Full Results & Action Plan</h3>
                 <p className="mb-8 opacity-90">
-                  Get your personalised biohacking action plan based on your results. Plus, receive Camilla's exclusive "Anchor & Amplify" methodology to make lasting changes stick.
+                  Enter your email to receive your personalised biohacking action plan and ongoing support to optimize your health.
                 </p>
-                
+
                 {!showSuccess ? (
                   <form className="max-w-md mx-auto space-y-4" onSubmit={submitForm}>
-                    <input
-                      type="text"
-                      name="firstName"
-                      className="w-full px-4 py-3 rounded-full bg-white text-charcoal placeholder-charcoal/60 focus:outline-none focus:ring-2 focus:ring-white/50"
-                      placeholder="Your First Name"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      required
-                    />
                     <input
                       type="email"
                       name="email"
@@ -434,22 +455,22 @@ const BiohackAssessment = () => {
                       onChange={handleInputChange}
                       required
                     />
-                    <input
-                      type="tel"
-                      name="phone"
-                      className="w-full px-4 py-3 rounded-full bg-white text-charcoal placeholder-charcoal/60 focus:outline-none focus:ring-2 focus:ring-white/50"
-                      placeholder="Your Phone (Optional)"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                    />
                     <button type="submit" className="w-full bg-white text-ocean px-8 py-3 rounded-full font-medium hover:bg-ice transition-colors">
-                      Send My Custom Blueprint
+                      Get My Results Now
                     </button>
                   </form>
                 ) : (
-                  <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30">
-                    <h4 className="text-xl font-medium mb-2">◯ Success! Your Blueprint is on its way!</h4>
-                    <p className="opacity-90">Check your email in the next 5 minutes for your personalised biohacking action plan.</p>
+                  <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 space-y-4">
+                    <div>
+                      <h4 className="text-xl font-medium mb-2">✓ Success! Your Results Are Ready</h4>
+                      <p className="opacity-90">Your complete assessment is displayed above. Save it now or check your email for your personalised action plan.</p>
+                    </div>
+                    <button
+                      onClick={() => window.print()}
+                      className="w-full bg-white text-ocean px-8 py-3 rounded-full font-medium hover:bg-ice transition-colors"
+                    >
+                      Download / Print Results
+                    </button>
                   </div>
                 )}
               </div>

@@ -1,12 +1,22 @@
 import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+import { defineSecret } from 'firebase-functions/params';
 import { cors } from './cors';
-import * as dotenv from 'dotenv';
-dotenv.config();
+import * as crypto from 'crypto';
 
-// Mailchimp configuration - load from environment variables
-const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
-const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
-const DATACENTER = process.env.MAILCHIMP_DATA_CENTER;
+// Define secrets (loaded securely from Firebase Secret Manager)
+const mailchimpApiKey = defineSecret('MAILCHIMP_API_KEY');
+const mailchimpAudienceId = defineSecret('MAILCHIMP_AUDIENCE_ID');
+const mailchimpDataCenter = defineSecret('MAILCHIMP_DATA_CENTER');
+
+// Helper to get Mailchimp config (using Firebase Secrets)
+function getMailchimpConfig() {
+  return {
+    apiKey: mailchimpApiKey.value(),
+    audienceId: mailchimpAudienceId.value(),
+    datacenter: mailchimpDataCenter.value() || 'us4'
+  };
+}
 
 interface MailchimpSubscriber {
   email_address: string;
@@ -14,11 +24,72 @@ interface MailchimpSubscriber {
   merge_fields?: {
     FNAME?: string;
     LNAME?: string;
+    ASCORE?: string;
+    LOWPILLAR?: string;
+    TOPRECS?: string;
   };
-  tags?: string[];
 }
 
-export const subscribeToNewsletter = functions.https.onRequest(async (req, res) => {
+/**
+ * CRITICAL SAFETY FEATURE: Save lead to Firestore as backup
+ * This ensures we NEVER lose leads even if Mailchimp fails
+ */
+async function saveLeadToFirestore(leadData: any): Promise<boolean> {
+  try {
+    await admin.firestore().collection('leads').add({
+      ...leadData,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      source: 'website'
+    });
+    console.log('✅ Lead saved to Firestore backup:', leadData.email);
+    return true;
+  } catch (error) {
+    console.error('❌ CRITICAL: Failed to save lead to Firestore:', error);
+    return false;
+  }
+}
+
+/**
+ * Helper function to apply tags to a Mailchimp member
+ * Tags MUST be applied via a separate POST to the /tags endpoint
+ * They cannot be included in the member creation/update request
+ */
+async function applyMailchimpTags(email: string, tags: string[]): Promise<boolean> {
+  try {
+    const config = getMailchimpConfig();
+    const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+    const tagsUrl = `https://${config.datacenter}.api.mailchimp.com/3.0/lists/${config.audienceId}/members/${emailHash}/tags`;
+
+    const tagsPayload = {
+      tags: tags.map(tag => ({ name: tag, status: 'active' }))
+    };
+
+    const tagsResponse = await fetch(tagsUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${Buffer.from(`anystring:${config.apiKey}`).toString('base64')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(tagsPayload),
+    });
+
+    if (!tagsResponse.ok) {
+      const errorData = await tagsResponse.json();
+      console.error('❌ Failed to apply tags:', errorData);
+      return false;
+    }
+
+    console.log('✅ Tags applied successfully:', tags);
+    return true;
+  } catch (error) {
+    console.error('❌ Error applying tags:', error);
+    return false;
+  }
+}
+
+export const subscribeToNewsletter = functions
+  .runWith({ secrets: [mailchimpApiKey, mailchimpAudienceId, mailchimpDataCenter] })
+  .https.onRequest(async (req, res) => {
   // Handle CORS
   cors(req, res, async () => {
     // Only allow POST requests
@@ -41,6 +112,15 @@ export const subscribeToNewsletter = functions.https.onRequest(async (req, res) 
         res.status(400).json({ error: 'Invalid email format' });
         return;
       }
+
+      // CRITICAL: Save to Firestore FIRST (safety backup)
+      await saveLeadToFirestore({
+        email: email.toLowerCase().trim(),
+        firstName: firstName || '',
+        lastName: lastName || '',
+        type: 'newsletter',
+        tags: []
+      });
 
       // Prepare subscriber data
       const subscriberData: MailchimpSubscriber = {
@@ -56,13 +136,15 @@ export const subscribeToNewsletter = functions.https.onRequest(async (req, res) 
         };
       }
 
-      // Make request to Mailchimp API
-      const mailchimpUrl = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`;
+      // Create/update member in Mailchimp (PUT handles both new and existing)
+      const config = getMailchimpConfig();
+      const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+      const memberUrl = `https://${config.datacenter}.api.mailchimp.com/3.0/lists/${config.audienceId}/members/${emailHash}`;
 
-      const response = await fetch(mailchimpUrl, {
-        method: 'POST',
+      const response = await fetch(memberUrl, {
+        method: 'PUT', // PUT creates or updates
         headers: {
-          'Authorization': `Basic ${Buffer.from(`anystring:${MAILCHIMP_API_KEY}`).toString('base64')}`,
+          'Authorization': `Basic ${Buffer.from(`anystring:${config.apiKey}`).toString('base64')}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(subscriberData),
@@ -77,17 +159,10 @@ export const subscribeToNewsletter = functions.https.onRequest(async (req, res) 
           email: email
         });
       } else {
-        // Handle Mailchimp errors
-        if (data.title === 'Member Exists') {
-          res.status(400).json({
-            error: 'This email is already subscribed to our newsletter.'
-          });
-        } else {
-          console.error('Mailchimp API error:', data);
-          res.status(400).json({
-            error: data.detail || 'Failed to subscribe. Please try again.'
-          });
-        }
+        console.error('Mailchimp API error:', data);
+        res.status(400).json({
+          error: data.detail || 'Failed to subscribe. Please try again.'
+        });
       }
     } catch (error) {
       console.error('Newsletter subscription error:', error);
@@ -99,7 +174,9 @@ export const subscribeToNewsletter = functions.https.onRequest(async (req, res) 
 });
 
 // Masterclass Pre-registration Function
-export const subscribeToMasterclass = functions.https.onRequest(async (req, res) => {
+export const subscribeToMasterclass = functions
+  .runWith({ secrets: [mailchimpApiKey, mailchimpAudienceId, mailchimpDataCenter] })
+  .https.onRequest(async (req, res) => {
   // Handle CORS
   cors(req, res, async () => {
     // Only allow POST requests
@@ -123,6 +200,15 @@ export const subscribeToMasterclass = functions.https.onRequest(async (req, res)
         return;
       }
 
+      // CRITICAL: Save to Firestore FIRST (safety backup)
+      await saveLeadToFirestore({
+        email: email.toLowerCase().trim(),
+        firstName: firstName || '',
+        lastName: lastName || '',
+        type: 'masterclass-preregister',
+        tags: ['masterclass-preregister', 'website-subscriber']
+      });
+
       // Prepare subscriber data with masterclass pre-registration tag
       const subscriberData: MailchimpSubscriber = {
         email_address: email,
@@ -137,16 +223,15 @@ export const subscribeToMasterclass = functions.https.onRequest(async (req, res)
         };
       }
 
-      // Add tags for masterclass pre-registration
-      subscriberData.tags = ['masterclass-preregister', 'website-subscriber'];
+      // Step 1: Create/update member in Mailchimp
+      const config = getMailchimpConfig();
+      const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+      const memberUrl = `https://${config.datacenter}.api.mailchimp.com/3.0/lists/${config.audienceId}/members/${emailHash}`;
 
-      // Make request to Mailchimp API
-      const mailchimpUrl = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`;
-
-      const response = await fetch(mailchimpUrl, {
-        method: 'POST',
+      const response = await fetch(memberUrl, {
+        method: 'PUT', // PUT creates or updates
         headers: {
-          'Authorization': `Basic ${Buffer.from(`anystring:${MAILCHIMP_API_KEY}`).toString('base64')}`,
+          'Authorization': `Basic ${Buffer.from(`anystring:${config.apiKey}`).toString('base64')}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(subscriberData),
@@ -155,49 +240,20 @@ export const subscribeToMasterclass = functions.https.onRequest(async (req, res)
       const data = await response.json();
 
       if (response.ok) {
+        // Step 2: Apply tags separately (Mailchimp requires this!)
+        const tagsApplied = await applyMailchimpTags(email, ['masterclass-preregister', 'website-subscriber']);
+
         res.status(200).json({
           success: true,
           message: 'Successfully subscribed! You\'ll be notified when new masterclasses launch.',
-          email: email
+          email: email,
+          tagsApplied: tagsApplied
         });
       } else {
-        // Handle Mailchimp errors
-        if (data.title === 'Member Exists') {
-          // Update existing member with masterclass tag
-          const crypto = require('crypto');
-          const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
-          const updateUrl = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members/${emailHash}`;
-
-          const updateResponse = await fetch(updateUrl, {
-            method: 'PATCH',
-            headers: {
-              'Authorization': `Basic ${Buffer.from(`anystring:${MAILCHIMP_API_KEY}`).toString('base64')}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              tags: [
-                { name: 'masterclass-preregister', status: 'active' }
-              ]
-            }),
-          });
-
-          if (updateResponse.ok) {
-            res.status(200).json({
-              success: true,
-              message: 'You\'re already subscribed! We\'ve updated your preferences for masterclass notifications.',
-              email: email
-            });
-          } else {
-            res.status(400).json({
-              error: 'You\'re already subscribed to our newsletter.'
-            });
-          }
-        } else {
-          console.error('Mailchimp API error:', data);
-          res.status(400).json({
-            error: data.detail || 'Failed to subscribe. Please try again.'
-          });
-        }
+        console.error('Mailchimp API error:', data);
+        res.status(400).json({
+          error: data.detail || 'Failed to subscribe. Please try again.'
+        });
       }
     } catch (error) {
       console.error('Masterclass subscription error:', error);
@@ -209,7 +265,9 @@ export const subscribeToMasterclass = functions.https.onRequest(async (req, res)
 });
 
 // Assessment Completion Function with Follow-up Email
-export const completeAssessment = functions.https.onRequest(async (req, res) => {
+export const completeAssessment = functions
+  .runWith({ secrets: [mailchimpApiKey, mailchimpAudienceId, mailchimpDataCenter] })
+  .https.onRequest(async (req, res) => {
   // Handle CORS
   cors(req, res, async () => {
     // Only allow POST requests
@@ -233,8 +291,20 @@ export const completeAssessment = functions.https.onRequest(async (req, res) => 
         return;
       }
 
+      // CRITICAL: Save to Firestore FIRST (safety backup)
+      await saveLeadToFirestore({
+        email: email.toLowerCase().trim(),
+        firstName: firstName || '',
+        lastName: lastName || '',
+        type: 'assessment-completed',
+        assessmentScore: assessmentScore || '',
+        lowestScoringPillar: lowestScoringPillar || '',
+        topRecommendations: topRecommendations || '',
+        tags: ['biohacking-assessment-completed']
+      });
+
       // Prepare subscriber data with assessment completion
-      const subscriberData: any = {
+      const subscriberData: MailchimpSubscriber = {
         email_address: email,
         status: 'subscribed',
         merge_fields: {
@@ -243,17 +313,18 @@ export const completeAssessment = functions.https.onRequest(async (req, res) => 
           ASCORE: assessmentScore || '',
           LOWPILLAR: lowestScoringPillar || '',
           TOPRECS: topRecommendations || ''
-        },
-        tags: ['biohacking-assessment-completed', 'assessment-lead', 'masterclass-nurture']
+        }
       };
 
-      // Make request to Mailchimp API
-      const mailchimpUrl = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`;
+      // Step 1: Create/update member in Mailchimp
+      const config = getMailchimpConfig();
+      const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+      const memberUrl = `https://${config.datacenter}.api.mailchimp.com/3.0/lists/${config.audienceId}/members/${emailHash}`;
 
-      const response = await fetch(mailchimpUrl, {
-        method: 'POST',
+      const response = await fetch(memberUrl, {
+        method: 'PUT', // PUT creates or updates
         headers: {
-          'Authorization': `Basic ${Buffer.from(`anystring:${MAILCHIMP_API_KEY}`).toString('base64')}`,
+          'Authorization': `Basic ${Buffer.from(`anystring:${config.apiKey}`).toString('base64')}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(subscriberData),
@@ -261,35 +332,18 @@ export const completeAssessment = functions.https.onRequest(async (req, res) => 
 
       const data = await response.json();
 
-      if (response.ok || data.title === 'Member Exists') {
-        // If member exists, update their tags and merge fields
-        if (data.title === 'Member Exists') {
-          const crypto = require('crypto');
-          const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
-          const updateUrl = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members/${emailHash}`;
-
-          await fetch(updateUrl, {
-            method: 'PATCH',
-            headers: {
-              'Authorization': `Basic ${Buffer.from(`anystring:${MAILCHIMP_API_KEY}`).toString('base64')}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              merge_fields: subscriberData.merge_fields,
-              tags: [
-                { name: 'biohacking-assessment-completed', status: 'active' },
-                { name: 'assessment-lead', status: 'active' },
-                { name: 'masterclass-nurture', status: 'active' }
-              ]
-            }),
-          });
-        }
+      if (response.ok) {
+        // Step 2: Apply ONLY biohacking-assessment-completed tag
+        const tagsApplied = await applyMailchimpTags(email, [
+          'biohacking-assessment-completed'
+        ]);
 
         res.status(200).json({
           success: true,
-          message: 'Assessment completed\! Check your email for your personalised recommendations and masterclass access.',
+          message: 'Assessment completed! Check your email for your personalised recommendations and masterclass access.',
           email: email,
-          followUpScheduled: true
+          followUpScheduled: true,
+          tagsApplied: tagsApplied
         });
 
       } else {
@@ -307,3 +361,105 @@ export const completeAssessment = functions.https.onRequest(async (req, res) => 
     }
   });
 });
+
+/**
+ * Generic addToMailchimp function for guide downloads, popup forms, etc.
+ * Applies tags based on the source parameter
+ */
+export const addToMailchimp = functions
+  .runWith({ secrets: [mailchimpApiKey, mailchimpAudienceId, mailchimpDataCenter] })
+  .https.onCall(async (data, context) => {
+    try {
+      const { email, source, firstName } = data;
+
+      if (!email) {
+        throw new functions.https.HttpsError('invalid-argument', 'Email is required');
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        throw new functions.https.HttpsError('invalid-argument', 'Invalid email format');
+      }
+
+      // Determine tags based on source
+      let tags: string[] = [];
+      let leadType = source || 'unknown';
+
+      if (source === 'assessment-nurture') {
+        // /biohack-assessment → ONLY assessment-lead tag
+        tags = ['assessment-lead'];
+        leadType = 'assessment-nurture';
+      } else if (source === 'freebie-download' || source === 'guide-download') {
+        tags = ['guide-download', 'lead-magnet', 'website-subscriber'];
+        leadType = 'guide-download';
+      } else if (source === 'popup' || source === 'exit-intent') {
+        tags = ['popup-subscriber', 'website-subscriber'];
+        leadType = 'popup';
+      } else if (source === 'footer' || source === 'newsletter') {
+        tags = ['newsletter-subscriber', 'website-subscriber'];
+        leadType = 'newsletter';
+      } else if (source === 'book' || source === 'book-promo') {
+        tags = ['book-interest', 'reader', 'website-subscriber'];
+        leadType = 'book';
+      } else {
+        tags = ['website-subscriber'];
+      }
+
+      // CRITICAL: Save to Firestore FIRST (safety backup)
+      await saveLeadToFirestore({
+        email: email.toLowerCase().trim(),
+        firstName: firstName || '',
+        lastName: '',
+        type: leadType,
+        tags: tags
+      });
+
+      // Create/update member in Mailchimp
+      const config = getMailchimpConfig();
+      const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+      const memberUrl = `https://${config.datacenter}.api.mailchimp.com/3.0/lists/${config.audienceId}/members/${emailHash}`;
+
+      const subscriberData: MailchimpSubscriber = {
+        email_address: email,
+        status: 'subscribed',
+      };
+
+      if (firstName) {
+        subscriberData.merge_fields = {
+          FNAME: firstName,
+          LNAME: ''
+        };
+      }
+
+      const response = await fetch(memberUrl, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Basic ${Buffer.from(`anystring:${config.apiKey}`).toString('base64')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(subscriberData),
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        // Apply tags separately
+        const tagsApplied = await applyMailchimpTags(email, tags);
+
+        return {
+          success: true,
+          message: 'Successfully subscribed!',
+          email: email,
+          tagsApplied: tagsApplied
+        };
+      } else {
+        console.error('Mailchimp API error:', responseData);
+        throw new functions.https.HttpsError('internal', responseData.detail || 'Failed to subscribe');
+      }
+
+    } catch (error: any) {
+      console.error('addToMailchimp error:', error);
+      throw new functions.https.HttpsError('internal', error.message || 'Internal server error');
+    }
+  });

@@ -40,21 +40,60 @@ export default function MasterclassAccessPage() {
                 The 7 Pillars Framework for Optimal Living
               </p>
 
+              {/* Quick Access - Download & Video */}
+              <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-4xl mx-auto">
+                <div className="bg-gradient-to-br from-ocean to-sky text-white rounded-2xl p-6 shadow-xl">
+                  <h3 className="text-xl font-bold mb-3 flex items-center">
+                    <Download className="w-6 h-6 mr-2" />
+                    Instant Download
+                  </h3>
+                  <p className="text-white/90 mb-4 text-sm">
+                    Download your complete workbook with worksheets, assessments, and guides.
+                  </p>
+                  <button
+                    onClick={handleDownloadPDF}
+                    className="w-full bg-white text-ocean py-3 px-6 rounded-full font-semibold hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2"
+                  >
+                    <Download className="w-5 h-5" />
+                    Download Workbook PDF
+                  </button>
+                </div>
+
+                <div className="bg-gradient-to-br from-sky to-ice border-2 border-ocean/20 rounded-2xl p-6 shadow-xl">
+                  <h3 className="text-xl font-bold text-ocean mb-3 flex items-center">
+                    <PlayCircle className="w-6 h-6 mr-2" />
+                    Full Masterclass Video
+                  </h3>
+                  <p className="text-charcoal/80 mb-4 text-sm">
+                    Watch the complete masterclass below, or open in new window for larger view.
+                  </p>
+                  <a
+                    href="https://www.loom.com/share/61af56a7d8f445a9a47b22e5e6b3b8e4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-ocean text-white py-3 px-6 rounded-full font-semibold hover:bg-sky transition-all duration-300 flex items-center justify-center gap-2"
+                  >
+                    <PlayCircle className="w-5 h-5" />
+                    Open Video in New Tab
+                  </a>
+                </div>
+              </div>
+
               {/* Instructions */}
               <div className="bg-gradient-to-r from-ice/50 to-cloud/50 rounded-xl p-6 mb-8 max-w-3xl mx-auto">
                 <h2 className="text-lg font-semibold text-ocean mb-3 text-left">How to Get the Most From Your Masterclass:</h2>
                 <div className="grid md:grid-cols-2 gap-4 text-charcoal/80 text-left">
                   <div className="flex items-start">
                     <span className="text-ocean mr-2 font-bold">•</span>
-                    <span>Click the video below to start watching - you can pause anytime</span>
+                    <span>Download your workbook first (button above)</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-ocean mr-2 font-bold">•</span>
-                    <span>Download the PDF resources for worksheets and guides</span>
+                    <span>Watch the video and take notes in your workbook</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-ocean mr-2 font-bold">•</span>
-                    <span>Take notes on areas where you want to improve</span>
+                    <span>Complete the assessments as you go</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-ocean mr-2 font-bold">•</span>

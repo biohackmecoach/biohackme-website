@@ -1,673 +1,514 @@
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
-import { ExternalLink, MapPin, Calendar, Users, Star, CheckCircle, Heart, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { ExternalLink, CheckCircle, Star } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+
+const testimonials = [
+  {
+    quote: "I attended the Live Well Longer Retreat at the beautiful Revivo Resort in Bali this year and am so thankful that I did, as I gained a deeper understanding of myself at a biological, functional and spiritual level. The educational lectures were inspiring and well planned and the pre-testing so valuable as Camilla and Azra guide you through understanding your own blueprint. I am so excited to put into practise some of the techniques and health hacks that I have learnt and highly recommend this outstanding retreat to all.",
+    name: "Carol Vincent",
+    detail: "Retreat Guest Sept 2025"
+  },
+  {
+    quote: "The Live Well Longer Retreat exceeded all my expectations. I gained an enormous amount of knowledge and felt completely nurtured by the wonderful Camilla & Azra, as well as the beautiful Revivo Resort. It was a complete mind/body reset plus detailed planning and information to move forward with. Highly recommend.",
+    name: "Amanda",
+    detail: "Retreat Guest 2025"
+  },
+  {
+    quote: "I wish every woman in my life had the opportunity to do one of these retreats with Camilla and Azra. It was a perfect blend of spirituality, science, relaxation and girl time! I can't recommend it highly enough.",
+    name: "Rachel Comty",
+    detail: "Retreat Guest"
+  },
+  {
+    quote: "I'd recommend this retreat because it offered a transformative experience, with stunning surroundings, and a peaceful escape to recharge, reflect and reconnect with yourself. This was my first experience of being at a retreat and it has set the bar so high. Azra and Camilla have created something truly unique and special.",
+    name: "Sally",
+    detail: "Retreat Guest"
+  },
+  {
+    quote: "The Live Well Longer retreat was an absolutely life changing experience for me! Camilla and Azra very eloquently balanced teachings around Biohacking, hormones, and all factors that impact a healthy long life with the most beautiful surroundings, facilities, food and spirituality of Revivo.",
+    name: "Tamara Williams",
+    detail: "Retreat Guest"
+  }
+];
+
+const TestimonialSlider = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextTestimonial = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const goToTestimonial = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  return (
+    <div className="relative max-w-4xl mx-auto">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-ocean/10"
+        >
+          <div className="flex justify-center mb-6">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="w-5 h-5 text-ocean fill-ocean" />
+            ))}
+          </div>
+          <p className="text-ocean text-base md:text-lg leading-relaxed mb-6 text-center italic">
+            "{testimonials[currentIndex].quote}"
+          </p>
+          <div className="text-center">
+            <div className="text-ocean font-semibold text-lg">{testimonials[currentIndex].name}</div>
+            <div className="text-sky text-sm mt-1">{testimonials[currentIndex].detail}</div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Navigation */}
+      <div className="flex justify-center items-center gap-4 mt-8">
+        <button
+          onClick={prevTestimonial}
+          className="p-3 rounded-full bg-ice hover:bg-ocean/10 text-ocean transition-all hover:scale-110"
+          aria-label="Previous testimonial"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <div className="flex gap-2">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToTestimonial(index)}
+              className={`w-2.5 h-2.5 rounded-full transition-all ${
+                index === currentIndex ? 'bg-ocean w-8' : 'bg-sky/30 hover:bg-sky/50'
+              }`}
+              aria-label={`Go to testimonial ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={nextTestimonial}
+          className="p-3 rounded-full bg-ice hover:bg-ocean/10 text-ocean transition-all hover:scale-110"
+          aria-label="Next testimonial"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const RetreatsPage = () => {
   return (
     <>
       <Helmet>
-        <title>Luxury Biohacking Retreats Bali | Women's Longevity & Executive Wellness | BiohackMe</title>
-        <meta name="description" content="Transform your health at our luxury biohacking retreats in Bali. Women's longevity programs, executive wellness experiences, and hormonal balance retreats at 5-star Revivo Resort." />
-        <meta name="keywords" content="luxury biohacking retreat Bali, women's longevity retreat, executive wellness retreat, perimenopause biohacking retreat, women's hormonal balance retreat, luxury wellness retreat Revivo Bali, biohacking retreat for women over 40, mother daughter wellness retreat, luxury health retreat Indonesia" />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://www.biohackme.com.au"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Retreats",
-                "item": "https://www.biohackme.com.au/retreats"
-              }
-            ]
-          })}
-        </script>
+        <title>Women's Biohacking Retreat Bali 2026 | Live Well Longer | Award-Winning Wellness</title>
+        <meta name="description" content="Join Australia's leading biohackers Camilla Thompson & Azra Alagic for an exclusive women-only longevity retreat at REVIVO Bali. May 1-6, 2026. Limited to 16 guests." />
+        <meta name="keywords" content="women's biohacking retreat Bali, Live Well Longer Retreats, luxury wellness retreat 2026, REVIVO Bali, longevity retreat Australia" />
       </Helmet>
 
       <Header />
 
-      <div className="min-h-screen bg-gradient-to-br from-ice via-cloud to-sky/30 font-montserrat">
-        {/* Floating Background Elements */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-ocean/20 to-sky/20 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-gradient-to-r from-sky/20 to-ice/30 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-gradient-to-r from-ice/30 to-ocean/20 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-4000"></div>
-        </div>
+      <div className="min-h-screen bg-gradient-to-b from-ice/30 via-white to-ice/20 font-montserrat">
 
-        <div className="relative z-10">
-          {/* Hero Section */}
-          <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-6xl mx-auto text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="mb-8"
+        {/* Hero Section */}
+        <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto text-center">
+
+            {/* Logo */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex justify-center mb-4"
+            >
+              <img
+                src="/Images retreat Revivo/logo-primary.png"
+                alt="Live Well Longer Retreats"
+                className="h-6 sm:h-8 md:h-9 max-w-[180px] sm:max-w-[225px] md:max-w-[270px] w-auto opacity-80"
+                loading="eager"
+              />
+            </motion.div>
+
+            {/* Tagline */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <h1 className="text-xl sm:text-2xl text-sky mb-8 font-light">
+                Reset. Recharge. Rewire your longevity.
+              </h1>
+            </motion.div>
+
+            {/* Intro Text */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="max-w-3xl mx-auto space-y-4 text-base md:text-lg text-ocean/90 leading-relaxed mb-12"
+            >
+              <p>
+                The award-winning Live Well Longer immersive retreats are designed to help you reset your biology,
+                restore your balance, and reimagine what ageing well truly means.
+              </p>
+              <p>
+                Set in world-class wellness destinations and led by Australia's leading biohackers{' '}
+                <strong className="text-ocean">Azra Alagic</strong> and{' '}
+                <strong className="text-ocean">Camilla Thompson</strong>, these retreats blend ancient wisdom with modern science.
+              </p>
+            </motion.div>
+
+            {/* Primary CTA */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="mb-12"
+            >
+              <a
+                href="https://www.livewelllongerretreats.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-ocean hover:bg-ocean/90 text-white px-6 py-3 rounded-full font-medium text-base transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
               >
-                <div className="inline-block bg-gradient-to-r from-ocean to-sky text-white px-6 py-2 rounded-full text-sm font-medium mb-6">
-                  LIVE WELL LONGER RETREATS
-                </div>
-                
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-montserrat font-bold text-ocean mb-6 leading-tight">
-                  Live Well Longer
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-ocean to-sky">
-                    Retreats
-                  </span>
-                </h1>
+                Visit Website For More Info
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </motion.div>
 
-                {/* Awards & Recognition */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-                  <motion.a
-                    href="https://destinationdeluxe.com/award/destination-deluxe-awards-2025-finalists/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
-                    className="bg-gradient-to-r from-ocean to-sky text-white px-6 py-2 rounded-full font-semibold text-sm hover:shadow-lg transition-all duration-300 flex items-center"
-                  >
-                    <Star className="w-4 h-4 mr-2" />
-                    Winner Destination Deluxe Group Retreat of the Year 2025
-                  </motion.a>
+            {/* Transform Your Health */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="mt-16"
+            >
+              <h2 className="text-2xl md:text-3xl font-light text-ocean mb-10">Transform Your Health</h2>
 
-                  <motion.a
-                    href="https://www.signatureluxurytravel.com.au/revivo-wellness-resort-bali/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.7, duration: 0.6 }}
-                    className="bg-gradient-to-r from-ocean to-sky text-white px-6 py-2 rounded-full font-semibold text-sm hover:shadow-lg transition-all duration-300 flex items-center justify-center"
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Featured in Signature Luxury Travel
-                  </motion.a>
-                </div>
-
-                <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-4">
-                  Transformational biohacking retreats designed to optimise your health, longevity, and wellbeing through science-backed practices and ancient wisdom.
-                </p>
-                <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8">
-                  Hosted by myself and Azra from Biohack-her at the award-winning Revivo Wellness Resort in Nusa Dua, Bali - a luxurious setting designed for healing and transformation.
-                </p>
-
-                {/* Award Image Showcase */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9, duration: 0.8 }}
-                  className="max-w-md mx-auto mb-8"
-                >
-                  <img
-                    src="/Images retreat Revivo/DD Retreat.jpg"
-                    alt="Winner - Destination Deluxe Group Retreat of the Year 2025"
-                    className="w-full h-auto rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300"
-                    loading="lazy"
-                  />
-                </motion.div>
-
-              </motion.div>
-            </div>
-          </section>
-
-          {/* Retreat Options Section */}
-          <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white/50">
-            <div className="max-w-6xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="text-center mb-16"
-              >
-                <h2 className="text-3xl md:text-4xl font-montserrat font-light text-ocean mb-8">
-                  Our Retreat Experiences
-                </h2>
-              </motion.div>
-
-              <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Women's Biohacking Retreat */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="bg-white/80 backdrop-blur rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col h-full"
-                >
-                  <div className="text-center mb-6">
-                    <div className="inline-block bg-gradient-to-r from-ocean to-sky text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-                      SEPTEMBER 2026 • BALI
-                    </div>
-                    <h3 className="text-2xl font-bold text-ocean mb-4">Women's Biohacking Retreat</h3>
-                    <div className="space-y-2 text-gray-600 mb-6">
-                      <div className="flex items-center justify-center">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        September 5-10, 2026
-                      </div>
-                      <div className="flex items-center justify-center">
-                        <MapPin className="w-4 h-4 mr-2" />
-                        Revivo Wellness Resort, Bali
-                      </div>
-                      <div className="flex items-center justify-center">
-                        <Users className="w-4 h-4 mr-2" />
-                        Women Only
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <img
-                      src="/Images retreat Revivo/womens.JPG"
-                      alt="Women's Biohacking Retreat at Revivo Wellness Resort Bali"
-                      className="w-full h-48 object-cover rounded-xl mb-4"
-                      loading="lazy"
-                    />
-                  </div>
-                  <p className="text-gray-700 leading-relaxed mb-6">
-                    The biohacking retreat every woman deserves. Focus on hormonal balance, longevity, and vitality
-                    during perimenopause and menopause transitions.
-                  </p>
-                  <div className="space-y-3 mb-6 flex-grow">
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Comprehensive hormonal assessments and optimisation</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Perimenopause and menopause support protocols</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Women's longevity and vitality strategies</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Stress management and energy optimisation</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Luxury wellness experiences at 5-star Revivo Resort</span>
-                    </div>
-                  </div>
-                  <motion.a
-                    href="https://www.revivoresorts.com/wp-content/uploads/2024/12/BIOHACKING-Retreat-with-Camilla-and-Azra-1.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium hover:from-ocean/90 hover:to-sky/90 transition-all duration-300 shadow-lg hover:shadow-xl inline-flex items-center justify-center"
-                  >
-                    LEARN MORE
-                    <ExternalLink className="w-4 h-4 ml-2" />
-                  </motion.a>
-                </motion.div>
-
-                {/* Live Well Longer Retreat - Mixed */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-white/80 backdrop-blur rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col h-full"
-                >
-                  <div className="text-center mb-6">
-                    <div className="inline-block bg-gradient-to-r from-ocean to-sky text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-                      MAY 2026 • BALI
-                    </div>
-                    <h3 className="text-2xl font-bold text-ocean mb-4">Live Well Longer Retreat</h3>
-                    <div className="space-y-2 text-gray-600 mb-6">
-                      <div className="flex items-center justify-center">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        May 1-6, 2026
-                      </div>
-                      <div className="flex items-center justify-center">
-                        <MapPin className="w-4 h-4 mr-2" />
-                        Revivo Wellness Resort, Bali
-                      </div>
-                      <div className="flex items-center justify-center">
-                        <Users className="w-4 h-4 mr-2" />
-                        Women Only
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <img
-                      src="/Images retreat Revivo/men & women.jpg"
-                      alt="Live Well Longer Retreat for Women at Revivo Resort"
-                      className="w-full h-48 object-cover rounded-xl mb-4"
-                      loading="lazy"
-                    />
-                  </div>
-                  <p className="text-gray-700 leading-relaxed mb-6">
-                    Our signature Live Well Longer retreat designed for women. A comprehensive 5-day biohacking experience focusing on longevity, optimal health, and sustainable wellness practices for life.
-                  </p>
-                  <div className="space-y-3 mb-6 flex-grow">
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Complete biohacking health assessments</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Longevity-focused protocols and strategies</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Advanced biohacking technologies</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Sustainable lifestyle implementation</span>
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <motion.a
-                      href="https://www.livewelllongerretreats.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="inline-flex items-center bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium hover:from-ocean/90 hover:to-sky/90 transition-all duration-300 shadow-lg hover:shadow-xl w-full justify-center"
-                    >
-                      REGISTER INTEREST
-                      <ExternalLink className="w-4 h-4 ml-2" />
-                    </motion.a>
-                  </div>
-                </motion.div>
-
-                {/* Mother Daughter Retreat */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  viewport={{ once: true }}
-                  className="bg-white/80 backdrop-blur rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 flex flex-col h-full"
-                >
-                  <div className="text-center mb-6">
-                    <div className="inline-block bg-gradient-to-r from-sky to-ocean text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
-                      2026 • DATES TBC
-                    </div>
-                    <h3 className="text-2xl font-bold text-ocean mb-4">Mother Daughter Retreat</h3>
-                    <div className="space-y-2 text-gray-600 mb-6">
-                      <div className="flex items-center justify-center">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        2026 - Dates TBC
-                      </div>
-                      <div className="flex items-center justify-center">
-                        <MapPin className="w-4 h-4 mr-2" />
-                        Revivo Wellness Resort, Bali
-                      </div>
-                      <div className="flex items-center justify-center">
-                        <Users className="w-4 h-4 mr-2" />
-                        Mother & Daughter Pairs
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <img
-                      src="/Images retreat Revivo/mother.jpg"
-                      alt="Mother Daughter Retreat at Revivo Wellness Resort Bali"
-                      className="w-full h-48 object-cover rounded-xl mb-4"
-                      loading="lazy"
-                    />
-                  </div>
-                  <p className="text-gray-700 leading-relaxed mb-6">
-                    A special bonding experience focusing on generational wellness. Learn biohacking fundamentals together
-                    while strengthening your relationship and creating lasting healthy habits.
-                  </p>
-                  <div className="space-y-3 mb-6 flex-grow">
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Intergenerational wellness workshops</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Shared biohacking experiences and learning</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Relationship strengthening activities</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Healthy habit formation for life</span>
-                    </div>
-                    <div className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-600">Luxury wellness bonding at Revivo Resort</span>
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <motion.a
-                      href="https://www.livewelllongerretreats.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="inline-flex items-center bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium hover:from-ocean/90 hover:to-sky/90 transition-all duration-300 shadow-lg hover:shadow-xl w-full justify-center"
-                    >
-                      REGISTER INTEREST
-                      <ExternalLink className="w-4 h-4 ml-2" />
-                    </motion.a>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </section>
-
-          {/* Testimonials */}
-          <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-ocean to-sky">
-            <div className="max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 border border-white/20 shadow-xl text-center"
-              >
-                <div className="mb-6">
-                  <h4 className="font-bold text-white text-xl mb-2">Amanda Smythe</h4>
-                  <p className="text-white/80">Retreat Participant</p>
-                </div>
-                <p className="text-white italic text-lg leading-relaxed">
-                  "The Live Well Longer Retreat exceeded all my expectations. I gained an enormous amount of knowledge and felt completely nurtured by the wonderful Camilla & Azra, as well as the beautiful Revivo Resort. It was a complete mind/body reset plus detailed planning and information to move forward with. Highly recommend."
-                </p>
-              </motion.div>
-            </div>
-          </section>
-
-          {/* Why This Retreat Section */}
-          <section className="py-16 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-white/70 backdrop-blur-lg rounded-3xl p-8 md:p-12 border border-white/20 shadow-xl"
-              >
-                <div className="flex items-center mb-6">
-                  <Heart className="w-8 h-8 text-ocean mr-3" />
-                  <h2 className="text-3xl font-bold text-gray-900">Why We Created These Retreats</h2>
-                </div>
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                  Modern life isn't exactly designed with optimal health in mind. We're juggling careers, caring roles, 
-                  and the constant pressure to do more. Yet persistent fatigue, unexplained symptoms, hormone disruption, 
-                  and mystery health issues keep holding us back from feeling our best.
-                </p>
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  These retreats get to the root causes of your health challenges. We uncover hidden issues like mould exposure, 
-                  chronic fatigue triggers, hormone imbalances, and those frustrating mystery symptoms that conventional medicine 
-                  can't explain. It's time to reclaim your energy and vitality.
-                </p>
-              </motion.div>
-            </div>
-          </section>
-
-          {/* What You'll Experience Section */}
-          <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white/50">
-            <div className="max-w-6xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="text-center mb-16"
-              >
-                <h2 className="text-3xl md:text-4xl font-montserrat font-light text-ocean mb-8">
-                  What You'll Experience
-                </h2>
-              </motion.div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
                 {[
                   {
-                    title: "Daily Biohacking Masterclasses",
-                    description: "Master the fundamentals with focused daily sessions: biohack your sleep, brain, nervous system, hormones, nutrition, mindset and behaviour change. Each masterclass provides practical tools for lasting transformation.",
-                    icon: "",
-                    image: "/Images retreat Revivo/Masterclass.jpg"
+                    title: "Reignite Your Energy",
+                    desc: "Discover science-backed strategies to boost vitality and maintain sustainable energy throughout your day.",
+                    icon: (
+                      <svg className="w-10 h-10 text-ocean" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    )
                   },
                   {
-                    title: "Advanced Biohacking Treatments & Technologies",
-                    description: "Experience cutting-edge wellness technologies including red light therapy, PEMF devices, hyperbaric chambers, cryotherapy, infrared saunas, breathwork sessions, Traditional Chinese Medicine, sound healing ceremonies, and sacred blessings with Balinese priests.",
-                    icon: "",
-                    image: "/Images retreat Revivo/biohacking.jpg"
+                    title: "Reset Your Nervous System",
+                    desc: "Learn powerful techniques to calm your stress response and restore balance to your body.",
+                    icon: (
+                      <svg className="w-10 h-10 text-ocean" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    )
                   },
                   {
-                    title: "Functional Food That Loves You Back",
-                    description: "Experience NŪTRIŌ restaurant's farm-to-table cuisine featuring locally sourced, organic ingredients free of chemicals and additives. Enjoy nutritious meals designed to support metabolic flexibility, gut health and hormonal balance - crafted using methods like sprouting, fermenting, and cold pressing to retain maximum nutrients.",
-                    icon: "",
-                    image: "/Images retreat Revivo/Food.jpg"
+                    title: "Reconnect to Your Body",
+                    desc: "Tap into your body's innate wisdom through mindful movement and restorative rituals.",
+                    icon: (
+                      <svg className="w-10 h-10 text-ocean" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    )
                   },
                   {
-                    title: "Personalised Wellness Optimisation",
-                    description: "Receive individual attention with one-on-one consultations, personalised biohacking protocols, and tailored wellness plans designed specifically for your unique health goals and biomarker results.",
-                    icon: "",
-                    image: "/Images retreat Revivo/personalised wellness.JPG"
-                  },
-                  {
-                    title: "Comprehensive Pre & Functional Testing",
-                    description: "Complete health baseline with pre-retreat testing, plus access to Revivo's state-of-the-art Vitality Centre for advanced biomarker analysis, metabolic testing, and longevity assessments to track your transformation.",
-                    icon: "",
-                    image: "/Images retreat Revivo/functional testing.JPG"
-                  },
-                  {
-                    title: "Deep Connection",
-                    description: "Reconnect with who you truly are, your essence and being. Connect with yourself and other like-minded people ready to rise. Find support, share stories, laugh, and become part of the Live Well Longer community.",
-                    icon: "",
-                    image: "/Images retreat Revivo/deep connection .jpg"
+                    title: "Optimise Your Hormones",
+                    desc: "Restore hormonal and metabolic balance for lasting health and longevity.",
+                    icon: (
+                      <svg className="w-10 h-10 text-ocean" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                    )
                   }
-                ].map((experience, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col h-full"
-                  >
-                    {experience.image ? (
-                      <div className="mb-4">
-                        <img
-                          src={experience.image}
-                          alt={experience.title}
-                          className="w-full h-48 object-cover rounded-xl"
-                          loading="lazy"
-                        />
-                      </div>
-                    ) : (
-                      <div className="h-48 mb-4 bg-gradient-to-br from-ocean/10 to-sky/10 rounded-xl flex items-center justify-center">
-                        <div className="text-ocean/40 text-6xl">{experience.icon}</div>
-                      </div>
-                    )}
-                    <h3 className="text-xl font-bold text-ocean mb-4">{experience.title}</h3>
-                    <p className="text-gray-700 leading-relaxed flex-grow">{experience.description}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Who This Is For Section */}
-          <section className="py-16 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="text-center mb-12"
-              >
-                <h2 className="text-3xl md:text-4xl font-montserrat font-light text-ocean mb-8">
-                  This Retreat Is Perfect For You If...
-                </h2>
-              </motion.div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {[
-                  "You're done with quick fixes and cookie-cutter health advice",
-                  "You're ready to reconnect with your body's wisdom",
-                  "You're curious about using science to feel better, longer",
-                  "You're craving rest, renewal, and a serious vitality upgrade",
-                  "You're in midlife and want to thrive, not just survive",
-                  "You want to understand your hormones during perimenopause/menopause"
                 ].map((item, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="flex items-start bg-white/70 rounded-xl p-4 shadow-md"
+                    className="text-center"
                   >
-                    <CheckCircle className="w-5 h-5 text-ocean mr-3 mt-1 flex-shrink-0" />
-                    <p className="text-gray-700 leading-relaxed">{item}</p>
+                    <div className="w-20 h-20 mx-auto mb-4 bg-ice rounded-full flex items-center justify-center">
+                      {item.icon}
+                    </div>
+                    <h3 className="text-lg font-semibold text-ocean mb-3">{item.title}</h3>
+                    <p className="text-sm text-ocean/80 leading-relaxed">{item.desc}</p>
                   </motion.div>
                 ))}
               </div>
-            </div>
-          </section>
 
-          {/* What You'll Leave With Section */}
-          <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-ocean to-sky text-white">
-            <div className="max-w-4xl mx-auto text-center">
+              <p className="text-ocean/90 mt-12 text-base md:text-lg">
+                Step away from the noise, reconnect with yourself, and discover what it truly means to Live Well Longer.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Meet Your Hosts */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ice/30 to-white">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl font-light text-ocean mb-4">
+                Meet Your Hosts
+              </h2>
+              <p className="text-lg text-sky">Australia's Leading Biohackers</p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+              {/* Camilla Thompson */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
+                className="text-center"
               >
-                <h2 className="text-3xl md:text-4xl font-montserrat font-light mb-12">
-                  You'll Leave This Retreat Feeling...
-                </h2>
-                
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                  {['Clearer', 'Calmer', 'Energised', 'Empowered', 'Connected', 'Revitalised'].map((feeling, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="bg-white/10 backdrop-blur rounded-2xl p-6 flex items-center justify-center"
-                    >
-                      <span className="text-2xl font-medium">{feeling}</span>
-                    </motion.div>
-                  ))}
+                <div className="mb-6 overflow-hidden rounded-2xl shadow-xl">
+                  <img
+                    src="/Images retreat Revivo/camilla.webp"
+                    alt="Camilla Thompson - Biohacker & Wellness Expert"
+                    className="w-full h-auto object-cover"
+                    loading="lazy"
+                  />
                 </div>
+                <h3 className="text-2xl font-semibold text-ocean mb-2">Camilla Thompson</h3>
+                <p className="text-sky mb-4">Biohacker & Wellness Expert</p>
+                <p className="text-ocean/80 text-sm leading-relaxed">
+                  Camilla is a leading Australian biohacker, health coach, and author passionate about
+                  helping women optimise their health and longevity. With expertise in functional medicine,
+                  nutrition, and cutting-edge biohacking techniques, she empowers her clients to take
+                  control of their wellness journey.
+                </p>
+              </motion.div>
 
-                <p className="text-xl text-white/90 leading-relaxed">
-                  Plus, you'll have practical tools, personalised insights, and a supportive community 
-                  to maintain your transformation long after you return home.
+              {/* Azra Alagic */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="mb-6 overflow-hidden rounded-2xl shadow-xl">
+                  <img
+                    src="/Images retreat Revivo/Azra-81.jpg"
+                    alt="Azra Alagic - Longevity & Performance Coach"
+                    className="w-full h-auto object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 className="text-2xl font-semibold text-ocean mb-2">Azra Alagic</h3>
+                <p className="text-sky mb-4">Longevity & Performance Coach</p>
+                <p className="text-ocean/80 text-sm leading-relaxed">
+                  Azra is a certified longevity and performance coach specializing in helping women
+                  unlock their full potential through science-backed wellness strategies. Her holistic
+                  approach combines ancient wisdom with modern biohacking to create transformative
+                  experiences that optimize health, energy, and vitality.
                 </p>
               </motion.div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Testimonials Section */}
-          <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-ice to-cloud">
-            <div className="max-w-4xl mx-auto">
+        {/* Upcoming Retreat */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-light text-ocean mb-4">
+                Upcoming Retreat - REVIVO Bali
+              </h2>
+              <p className="text-xl text-sky">5 Nights | May 1-6, 2026</p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="text-center mb-12"
               >
-                <h2 className="text-3xl md:text-4xl font-montserrat font-light text-ocean mb-8">
-                  What Our Retreat Participants Say
-                </h2>
+                <img
+                  src="/Images retreat Revivo/DD Retreat.jpg"
+                  alt="Winner - Best Group Retreat of the Year 2025"
+                  className="w-full rounded-2xl shadow-xl"
+                  loading="lazy"
+                />
               </motion.div>
 
-              <div className="grid md:grid-cols-1 gap-8">
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="space-y-4 text-ocean/90"
+              >
+                <p className="text-base leading-relaxed">
+                  Fresh from winning <strong className="text-ocean">Best Group Retreat of the Year 2025</strong> at the Destination Deluxe Awards, the Live Well Longer Retreat returns to Bali for its next transformative women's-only experience.
+                </p>
+                <p className="text-base leading-relaxed">
+                  Join Australia's leading biohackers, <strong className="text-ocean">Camilla Thompson</strong> and{' '}
+                  <strong className="text-ocean">Azra Alagic</strong>, for an exclusive women's-only longevity retreat at the award-winning REVIVO Wellness Resort (16 guests only).
+                </p>
+                <p className="text-base leading-relaxed">
+                  Immerse yourself in a personalised longevity retreat crafted to restore balance, boost vitality, and support a longer, healthier life. This retreat blends ancient therapies and wisdom with modern biohacking science.
+                </p>
+                <div className="bg-ice border border-ocean/20 rounded-xl p-6 mt-6">
+                  <div className="text-sm text-sky mb-2">Investment</div>
+                  <div className="text-3xl font-semibold text-ocean mb-1">From $5,500 AUD</div>
+                  <div className="text-sm text-ocean/70">All inclusive (Flights and functional testing not included)</div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <a
+                href="https://www.livewelllongerretreats.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-ocean hover:bg-ocean/90 text-white px-6 py-3 rounded-full font-medium text-base transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                Visit Website For More Info
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ice/30 to-white">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-light text-ocean mb-4">
+                What Our Guests Say
+              </h2>
+            </motion.div>
+
+            <TestimonialSlider />
+          </div>
+        </section>
+
+        {/* Retreat Highlights */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-light text-ocean mb-4">
+                Retreat Highlights (Inclusive)
+              </h2>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+              {[
+                "Exclusive women-only retreat for just 16 guests",
+                "Luxury 5-star accommodation",
+                "Half board: Wholefood meals - breakfast & dinner",
+                "Airport transfers to/from Ngurah Rai International Airport",
+                "Full moon ceremony",
+                "Conscious breathwork class",
+                "Hack your hormones session",
+                "One MOVEŌ class each day - Yin or Yang",
+                "Daily biohacking workshops blending science with practical tools",
+                "60-minute private coaching session with Azra (Value $300)",
+                "1:1 consultation with Doctor from Cocoon Medical",
+                "2 x spa treatments included",
+                "Contrast therapy and access to gym"
+              ].map((item, index) => (
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
+                  key={index}
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
                   viewport={{ once: true }}
-                  className="bg-white/80 backdrop-blur rounded-2xl p-8 shadow-lg text-center"
+                  className="flex items-start gap-3 bg-ice/50 rounded-lg p-4"
                 >
-                  <blockquote className="text-lg text-gray-700 leading-relaxed mb-6 italic">
-                    "I wish every woman in my life had the opportunity to do one of these retreats with Camilla and Azra. It was a perfect blend of spirituality, science, relaxation and girl time! Camilla and Azra had obviously put so much thought into all aspects of the retreat and it really showed in how much we learnt and the positivity and encouragement everyone felt upon heading home. I cant reccommend it highly enough."
-                  </blockquote>
-                  <div className="text-ocean font-semibold text-lg">
-                    Rachel Comty
-                  </div>
-                  <div className="text-gray-500 text-sm">
-                    Live Well Longer Retreat Participant
-                  </div>
+                  <CheckCircle className="w-5 h-5 text-ocean flex-shrink-0 mt-0.5" />
+                  <span className="text-sm text-ocean">{item}</span>
                 </motion.div>
-              </div>
+              ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Call to Action */}
-          <section className="py-20 px-4 sm:px-6 lg:px-8 text-center">
-            <div className="max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="bg-gradient-to-br from-ice to-white rounded-3xl p-12 text-center shadow-2xl border border-ocean/10"
+        {/* Final CTA */}
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ocean to-sky">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-light text-white mb-6">
+                Ready to Transform Your Health?
+              </h2>
+              <p className="text-xl text-ice mb-10">
+                Limited to 16 guests • May 1-6, 2026 • REVIVO Bali
+              </p>
+              <a
+                href="https://www.livewelllongerretreats.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 bg-white hover:bg-ice text-ocean px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-2xl hover:shadow-xl hover:scale-105"
               >
-                <h2 className="text-3xl md:text-4xl font-bold text-ocean mb-6">
-                  Ready to Transform Your Health?
-                </h2>
-                <p className="text-xl text-gray-700 mb-8">
-                  Join us for transformational biohacking retreats designed to optimise your health and longevity.
-                  Multiple women-only experiences available throughout 2026.
-                </p>
+                Visit Website For More Info
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            </motion.div>
+          </div>
+        </section>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-                  <div className="bg-ocean/10 px-4 py-2 rounded-full">
-                    <span className="text-ocean font-medium">Women's Live Well Longer: May 1-6, 2026</span>
-                  </div>
-                  <div className="bg-ocean/10 px-4 py-2 rounded-full">
-                    <span className="text-ocean font-medium">Mother-Daughter: 2026</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <motion.a
-                    href="https://www.revivoresorts.com/wp-content/uploads/2024/12/BIOHACKING-Retreat-with-Camilla-and-Azra-1.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center bg-gradient-to-r from-ocean to-sky text-white px-8 py-4 rounded-full font-bold text-lg hover:from-ocean/90 hover:to-sky/90 transition-all duration-300 shadow-xl hover:shadow-2xl"
-                  >
-                    WOMEN'S RETREAT INFO
-                    <ExternalLink className="w-5 h-5 ml-2" />
-                  </motion.a>
-
-                  <motion.a
-                    href="https://www.livewelllongerretreats.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center bg-gradient-to-r from-sky to-ocean text-white px-8 py-4 rounded-full font-bold text-lg hover:from-sky/90 hover:to-ocean/90 transition-all duration-300 shadow-xl hover:shadow-2xl"
-                  >
-                    LIVE WELL LONGER RETREAT
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </motion.a>
-                </div>
-                
-                <p className="text-gray-600 mt-6 text-sm">
-                  Questions? Contact us at <a href="mailto:hello@biohackme.com.au" className="text-ocean hover:underline">hello@biohackme.com.au</a>
-                </p>
-              </motion.div>
-            </div>
-          </section>
-        </div>
       </div>
-      
+
       <Footer />
     </>
   );

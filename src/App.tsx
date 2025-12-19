@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useEffect, lazy, Suspense } from 'react'
+import { forceWWWRedirect, setCanonicalURL } from './utils/wwwRedirect'
 
 // Lazy load all pages for better performance
 const HomePage = lazy(() => import('./pages/HomePage'))
@@ -74,14 +75,23 @@ const LoadingFallback = () => (
   </div>
 )
 
-// Component to handle scroll to top on route change
+// Component to handle scroll to top on route change and SEO fixes
 function ScrollToTop() {
   const { pathname } = useLocation()
-  
+
   useEffect(() => {
+    // Scroll to top on route change
     window.scrollTo(0, 0)
+
+    // Set canonical URL for SEO
+    setCanonicalURL()
   }, [pathname])
-  
+
+  // Run www redirect once on mount
+  useEffect(() => {
+    forceWWWRedirect()
+  }, [])
+
   return null
 }
 
