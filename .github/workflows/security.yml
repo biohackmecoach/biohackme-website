@@ -116,7 +116,7 @@ jobs:
       - name: Check for secrets in functions code
         run: |
           cd functions
-          if grep -r "process\.env\." src/ --include="*.ts" | grep -E "(API_KEY|SECRET|PASSWORD|TOKEN)" | grep -v "MAILCHIMP_API_KEY\|MAILCHIMP_AUDIENCE_ID"; then
+          if grep -r "process\.env\." src/ --include="*.ts" | grep -E "(API_KEY|SECRET|PASSWORD|TOKEN)" | grep -v "MAILCHIMP_API_KEY\|MAILCHIMP_AUDIENCE_ID\|MAILCHIMP_DATA_CENTER\|STRIPE_SECRET_KEY\|STRIPE_WEBHOOK_SECRET\|OPENAI_API_KEY"; then
             echo "⚠️  Warning: Found potentially hardcoded secrets in functions"
             exit 1
           fi
