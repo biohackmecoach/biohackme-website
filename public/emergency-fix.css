@@ -1,9 +1,11 @@
 /* EMERGENCY FIX: How We Work Together Images - Perfect Circle Fit */
+/* UPDATED: More specific selectors to avoid affecting carousel images */
 
-/* Target the specific section images for perfect circular fit */
-img[alt="BioHackMe Talks"],
-img[alt="1:1 Coaching"],
-img[alt="Retreats"] {
+/* Target ONLY the specific "How We Work Together" section images for perfect circular fit */
+/* These are the circle containers on the homepage/about page */
+.rounded-full img[alt="BioHackMe Talks"],
+.rounded-full img[alt="1:1 Coaching"],
+.rounded-full img[alt="Retreats"] {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
@@ -32,13 +34,5 @@ img[alt="Retreats"] {
     min-height: 100% !important;
 }
 
-/* Force override using attribute selectors for perfect circle fit */
-[alt*="BioHackMe"],
-[alt*="Coaching"],
-[alt*="Retreats"] {
-    object-fit: cover !important;
-    object-position: center !important;
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 50% !important;
-}
+/* REMOVED: These selectors were too broad and affected carousel images */
+/* Do NOT use attribute selectors like [alt*="BioHackMe"] as they affect other sections */

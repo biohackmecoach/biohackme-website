@@ -40,9 +40,7 @@ const PopupPage = lazy(() => import('./pages/PopupPage'))
 const XeroCallback = lazy(() => import('./pages/XeroCallback'))
 const BiohackingFoundationAssessmentPage = lazy(() => import('./pages/BiohackingFoundationAssessmentPage'))
 const PaymentCheckoutPage = lazy(() => import('./pages/PaymentCheckoutPage'))
-const LeadGenerationPage = lazy(() => import('./pages/LeadGenerationPage'))
 const LeadGenTest = lazy(() => import('./pages/LeadGenTest'))
-const LeadGenSimple = lazy(() => import('./pages/LeadGenSimple'))
 const LeadGenWorking = lazy(() => import('./pages/LeadGenWorking'))
 const PaymentSuccessPage = lazy(() => import('./pages/PaymentSuccessPage'))
 const PaymentCancelledPage = lazy(() => import('./pages/PaymentCancelledPage'))
@@ -112,7 +110,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/app" element={<AppPage />} />
         <Route path="/assessment" element={<BiohackAssessmentPage />} />
-        <Route path="/biohack-assessment" element={<BiohackAssessmentPage />} />
+        <Route path="/biohack-assessment" element={<Navigate to="/assessment" replace />} />
         <Route path="/brain-assessment" element={<BrainAssessmentPage />} />
         <Route path="/sleep-assessment" element={<SleepAssessment />} />
         <Route path="/environment-assessment" element={<EnvironmentAssessment />} />

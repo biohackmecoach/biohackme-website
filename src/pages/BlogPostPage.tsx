@@ -2146,11 +2146,11 @@ export default function BlogPostPage() {
         <meta name="keywords" content={getKeywords(post.category, post.title)} />
         <meta name="author" content="Camilla Arnoldussen" />
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-        <link rel="canonical" href={`https://biohackme.co.nz/blog/${slug}`} />
+        <link rel="canonical" href={`https://www.biohackme.com.au/blog/${slug}`} />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://biohackme.co.nz/blog/${slug}`} />
+        <meta property="og:url" content={`https://www.biohackme.com.au/blog/${slug}`} />
         <meta property="og:title" content={`${post.title} | BiohackMe Blog`} />
         <meta property="og:description" content={getMetaDescription(post.content)} />
         <meta property="og:image" content={post.image} />
@@ -2161,7 +2161,7 @@ export default function BlogPostPage() {
         
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={`https://biohackme.co.nz/blog/${slug}`} />
+        <meta property="twitter:url" content={`https://www.biohackme.com.au/blog/${slug}`} />
         <meta property="twitter:title" content={`${post.title} | BiohackMe Blog`} />
         <meta property="twitter:description" content={getMetaDescription(post.content)} />
         <meta property="twitter:image" content={post.image} />
@@ -2188,25 +2188,25 @@ export default function BlogPostPage() {
             "author": {
               "@type": "Person",
               "name": "Camilla Arnoldussen",
-              "url": "https://biohackme.co.nz/about"
+              "url": "https://www.biohackme.com.au/about"
             },
             "publisher": {
               "@type": "Organization",
               "name": "BiohackMe",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://biohackme.co.nz/logo.png"
+                "url": "https://www.biohackme.com.au/logo.png"
               }
             },
             "mainEntityOfPage": {
               "@type": "WebPage",
-              "@id": `https://biohackme.co.nz/blog/${slug}`
+              "@id": `https://www.biohackme.com.au/blog/${slug}`
             },
             "articleSection": post.category,
             "keywords": getKeywords(post.category, post.title),
             "wordCount": post.content.replace(/<[^>]*>/g, '').split(' ').length,
             "timeRequired": post.readTime,
-            "url": `https://biohackme.co.nz/blog/${slug}`
+            "url": `https://www.biohackme.com.au/blog/${slug}`
           })}
         </script>
       </Helmet>
