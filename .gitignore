@@ -121,3 +121,5 @@ yarn-error.log
 
 # SWC
 .swc
+# Large video files (deployed via Firebase Hosting)
+public/videos/
