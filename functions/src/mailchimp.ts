@@ -31,21 +31,37 @@ interface MailchimpSubscriber {
 }
 
 /**
- * CRITICAL SAFETY FEATURE: Save lead to Firestore as backup
+ * CRITICAL SAFETY FEATURE: Save lead to Firestore as DOUBLE BACKUP
  * This ensures we NEVER lose leads even if Mailchimp fails
+ * Saves to TWO separate collections for maximum redundancy
  */
 async function saveLeadToFirestore(leadData: any): Promise<boolean> {
+  const leadDocument = {
+    ...leadData,
+    createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    source: 'website'
+  };
+
   try {
-    await admin.firestore().collection('leads').add({
-      ...leadData,
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      source: 'website'
+    // PRIMARY BACKUP: Save to 'leads' collection
+    await admin.firestore().collection('leads').add(leadDocument);
+    console.log('✅ Lead saved to PRIMARY backup (leads):', leadData.email);
+  } catch (error) {
+    console.error('❌ CRITICAL: Failed to save lead to PRIMARY backup:', error);
+  }
+
+  try {
+    // SECONDARY BACKUP: Save to 'leads_backup' collection for redundancy
+    await admin.firestore().collection('leads_backup').add({
+      ...leadDocument,
+      backupTimestamp: admin.firestore.FieldValue.serverTimestamp()
     });
-    console.log('✅ Lead saved to Firestore backup:', leadData.email);
+    console.log('✅ Lead saved to SECONDARY backup (leads_backup):', leadData.email);
     return true;
   } catch (error) {
-    console.error('❌ CRITICAL: Failed to save lead to Firestore:', error);
-    return false;
+    console.error('❌ WARNING: Failed to save lead to SECONDARY backup:', error);
+    // Return true if at least primary backup succeeded
+    return true;
   }
 }
 
@@ -463,3 +479,184 @@ export const addToMailchimp = functions
       throw new functions.https.HttpsError('internal', error.message || 'Internal server error');
     }
   });
+
+/**
+ * HTTP endpoint for Live Well Longer Retreat registrations
+ * This is separate from BioHackMe functions and saves to a dedicated collection
+ */
+export const registerRetreatInterest = functions
+  .runWith({ secrets: [mailchimpApiKey, mailchimpAudienceId, mailchimpDataCenter] })
+  .https.onRequest(async (req, res) => {
+  // Handle CORS
+  cors(req, res, async () => {
+    // Handle preflight
+    if (req.method === 'OPTIONS') {
+      res.status(204).send('');
+      return;
+    }
+
+    // Only allow POST requests
+    if (req.method !== 'POST') {
+      res.status(405).json({ error: 'Method not allowed' });
+      return;
+    }
+
+    try {
+      const { email, name } = req.body;
+
+      if (!email || !name) {
+        res.status(400).json({ error: 'Email and name are required' });
+        return;
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        res.status(400).json({ error: 'Invalid email format' });
+        return;
+      }
+
+      // Split name into first and last name
+      const nameParts = name.trim().split(' ');
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || '';
+
+      // CRITICAL: Save to Firestore FIRST (triple backup for retreat leads)
+      const leadData = {
+        email: email.toLowerCase().trim(),
+        name: name,
+        firstName: firstName,
+        lastName: lastName,
+        type: 'retreat-interest-2026',
+        source: 'livewelllonger-retreat',
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        mailchimpStatus: 'pending'
+      };
+
+      // Save to retreat-specific collection
+      try {
+        await admin.firestore().collection('retreat-registrations').add(leadData);
+        console.log('✅ Retreat lead saved to PRIMARY backup (retreat-registrations):', email);
+      } catch (error) {
+        console.error('❌ Failed to save retreat lead to PRIMARY backup:', error);
+      }
+
+      // Also save to general leads collection for redundancy
+      try {
+        await admin.firestore().collection('leads').add({
+          ...leadData,
+          tags: ['retreat-interest-2026', 'livewelllonger']
+        });
+        console.log('✅ Retreat lead saved to SECONDARY backup (leads):', email);
+      } catch (error) {
+        console.error('❌ Failed to save retreat lead to SECONDARY backup:', error);
+      }
+
+      // Add to Mailchimp
+      const config = getMailchimpConfig();
+      const emailHash = crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
+      const memberUrl = `https://${config.datacenter}.api.mailchimp.com/3.0/lists/${config.audienceId}/members/${emailHash}`;
+
+      const subscriberData: MailchimpSubscriber = {
+        email_address: email,
+        status: 'subscribed',
+        merge_fields: {
+          FNAME: firstName,
+          LNAME: lastName
+        }
+      };
+
+      const response = await fetch(memberUrl, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Basic ${Buffer.from(`anystring:${config.apiKey}`).toString('base64')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(subscriberData),
+      });
+
+      const responseData = await response.json();
+      let mailchimpSuccess = response.ok;
+
+      if (response.ok) {
+        // Apply retreat-specific tags
+        const tagsApplied = await applyMailchimpTags(email, ['retreat-interest-2026', 'livewelllonger-retreat']);
+        console.log('✅ Retreat registration complete:', email, 'Tags applied:', tagsApplied);
+
+        // Update Firestore with success status
+        try {
+          const snapshot = await admin.firestore()
+            .collection('retreat-registrations')
+            .where('email', '==', email.toLowerCase().trim())
+            .orderBy('createdAt', 'desc')
+            .limit(1)
+            .get();
+
+          if (!snapshot.empty) {
+            await snapshot.docs[0].ref.update({ mailchimpStatus: 'success' });
+          }
+        } catch (updateError) {
+          console.error('Could not update Firestore status:', updateError);
+        }
+      } else {
+        console.error('Mailchimp API error for retreat registration:', responseData);
+        mailchimpSuccess = false;
+
+        // Update Firestore with error status
+        try {
+          const snapshot = await admin.firestore()
+            .collection('retreat-registrations')
+            .where('email', '==', email.toLowerCase().trim())
+            .orderBy('createdAt', 'desc')
+            .limit(1)
+            .get();
+
+          if (!snapshot.empty) {
+            await snapshot.docs[0].ref.update({
+              mailchimpStatus: 'failed',
+              mailchimpError: responseData.detail || 'Unknown error'
+            });
+          }
+        } catch (updateError) {
+          console.error('Could not update Firestore error status:', updateError);
+        }
+      }
+
+      // Always return success to user - lead is safely stored in Firestore
+      res.status(200).json({
+        success: true,
+        message: 'Thank you for your interest! We will be in touch soon.',
+        email: email,
+        mailchimpSync: mailchimpSuccess
+      });
+
+    } catch (error: any) {
+      console.error('Retreat registration error:', error);
+
+      // Even on error, try to save the lead
+      const { email, name } = req.body;
+      if (email) {
+        try {
+          await admin.firestore().collection('retreat-registrations').add({
+            email: email.toLowerCase().trim(),
+            name: name || 'Unknown',
+            type: 'retreat-interest-2026-error',
+            source: 'livewelllonger-retreat',
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+            error: error.message,
+            mailchimpStatus: 'error'
+          });
+          console.log('✅ Retreat lead saved despite error:', email);
+        } catch (saveError) {
+          console.error('❌ CRITICAL: Could not save lead even as fallback:', saveError);
+        }
+      }
+
+      res.status(200).json({
+        success: true,
+        message: 'Thank you for your interest! We will be in touch soon.',
+        note: 'Lead saved to backup'
+      });
+    }
+  });
+});

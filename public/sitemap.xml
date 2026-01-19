@@ -11,7 +11,7 @@
   <!-- Homepage - Critical for first-page rankings -->
   <url>
     <loc>https://www.biohackme.com.au/</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <mobile:mobile/>
@@ -25,7 +25,7 @@
   <!-- About - High authority page -->
   <url>
     <loc>https://www.biohackme.com.au/about</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <mobile:mobile/>
@@ -38,7 +38,7 @@
   <!-- High-value service pages for ranking -->
   <url>
     <loc>https://www.biohackme.com.au/optimise-your-life</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <mobile:mobile/>
@@ -46,7 +46,7 @@
 
   <url>
     <loc>https://www.biohackme.com.au/masterclass</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <mobile:mobile/>
@@ -54,7 +54,7 @@
 
   <url>
     <loc>https://www.biohackme.com.au/talks</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <mobile:mobile/>
@@ -62,7 +62,7 @@
 
   <url>
     <loc>https://www.biohackme.com.au/retreats</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <mobile:mobile/>
@@ -71,7 +71,7 @@
   <!-- Book page - High commercial value -->
   <url>
     <loc>https://www.biohackme.com.au/my-book</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <mobile:mobile/>
@@ -80,7 +80,7 @@
   <!-- Assessment tools - High engagement -->
   <url>
     <loc>https://www.biohackme.com.au/assessment</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
@@ -88,7 +88,7 @@
 
   <url>
     <loc>https://www.biohackme.com.au/brain-assessment</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
@@ -97,7 +97,7 @@
   <!-- Lead generation - High conversion -->
   <url>
     <loc>https://www.biohackme.com.au/freebie</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <mobile:mobile/>
@@ -106,7 +106,7 @@
   <!-- Content hub for SEO -->
   <url>
     <loc>https://www.biohackme.com.au/blog</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <mobile:mobile/>
@@ -115,7 +115,7 @@
   <!-- Shop - E-commerce -->
   <url>
     <loc>https://www.biohackme.com.au/shop</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
@@ -124,7 +124,7 @@
   <!-- Media and credibility -->
   <url>
     <loc>https://www.biohackme.com.au/media</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
@@ -133,7 +133,7 @@
   <!-- Contact and conversion -->
   <url>
     <loc>https://www.biohackme.com.au/contact</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
@@ -142,7 +142,7 @@
   <!-- Consultancy services -->
   <url>
     <loc>https://www.biohackme.com.au/consultancy</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <mobile:mobile/>
@@ -151,37 +151,27 @@
   <!-- Additional valuable pages -->
   <url>
     <loc>https://www.biohackme.com.au/guide</loc>
-    <lastmod>2025-12-19</lastmod>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <mobile:mobile/>
   </url>
 
-  <!-- Utility pages -->
+  <!-- Privacy & Terms -->
   <url>
-    <loc>https://www.biohackme.com.au/thank-you</loc>
-    <lastmod>2025-12-19</lastmod>
+    <loc>https://www.biohackme.com.au/privacy-policy</loc>
+    <lastmod>2026-01-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <mobile:mobile/>
   </url>
 
-  <!-- Video content with schema -->
   <url>
-    <loc>https://www.biohackme.com.au/</loc>
-    <video:video>
-      <video:thumbnail_loc>https://www.biohackme.com.au/images/video-thumbnail.jpg</video:thumbnail_loc>
-      <video:title>Biohacking with Camilla - Introduction Video</video:title>
-      <video:description>Discover evidence-based biohacking strategies for health optimization with Australia's leading expert Camilla Thompson</video:description>
-      <video:content_loc>https://www.biohackme.com.au/videos/day1-compile-v5a.mp4</video:content_loc>
-      <video:duration>180</video:duration>
-      <video:publication_date>2024-12-01T00:00:00+00:00</video:publication_date>
-      <video:tag>biohacking</video:tag>
-      <video:tag>health optimization</video:tag>
-      <video:tag>wellness Australia</video:tag>
-      <video:category>Health &amp; Wellness</video:category>
-      <video:family_friendly>yes</video:family_friendly>
-    </video:video>
+    <loc>https://www.biohackme.com.au/terms-of-service</loc>
+    <lastmod>2026-01-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <mobile:mobile/>
   </url>
 
 </urlset>

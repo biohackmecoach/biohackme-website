@@ -112,12 +112,12 @@ export default function CoachingPage() {
         <meta property="og:title" content="Optimise Your Life | Personalised Biohacking Program" />
         <meta property="og:description" content="Australia's personalised biohacking program with DNA testing, custom protocols, and expert coaching for optimal health & longevity." />
         <meta property="og:type" content="product" />
-        <meta property="og:url" content="https://biohackme.com.au/superchargeyourlife" />
-        <meta property="og:image" content="https://biohackme.com.au/coaching-program-preview.jpg" />
+        <meta property="og:url" content="https://www.biohackme.com.au/superchargeyourlife" />
+        <meta property="og:image" content="https://www.biohackme.com.au/coaching-program-preview.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Optimise Your Life | Personalised Biohacking Program" />
         <meta name="twitter:description" content="Transform your health with personalised biohacking coaching, DNA testing, and custom protocols." />
-        <link rel="canonical" href="https://biohackme.com.au/superchargeyourlife" />
+        <link rel="canonical" href="https://www.biohackme.com.au/superchargeyourlife" />
         
         {/* Schema markup for Service */}
         <script type="application/ld+json">

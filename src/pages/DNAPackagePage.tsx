@@ -326,6 +326,8 @@ export default function DNAPackagePage() {
               <blockquote className="text-lg text-charcoal/80 italic leading-relaxed mb-6">
                 "After years of unexplained health issues and inflammation following mould exposure, genetic testing finally gave me answers. I discovered I carry the HLA-DR mould gene, plus COMT and PEMT variants affecting my oestrogen metabolism and choline production.
                 <br /><br />
+                I also found out I have an <strong className="text-ocean not-italic">MTHFR variant</strong>, which means my body struggles to detoxify properly. This was a game-changer — it explained why I was so sensitive to environmental toxins and why standard supplements weren't working for me. I needed specific methylated forms of B vitamins that my body could actually use.
+                <br /><br />
                 Understanding my genetic variants allowed me to create a targeted protocol that actually worked for my body. Today, at 48, my biological age is 38 and I'm in the top percentile for low inflammation.
                 <br /><br />
                 If you've tried everything and nothing's working, your genes might hold the missing piece."

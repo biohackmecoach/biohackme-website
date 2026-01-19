@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Play, Clock, Users, Star, Check, Lock, ChevronDown, ChevronUp, BookOpen, CreditCard } from 'lucide-react'
+import { Play, Clock, Users, Star, Check, Lock, ChevronDown, ChevronUp, BookOpen, CreditCard, Shield, Zap, Award } from 'lucide-react'
 import { masterclasses, biohackingPillars } from '../data/masterclasses'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -11,6 +12,24 @@ import SevenPillarsAssessment from '../components/SevenPillarsAssessment'
 export default function MasterclassPage() {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [expandedModules, setExpandedModules] = useState<{[key: string]: boolean}>({})
+
+  // Countdown timer for urgency
+  const [timeLeft, setTimeLeft] = useState({ days: 3, hours: 12, minutes: 45, seconds: 0 })
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        let { days, hours, minutes, seconds } = prev
+        seconds--
+        if (seconds < 0) { seconds = 59; minutes-- }
+        if (minutes < 0) { minutes = 59; hours-- }
+        if (hours < 0) { hours = 23; days-- }
+        if (days < 0) { days = 0; hours = 0; minutes = 0; seconds = 0 }
+        return { days, hours, minutes, seconds }
+      })
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [])
 
   const availableMasterclasses = masterclasses.filter(m => m.status === 'available')
   const brainMasterclass = masterclasses.find(m => m.id === 'biohack-brain')
@@ -41,10 +60,20 @@ export default function MasterclassPage() {
 
   return (
     <>
+      <Helmet>
+        <title>Biohacking Basics Masterclass $27 | Learn the 7-Pillar Framework | BiohackMe</title>
+        <meta name="description" content="Learn the 7-Pillar Framework to future-proof your health in just 30 minutes. Biohacking Basics Masterclass by Camilla Thompson - Australia's leading biohacking coach. Launch price $27 (normally $97)." />
+        <link rel="canonical" href="https://www.biohackme.com.au/masterclass" />
+        <meta property="og:title" content="Biohacking Basics Masterclass - $27 Launch Offer" />
+        <meta property="og:description" content="Learn the 7-Pillar Framework to future-proof your health in just 30 minutes. Launch price $27." />
+        <meta property="og:url" content="https://www.biohackme.com.au/masterclass" />
+        <meta property="og:type" content="product" />
+        <meta name="robots" content="index, follow" />
+      </Helmet>
       <Header />
       <div className="min-h-screen bg-cloud">
-      {/* Header Section */}
-      <section className="relative bg-gradient-to-br from-ocean to-sky text-white min-h-[60vh] flex items-center overflow-hidden">
+      {/* Header Section - Focused on the ONE available masterclass */}
+      <section className="relative bg-gradient-to-br from-ocean to-sky text-white min-h-[70vh] flex items-center overflow-hidden">
         {/* Biohacking Framework Background */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -60,39 +89,96 @@ export default function MasterclassPage() {
           </div>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 pt-20 sm:pt-24 md:pt-32 lg:pt-52 pb-16 text-center">
-          <motion.h1 
+        <div className="relative z-10 container mx-auto px-4 pt-20 sm:pt-24 md:pt-32 lg:pt-40 pb-16 text-center">
+          {/* Launch Offer Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="inline-block mb-6"
+          >
+            <span className="bg-white text-ocean px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide">
+              Launch Special - Save $70!
+            </span>
+          </motion.div>
+
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-8"
+            className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-4"
           >
-            Biohacking Masterclasses
+            Biohacking Basics Masterclass
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
             className="text-xl md:text-2xl mb-6 leading-relaxed max-w-3xl mx-auto"
           >
-            Master the 8-Pillar Framework to future-proof your health and optimise your life.
+            Learn the 7-Pillar Framework to future-proof your health in just 30 minutes
           </motion.p>
 
-          <motion.p
+          {/* Price Display */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="mb-6"
+          >
+            <div className="flex items-center justify-center gap-4">
+              <span className="text-4xl md:text-5xl font-bold">$27</span>
+              <span className="text-2xl text-white/60 line-through">$97</span>
+              <span className="text-lg text-white/80">AUD</span>
+            </div>
+            <p className="text-white/80 mt-2">One-time payment • Lifetime access • 30-day guarantee</p>
+          </motion.div>
+
+          {/* Countdown Timer */}
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-xl md:text-2xl mb-12 leading-relaxed max-w-3xl mx-auto"
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="mb-8"
           >
-            Transform your sleep, mood, body, environment, energy, relationships, health, and brain.
-          </motion.p>
+            <p className="text-sm text-white/80 mb-3">Launch price ends in:</p>
+            <div className="flex justify-center gap-3">
+              {[
+                { value: timeLeft.days, label: 'Days' },
+                { value: timeLeft.hours, label: 'Hours' },
+                { value: timeLeft.minutes, label: 'Mins' },
+                { value: timeLeft.seconds, label: 'Secs' }
+              ].map((item, i) => (
+                <div key={i} className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2 min-w-[70px]">
+                  <div className="text-2xl font-bold">{String(item.value).padStart(2, '0')}</div>
+                  <div className="text-xs text-white/80">{item.label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
 
+          {/* Primary CTA */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6"
+          >
+            <button
+              onClick={() => window.location.href = import.meta.env.VITE_STRIPE_PAYMENT_LINK}
+              className="bg-white hover:bg-ice text-ocean px-10 py-5 rounded-full font-bold text-xl shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center transform hover:scale-105"
+            >
+              <Zap className="mr-2 w-6 h-6" />
+              Get Instant Access - $27
+            </button>
+          </motion.div>
+
+          {/* Secondary CTA */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.6 }}
           >
             <button
               onClick={() => {
@@ -101,36 +187,31 @@ export default function MasterclassPage() {
                   videoElement.scrollIntoView({ behavior: 'smooth' })
                 }
               }}
-              className="bg-white text-ocean px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
+              className="text-white/90 hover:text-white underline text-lg transition-colors"
             >
-              <Play className="mr-2 w-5 h-5" />
-              Watch Preview
-            </button>
-            <button
-              onClick={() => {
-                const coursesElement = document.getElementById('available-masterclasses')
-                if (coursesElement) {
-                  coursesElement.scrollIntoView({ behavior: 'smooth' })
-                }
-              }}
-              className="border-2 border-white text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-white hover:text-ocean transition-all duration-300"
-            >
-              View All Courses
+              Watch free preview first
             </button>
           </motion.div>
 
-          {/* Educational Content Disclaimer */}
+          {/* Trust Badges */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.6 }}
-            className="bg-white/20 backdrop-blur-sm rounded-xl p-4 mb-8 border border-white/30 max-w-4xl mx-auto"
+            className="flex flex-wrap justify-center gap-6 mt-8 text-sm text-white/80"
           >
-            <p className="text-sm text-white/90 leading-relaxed">
-              <strong>Educational Content Disclaimer:</strong> These masterclasses are for educational purposes only and do not constitute medical advice. 
-              Content is not intended to diagnose, treat, cure, or prevent any disease. Always consult with qualified healthcare professionals 
-              before implementing health strategies or making changes to your wellness routine.
-            </p>
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5" />
+              <span>30-Day Money Back</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="w-5 h-5" />
+              <span>30 Min Masterclass</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Award className="w-5 h-5" />
+              <span>Certificate Included</span>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -175,54 +256,51 @@ export default function MasterclassPage() {
         </div>
       </section>
 
-      {/* Free 8-Pillar Assessment Section - Compact */}
-      <section className="py-12 bg-gradient-to-r from-ice to-cloud">
+      {/* Who Is This For Section */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="max-w-3xl mx-auto text-center"
+            className="max-w-4xl mx-auto"
           >
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-sky/20">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-ocean to-sky rounded-full mb-4">
-                <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-              <h2 className="text-2xl font-bold text-ocean mb-3">
-                Take the 8 Biohacking Pillar Assessment FREE
-              </h2>
-              <p className="text-base text-charcoal/80 leading-relaxed mb-4">
-                Discover your current health baseline across all 8 pillars of biohacking. Get personalised recommendations in just 2 minutes.
-              </p>
+            <h2 className="text-3xl md:text-4xl font-montserrat font-light text-ocean mb-8 text-center">
+              This Masterclass Is Perfect For You If...
+            </h2>
 
-              <div className="flex justify-center items-center gap-6 mb-4 text-sm">
-                <div className="flex items-center text-ocean">
-                  <Check className="w-4 h-4 mr-1" />
-                  <span>2-minute assessment</span>
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              {[
+                "You're overwhelmed by conflicting health advice and don't know where to start",
+                "You want more energy but don't have hours to spend on complex routines",
+                "You're curious about biohacking but find most content too technical",
+                "You want science-backed strategies that actually work (not fads)",
+                "You're ready to take control of your health in just 30 minutes",
+                "You want a clear framework you can follow, not random tips"
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-3 bg-ice/50 rounded-xl p-4">
+                  <Check className="w-6 h-6 text-ocean flex-shrink-0 mt-0.5" />
+                  <span className="text-charcoal/80">{item}</span>
                 </div>
-                <div className="flex items-center text-ocean">
-                  <Check className="w-4 h-4 mr-1" />
-                  <span>Instant results</span>
-                </div>
-                <div className="flex items-center text-ocean">
-                  <Check className="w-4 h-4 mr-1" />
-                  <span>100% FREE</span>
-                </div>
-              </div>
+              ))}
+            </div>
 
-              <Link
-                to="/biohack-assessment"
-                className="inline-block bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+            {/* CTA in section */}
+            <div className="text-center">
+              <button
+                onClick={() => window.location.href = import.meta.env.VITE_STRIPE_PAYMENT_LINK}
+                className="bg-gradient-to-r from-ocean to-sky hover:from-sky hover:to-ocean text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center"
               >
-                Start Your FREE Assessment Now
-              </Link>
+                <Zap className="mr-2 w-5 h-5" />
+                Yes! I Want This - $27
+              </button>
+              <p className="text-sm text-charcoal/60 mt-3">30-day money-back guarantee • No risk</p>
             </div>
           </motion.div>
         </div>
       </section>
+
 
       {/* Available Masterclasses */}
       {availableMasterclasses.length > 0 && (
@@ -737,84 +815,36 @@ export default function MasterclassPage() {
         </section>
       )}
 
-      {/* Coming Soon Masterclasses */}
-      <section className="py-20">
+      {/* Coming Soon - Simplified Preview */}
+      <section className="py-12 bg-charcoal/5">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-montserrat font-light text-ocean mb-4"
-            >
-              Coming Soon
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-xl text-charcoal/80 max-w-2xl mx-auto"
-            >
-              Deep-dive masterclasses for each pillar of the biohacking framework
-            </motion.p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h2 className="text-2xl md:text-3xl font-montserrat font-light text-ocean mb-4">
+              More Masterclasses Coming Soon
+            </h2>
+            <p className="text-charcoal/70 mb-6">
+              Deep-dive into each pillar: Sleep, Brain, Mood, Energy, Body, Environment & more
+            </p>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {comingSoonMasterclasses.map((masterclass, index) => (
-              <motion.div
-                key={masterclass.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
-              >
-                {/* Image/Video Placeholder */}
-                <div className="aspect-video bg-gradient-to-br from-ice to-sky/20 flex items-center justify-center relative">
-                  <div className="w-16 h-16 bg-ocean/20 rounded-full flex items-center justify-center">
-                    <Lock className="w-8 h-8 text-ocean" />
-                  </div>
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-sky text-white px-3 py-1 rounded-full text-sm font-medium">
-                      Coming Soon
-                    </span>
-                  </div>
-                </div>
+            {/* Simple grid of coming topics */}
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              {['Sleep', 'Brain', 'Mood', 'Energy', 'Body', 'Environment', 'Relationships', 'Health'].map((topic, i) => (
+                <span key={i} className="bg-white px-4 py-2 rounded-full text-sm text-ocean border border-ocean/20">
+                  {topic}
+                </span>
+              ))}
+            </div>
 
-                <div className="p-6">
-                  <h3 className="text-xl font-montserrat font-light text-ocean mb-2">
-                    {masterclass.title}
-                  </h3>
-                  <p className="text-charcoal/70 mb-4 line-clamp-3">
-                    {masterclass.description}
-                  </p>
-
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center text-charcoal/60">
-                      <Clock className="w-4 h-4 mr-1" />
-                      <span className="text-sm">{masterclass.duration}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="text-lg font-bold text-ocean">
-                        ${masterclass.price} {masterclass.currency}
-                      </div>
-                      {masterclass.regularPrice && masterclass.regularPrice > masterclass.price && (
-                        <div className="text-sm text-charcoal/50 line-through">
-                          ${masterclass.regularPrice} {masterclass.currency}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <button className="w-full bg-gradient-to-r from-sky/20 to-ice text-ocean py-3 rounded-full font-medium text-lg hover:from-sky/30 hover:to-ice transition-all duration-300">
-                    Notify Me
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+            <p className="text-sm text-charcoal/60">
+              Get the Basics Masterclass now and be first to access advanced courses when they launch
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -902,22 +932,44 @@ export default function MasterclassPage() {
         </div>
       </section>
 
-      {/* Masterclass Pre-registration Section */}
-      <section className="py-20 bg-ice">
+      {/* Final CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-ocean to-sky text-white">
         <div className="container mx-auto px-4">
-          <motion.h2
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-montserrat font-light text-ocean mb-12 text-center"
+            className="max-w-3xl mx-auto text-center"
           >
-            Be the First to Know
-          </motion.h2>
+            <h2 className="text-3xl md:text-4xl font-montserrat font-light mb-4">
+              Ready to Future-Proof Your Health?
+            </h2>
+            <p className="text-xl text-white/90 mb-6">
+              Join hundreds of Australians who've transformed their health with the 7-Pillar Framework
+            </p>
 
-          <div className="max-w-md mx-auto">
-            <MasterclassPreregister />
-          </div>
+            {/* Price reminder */}
+            <div className="mb-8">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                <span className="text-4xl font-bold">$27</span>
+                <span className="text-xl text-white/60 line-through">$97</span>
+              </div>
+              <p className="text-white/80">Launch price • 30-day money-back guarantee</p>
+            </div>
+
+            <button
+              onClick={() => window.location.href = import.meta.env.VITE_STRIPE_PAYMENT_LINK}
+              className="bg-white hover:bg-ice text-ocean px-12 py-5 rounded-full font-bold text-xl shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center transform hover:scale-105"
+            >
+              <Zap className="mr-2 w-6 h-6" />
+              Get Instant Access Now
+            </button>
+
+            <p className="text-sm text-white/70 mt-6">
+              Instant access • Watch anytime • Keep forever
+            </p>
+          </motion.div>
         </div>
       </section>
 

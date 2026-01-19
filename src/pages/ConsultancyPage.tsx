@@ -119,7 +119,7 @@ export default function ConsultancyPage() {
             "@type": "ProfessionalService",
             "name": "BiohackMe Partners",
             "description": "Luxury wellness consultancy for hotels, airlines and corporations",
-            "url": "https://biohackme.com.au/consultancy",
+            "url": "https://www.biohackme.com.au/consultancy",
             "serviceType": "Wellness Consultancy",
             "areaServed": ["Australia", "Asia Pacific", "Global"],
             "address": {

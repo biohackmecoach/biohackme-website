@@ -14,7 +14,8 @@ export default function BookPage() {
         <meta property="og:title" content="BiohackMe: The Complete Guide to Optimizing Your Health" />
         <meta property="og:description" content="The definitive guide to biohacking your health with science-backed strategies and personalised protocols." />
         <meta property="og:type" content="book" />
-        <meta property="og:url" content="https://biohackme.co.nz/my-book" />
+        <meta property="og:url" content="https://www.biohackme.com.au/my-book" />
+        <link rel="canonical" href="https://www.biohackme.com.au/my-book" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="BiohackMe: The Complete Guide to Optimizing Your Health" />
         <meta name="twitter:description" content="Transform your health with evidence-based biohacking strategies and personalised protocols." />
@@ -50,17 +51,15 @@ export default function BookPage() {
               No fluff, no extremes—just practical strategies to help you optimise your body, mind, and energy levels.
             </p>
 
-            <div className="flex justify-center mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-end mb-8">
               <a
                 href="https://www.amazon.com.au/Biohack-Me-Practical-Everyday-Longevity/dp/1394334036"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center"
+                className="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-ocean transition-all duration-300"
               >
                 Buy on Amazon
               </a>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
               <a
                 href="https://www.booktopia.com.au/search.ep?keywords=biohack+me+camilla+thompson"
                 target="_blank"
@@ -69,6 +68,11 @@ export default function BookPage() {
               >
                 Buy on Booktopia
               </a>
+              <img
+                src="/images/Book award/ABBA_Winner & Finalist Stickers_41x41_2025_Bleed14.jpg"
+                alt="Australian Business Book Awards 2025 Finalist - Health and Wellbeing"
+                className="h-28 w-auto rounded shadow-lg"
+              />
             </div>
           </motion.div>
         </div>
@@ -85,9 +89,9 @@ export default function BookPage() {
           <div className="grid lg:grid-cols-2 gap-6 md:gap-12 items-center max-w-6xl mx-auto">
             {/* Book Image - Left Side */}
             <div className="text-center lg:text-left">
-              <img 
-                src="https://static.wixstatic.com/media/f5168e_07fd3756f95c42368f72e5a6556609a0~mv2.png/v1/fill/w_410,h_607,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Render%201%20(FRONT)%20-%20No%20Background_PNG.png" 
-                alt="BiohackMe Book Cover" 
+              <img
+                src="https://static.wixstatic.com/media/f5168e_07fd3756f95c42368f72e5a6556609a0~mv2.png/v1/fill/w_410,h_607,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Render%201%20(FRONT)%20-%20No%20Background_PNG.png"
+                alt="BiohackMe Book Cover"
                 className="w-full max-w-sm mx-auto lg:mx-0"
               />
             </div>
@@ -110,20 +114,20 @@ export default function BookPage() {
               {/* Multi-Channel Purchase Options */}
               <div className="text-center lg:text-left px-4 lg:px-0">
                 <h3 className="text-lg font-medium text-ocean mb-4">Available Globally:</h3>
-                <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                  <a 
-                    href="https://www.amazon.com.au/Biohack-Me-Practical-Everyday-Longevity/dp/1394334036?crid=9IG03P4KA7QX&dib=eyJ2IjoiMSJ9.GbADeTF-Z6mlbHKDu_sPD12vKrYEnrKRiF3xEN6ACpZNCOKPco-ARqaxSfeDVRxoaHDzjawtoeary6jq6GT9Zg3UOCkSDN3BdBUxEUoIV3Qa2ABQoW_lVoSGWtPZi_hjICN4ZWMGyzfdm0IGGYgFgZnJPgqCiDvx4spybI7OSSVv1MplYI92JONRL2wgJTYOHc02V7g0yJku50QscBNleb6FIGanwCWEA8dQCwIxdj8lDABQ_Tx-KnIhTOAZ6ZTQY0dlM3pB3eRVzh6eJY1iOsuwNrdPXWLrP8HEtNJsbZG4I72qy5aX9_BI7JrXjD7J1zRyD56OHLXLPv_6Se1TLUpaRkcNUyNcPQhwO2WrpZvfPuFf3KKLgUBM2BJdsjt8yiw6FTOXV_xJLyOdDdYK4KFnhxGce5XeAdujWr4Iz-nmKC4JZp-waj-kpOl6Tbd3.VrDS1MdxB0GyJG9xem2dIRfmB3uLiHcSddzJdAkann0&dib_tag=se&keywords=biohack+me&qid=1738561296&sprefix=biohack+me,aps,653&sr=8-1&linkCode=sl1&tag=camillathomps-22&linkId=ba1a4ce7f6279d3631a2290c8e274fb2&language=en_AU&ref_=as_li_ss_tl"
+                <div style={{ display: 'flex', flexDirection: 'row', gap: '12px', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <a
+                    href="https://www.amazon.com.au/Biohack-Me-Practical-Everyday-Longevity/dp/1394334036"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium shadow-xl hover:shadow-2xl transition-all duration-300 inline-flex items-center justify-center"
+                    style={{ display: 'inline-block', padding: '12px 24px', borderRadius: '9999px', backgroundColor: '#022D4E', color: 'white', fontWeight: 500, textDecoration: 'none', whiteSpace: 'nowrap' }}
                   >
                     Buy on Amazon
                   </a>
-                  <a 
+                  <a
                     href="https://www.booktopia.com.au/search.ep?keywords=biohack+me+camilla+thompson"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-gradient-to-r from-sky to-ocean text-white px-6 py-3 rounded-full font-medium shadow-xl hover:shadow-2xl transition-all duration-300 inline-flex items-center justify-center"
+                    style={{ display: 'inline-block', padding: '12px 24px', borderRadius: '9999px', backgroundColor: '#0A4A6E', color: 'white', fontWeight: 500, textDecoration: 'none', whiteSpace: 'nowrap' }}
                   >
                     Buy on Booktopia
                   </a>

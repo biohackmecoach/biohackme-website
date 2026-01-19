@@ -89,12 +89,12 @@ export default function FreebiePage() {
         <meta property="og:title" content="Free Biohacking Guide | Ultimate Biohacker's Starter Kit" />
         <meta property="og:description" content="Download your FREE comprehensive biohacking guide with top 10 biohacks, budget strategies, and technologies to optimize your health." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://biohackme.com.au/freebie" />
-        <meta property="og:image" content="https://biohackme.com.au/biohacking-guide-preview.jpg" />
+        <meta property="og:url" content="https://www.biohackme.com.au/freebie" />
+        <meta property="og:image" content="https://www.biohackme.com.au/biohacking-guide-preview.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Free Biohacking Guide | Ultimate Biohacker's Starter Kit" />
         <meta name="twitter:description" content="Get instant access to the ultimate biohacker's starter kit with top 10 biohacks and budget-friendly strategies." />
-        <link rel="canonical" href="https://biohackme.com.au/freebie" />
+        <link rel="canonical" href="https://www.biohackme.com.au/freebie" />
         
         {/* Schema markup for Freebie */}
         <script type="application/ld+json">
@@ -111,7 +111,7 @@ export default function FreebiePage() {
             "publisher": {
               "@type": "Organization",
               "name": "BiohackMe",
-              "url": "https://biohackme.com.au"
+              "url": "https://www.biohackme.com.au"
             },
             "datePublished": "2024-12-01",
             "inLanguage": "en-AU",

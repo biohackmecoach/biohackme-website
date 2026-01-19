@@ -6,6 +6,9 @@ export const cors = (req: Request, res: Response, next: () => void) => {
     'https://biohackme.com.au',
     'https://www.biohackme.com.au',
     'https://biohackme-app-379de.web.app',
+    'https://livewelllongerretreats.web.app',
+    'https://www.livewelllongerretreats.com',
+    'https://livewelllongerretreats.com',
     'http://localhost:5173',
     'http://localhost:3000'
   ];

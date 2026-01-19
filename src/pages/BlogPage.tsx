@@ -219,12 +219,12 @@ export default function BlogPage() {
         <meta property="og:title" content="Biohacking Blog | Evidence-Based Health Optimisation Tips" />
         <meta property="og:description" content="Discover science-backed biohacking strategies, supplements, and personalised health tips from Australia's leading expert." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://biohackme.com.au/blog" />
-        <meta property="og:image" content="https://biohackme.com.au/blog-preview.jpg" />
+        <meta property="og:url" content="https://www.biohackme.com.au/blog" />
+        <meta property="og:image" content="https://www.biohackme.com.au/blog-preview.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Biohacking Blog | Evidence-Based Health Optimisation Tips" />
         <meta name="twitter:description" content="Science-backed biohacking strategies and personalised health tips from Australia's leading expert." />
-        <link rel="canonical" href="https://biohackme.com.au/blog" />
+        <link rel="canonical" href="https://www.biohackme.com.au/blog" />
         
         {/* Schema markup for Blog */}
         <script type="application/ld+json">
@@ -233,7 +233,7 @@ export default function BlogPage() {
             "@type": "Blog",
             "name": "BiohackMe Blog",
             "description": "Evidence-based biohacking strategies and health optimisation insights",
-            "url": "https://biohackme.com.au/blog",
+            "url": "https://www.biohackme.com.au/blog",
             "author": {
               "@type": "Person",
               "name": "Camilla Arnoldussen",
@@ -243,20 +243,20 @@ export default function BlogPage() {
             "publisher": {
               "@type": "Organization",
               "name": "BiohackMe",
-              "url": "https://biohackme.com.au"
+              "url": "https://www.biohackme.com.au"
             },
             "inLanguage": "en-AU",
             "blogPost": [
               {
                 "@type": "BlogPosting",
                 "headline": "Your Health Isn't a Mystery—It Just Hasn't Been Personalised",
-                "url": "https://biohackme.com.au/blog/health-personalisation",
+                "url": "https://www.biohackme.com.au/blog/health-personalisation",
                 "datePublished": "2024-12-15"
               },
               {
                 "@type": "BlogPosting",
                 "headline": "Why I Take Fewer Supplements Than Ever",
-                "url": "https://biohackme.com.au/blog/fewer-supplements",
+                "url": "https://www.biohackme.com.au/blog/fewer-supplements",
                 "datePublished": "2024-12-10"
               }
             ]

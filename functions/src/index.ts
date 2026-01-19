@@ -7,7 +7,7 @@ admin.initializeApp();
 export { generateContent, testOpenAI } from './openai';
 
 // Export Mailchimp functions
-export { subscribeToNewsletter, subscribeToMasterclass, completeAssessment, addToMailchimp } from './mailchimp';
+export { subscribeToNewsletter, subscribeToMasterclass, completeAssessment, addToMailchimp, registerRetreatInterest } from './mailchimp';
 
 // Export Stripe functions
 import { createCheckoutSession, handlePaymentSuccess, getPaymentStatus, downloadPDF } from './stripe';

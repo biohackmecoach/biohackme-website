@@ -27,23 +27,23 @@ export default function HomePage() {
         <meta name="keywords" content="biohacking coach Australia, DNA methylation testing Australia, MTHFR testing Sydney, health optimization Australia, functional medicine Australia, longevity coach Sydney, genetic testing Australia, biohacking Sydney, nutritionist Sydney, COMT gene testing, personalized nutrition Australia, sleep optimization coach, metabolic health coach, biological age testing, epigenetics Australia, performance optimization coach, red light therapy Sydney, contrast therapy, ice bath coaching, breathwork coach Australia, infrared sauna therapy, women's health biohacking, executive health coaching, nationally recognised nutritionist" />
         <meta name="author" content="Camilla Thompson" />
         <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-        <link rel="canonical" href="https://biohackme.com.au/" />
+        <link rel="canonical" href="https://www.biohackme.com.au/" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://biohackme.com.au/" />
+        <meta property="og:url" content="https://www.biohackme.com.au/" />
         <meta property="og:title" content="Biohackme Coach | Biohacking Australia" />
         <meta property="og:description" content="Optimise Your Life One BioHack at a Time with expert biohacking coach Camilla Thompson." />
-        <meta property="og:image" content="https://biohackme.com.au/images/camilla-main-headshot.jpg.webp" />
+        <meta property="og:image" content="https://www.biohackme.com.au/images/camilla-main-headshot.jpg.webp" />
         <meta property="og:site_name" content="BiohackMe" />
         <meta property="og:locale" content="en_AU" />
         
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://biohackme.com.au/" />
+        <meta property="twitter:url" content="https://www.biohackme.com.au/" />
         <meta property="twitter:title" content="Biohackme Coach | Biohacking Australia" />
         <meta property="twitter:description" content="Optimise Your Life One BioHack at a Time with expert biohacking coach Camilla Thompson." />
-        <meta property="twitter:image" content="https://biohackme.com.au/images/camilla-main-headshot.jpg.webp" />
+        <meta property="twitter:image" content="https://www.biohackme.com.au/images/camilla-main-headshot.jpg.webp" />
         <meta property="twitter:site" content="@biohackmecoach" />
         <meta property="twitter:creator" content="@biohackmecoach" />
         
@@ -62,8 +62,8 @@ export default function HomePage() {
             "@type": "LocalBusiness",
             "name": "BiohackMe",
             "description": "Australia's leading biohacking expert and health optimisation specialist",
-            "url": "https://biohackme.com.au",
-            "logo": "https://biohackme.com.au/logo-black.png",
+            "url": "https://www.biohackme.com.au",
+            "logo": "https://www.biohackme.com.au/logo-black.png",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Sydney",
@@ -556,17 +556,14 @@ export default function HomePage() {
               className="relative max-w-4xl mx-auto"
             >
               <div className="relative rounded-lg overflow-hidden shadow-2xl border-4 border-sky/20 bg-gradient-to-br from-ice via-sky/20 to-ocean/30">
-                <video
-                  className="w-full aspect-video bg-gradient-to-br from-ice via-sky/20 to-ocean/30"
-                  controls
-                  preload="metadata"
-                  poster="/images/camilla-main-headshot.jpg.webp"
+                <iframe
+                  className="w-full aspect-video"
+                  src="https://www.youtube.com/embed/b9TMLyX-dpk?start=1"
                   title="Biohacking with Camilla - Introduction Video"
-                  playsInline
-                >
-                  <source src="/videos/day1-compile-v5a.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
               </div>
             </motion.div>
           </div>

@@ -64,7 +64,8 @@ export default function ContactPage() {
         <meta property="og:title" content="Contact | BiohackMe - Get In Touch" />
         <meta property="og:description" content="Contact Camilla for biohacking coaching, speaking engagements, and wellness consultations." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://biohackme.co.nz/contact" />
+        <meta property="og:url" content="https://www.biohackme.com.au/contact" />
+        <link rel="canonical" href="https://www.biohackme.com.au/contact" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="Contact | BiohackMe - Get In Touch" />
         <meta name="twitter:description" content="Contact Camilla for biohacking coaching, speaking engagements, and wellness consultations." />

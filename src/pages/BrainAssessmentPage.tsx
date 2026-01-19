@@ -888,7 +888,7 @@ const BrainAssessmentPage: React.FC = () => {
         <meta property="og:title" content="Brain Optimisation Assessment | BiohackMe Australia" />
         <meta property="og:description" content="Test your brain health and get personalized recommendations for peak cognitive performance." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://biohackme.com.au/brain-assessment" />
+        <link rel="canonical" href="https://www.biohackme.com.au/brain-assessment" />
       </Helmet>
 
       <div style={{

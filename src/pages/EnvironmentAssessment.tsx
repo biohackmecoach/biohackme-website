@@ -823,7 +823,7 @@ const EnvironmentAssessment: React.FC = () => {
         <meta property="og:title" content="Environment Optimisation Assessment | BiohackMe Australia" />
         <meta property="og:description" content="Test your environmental health and get personalized recommendations for creating spaces that support your vitality." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://biohackme.com.au/environment-assessment" />
+        <link rel="canonical" href="https://www.biohackme.com.au/environment-assessment" />
       </Helmet>
 
       <div style={{

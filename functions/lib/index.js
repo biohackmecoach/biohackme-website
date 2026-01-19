@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handlePaymentWebhook = exports.scheduleSession = exports.createUserProfile = exports.createDailyRoom = exports.downloadPDF = exports.getPaymentStatus = exports.handlePaymentSuccess = exports.createCheckoutSession = exports.addToMailchimp = exports.completeAssessment = exports.subscribeToMasterclass = exports.subscribeToNewsletter = exports.testOpenAI = exports.generateContent = void 0;
+exports.handlePaymentWebhook = exports.scheduleSession = exports.createUserProfile = exports.createDailyRoom = exports.downloadPDF = exports.getPaymentStatus = exports.handlePaymentSuccess = exports.createCheckoutSession = exports.registerRetreatInterest = exports.addToMailchimp = exports.completeAssessment = exports.subscribeToMasterclass = exports.subscribeToNewsletter = exports.testOpenAI = exports.generateContent = void 0;
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
@@ -14,6 +14,7 @@ Object.defineProperty(exports, "subscribeToNewsletter", { enumerable: true, get:
 Object.defineProperty(exports, "subscribeToMasterclass", { enumerable: true, get: function () { return mailchimp_1.subscribeToMasterclass; } });
 Object.defineProperty(exports, "completeAssessment", { enumerable: true, get: function () { return mailchimp_1.completeAssessment; } });
 Object.defineProperty(exports, "addToMailchimp", { enumerable: true, get: function () { return mailchimp_1.addToMailchimp; } });
+Object.defineProperty(exports, "registerRetreatInterest", { enumerable: true, get: function () { return mailchimp_1.registerRetreatInterest; } });
 // Export Stripe functions
 const stripe_1 = require("./stripe");
 Object.defineProperty(exports, "createCheckoutSession", { enumerable: true, get: function () { return stripe_1.createCheckoutSession; } });

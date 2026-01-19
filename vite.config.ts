@@ -36,31 +36,26 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // Split React and React DOM into separate chunks
-          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
-            return 'react-vendor';
-          }
-          // Stripe in its own chunk
-          if (id.includes('@stripe/stripe-js')) {
-            return 'stripe-vendor';
-          }
-          // Framer Motion in its own chunk (large animation library)
-          if (id.includes('framer-motion')) {
-            return 'framer-motion-vendor';
-          }
+        manualChunks: {
+          // Keep all React-related packages together
+          'react-vendor': [
+            'react',
+            'react-dom',
+            'react-router-dom',
+            'react-helmet-async',
+            'scheduler'
+          ],
           // Firebase in its own chunk
-          if (id.includes('firebase')) {
-            return 'firebase-vendor';
-          }
-          // Apify/Puppeteer in its own chunk
-          if (id.includes('apify') || id.includes('puppeteer')) {
-            return 'scraper-vendor';
-          }
-          // All other node_modules
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
+          'firebase-vendor': [
+            'firebase/app',
+            'firebase/auth',
+            'firebase/firestore',
+            'firebase/functions',
+            'firebase/storage',
+            'firebase/analytics'
+          ],
+          // Framer Motion
+          'framer-motion-vendor': ['framer-motion']
         },
         // Optimize chunk sizes
         chunkFileNames: 'assets/[name]-[hash].js',

@@ -112,8 +112,8 @@ export default function CoachingPage() {
         <meta property="og:title" content="Optimise Your Life | 3-Month Biohacking Transformation Program" />
         <meta property="og:description" content="Personalised 3-month health transformation with DNA testing, custom biohacking protocols & expert coaching. 8 pillars approach to optimal health & longevity." />
         <meta property="og:type" content="product" />
-        <meta property="og:url" content="https://biohackme.com.au/optimise-your-life" />
-        <meta property="og:image" content="https://biohackme.com.au/coaching-program-preview.jpg" />
+        <meta property="og:url" content="https://www.biohackme.com.au/optimise-your-life" />
+        <meta property="og:image" content="https://www.biohackme.com.au/coaching-program-preview.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Optimise Your Life | 3-Month Health Transformation" />
         <meta name="twitter:description" content="Transform your health in 3 months. DNA testing, custom biohacking protocols, 8 pillars approach. Led by nationally recognised nutritionist." />

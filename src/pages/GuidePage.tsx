@@ -79,12 +79,12 @@ export default function GuidePage() {
         <meta property="og:title" content="Free Biohacking Guide | What if Everything About Ageing is Outdated?" />
         <meta property="og:description" content="Download your FREE guide to defy the traditional limitations of ageing through science-backed biohacking strategies." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://biohackme.com.au/guide" />
-        <meta property="og:image" content="https://biohackme.com.au/biohacking-guide-preview.jpg" />
+        <meta property="og:url" content="https://www.biohackme.com.au/guide" />
+        <meta property="og:image" content="https://www.biohackme.com.au/biohacking-guide-preview.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Free Biohacking Guide | What if Everything About Ageing is Outdated?" />
         <meta name="twitter:description" content="Get instant access to science-backed strategies to defy aging through biohacking." />
-        <link rel="canonical" href="https://biohackme.com.au/guide" />
+        <link rel="canonical" href="https://www.biohackme.com.au/guide" />
 
         {/* Schema markup for Guide */}
         <script type="application/ld+json">
@@ -101,7 +101,7 @@ export default function GuidePage() {
             "publisher": {
               "@type": "Organization",
               "name": "BiohackMe",
-              "url": "https://biohackme.com.au"
+              "url": "https://www.biohackme.com.au"
             },
             "datePublished": "2024-12-01",
             "inLanguage": "en-AU",
