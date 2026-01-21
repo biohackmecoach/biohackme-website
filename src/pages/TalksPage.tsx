@@ -339,7 +339,7 @@ export default function TalksPage() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="relative flex items-start"
             >
-              <div className="w-[500px] h-[500px] rounded-2xl shadow-2xl overflow-hidden relative">
+              <div className="w-full max-w-[500px] aspect-square rounded-2xl shadow-2xl overflow-hidden relative mx-auto">
                 <video
                   ref={videoRef}
                   autoPlay
