@@ -51,7 +51,7 @@ export default function CustomVideoPlayer({
     <div className="relative overflow-hidden rounded-lg shadow-xl group cursor-pointer">
       {/* Video Thumbnail */}
       <div
-        className="relative bg-gradient-to-br from-ocean to-sky aspect-video flex items-center justify-center"
+        className="relative bg-ocean aspect-video flex items-center justify-center"
         onClick={handlePlay}
       >
         {/* Thumbnail Image - if provided */}

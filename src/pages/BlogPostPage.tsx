@@ -2272,7 +2272,7 @@ export default function BlogPostPage() {
                 <ul className="space-y-4">
                   {post.keyTakeaways.map((takeaway: string, index: number) => (
                     <li key={index} className="flex items-start">
-                      <span className="w-2 h-2 bg-gradient-to-r from-ocean to-sky rounded-full mt-3 mr-4 flex-shrink-0"></span>
+                      <span className="w-2 h-2 bg-ocean rounded-full mt-3 mr-4 flex-shrink-0"></span>
                       <span className="text-gray-700 text-lg leading-relaxed">{takeaway}</span>
                     </li>
                   ))}

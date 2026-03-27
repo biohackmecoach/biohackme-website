@@ -8,17 +8,17 @@ export default function DNAPackagePage() {
   return (
     <>
       <Helmet>
-        <title>DNA Methylation Testing Australia $699 | NutriPATH Genetic Test | BioHackMe</title>
-        <meta name="description" content="Unlock your genetic blueprint with DNA methylation testing. Understand MTHFR, COMT & detox genes. NutriPATH lab analysis + personalised health plan. Results consultation included. Test once, use for life. $699 Australia-wide." />
+        <title>DNA Methylation Testing Australia $799 | NutriPATH Genetic Test | BioHackMe</title>
+        <meta name="description" content="Unlock your genetic blueprint with DNA methylation testing. Understand MTHFR, COMT & detox genes. NutriPATH lab analysis + personalised health plan. Results consultation included. Test once, use for life. $799 Australia-wide." />
         <meta name="keywords" content="DNA methylation test Australia, MTHFR testing, COMT gene test, genetic testing Australia, NutriPATH methylation test, detoxification genes, nutrient metabolism genes, genetic health testing, personalised nutrition, epigenetics Australia, functional medicine testing, methylation SNPs, genetic wellness test" />
-        <meta property="og:title" content="DNA Methylation Testing Package $699 | Genetic Health Testing Australia" />
+        <meta property="og:title" content="DNA Methylation Testing Package $799 | Genetic Health Testing Australia" />
         <meta property="og:description" content="Discover how your genes affect nutrient metabolism, detoxification and cellular health. NutriPATH lab test + expert consultation with Camilla." />
         <meta property="og:type" content="product" />
         <meta property="og:url" content="https://www.biohackme.com.au/dna-package" />
-        <meta property="product:price:amount" content="699" />
+        <meta property="product:price:amount" content="799" />
         <meta property="product:price:currency" content="AUD" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="DNA Methylation Testing Australia $699" />
+        <meta name="twitter:title" content="DNA Methylation Testing Australia $799" />
         <meta name="twitter:description" content="Unlock your genetic blueprint. MTHFR, COMT & detox genes. NutriPATH lab + personalised health plan." />
         <link rel="canonical" href="https://www.biohackme.com.au/dna-package" />
         <script type="application/ld+json">
@@ -33,7 +33,7 @@ export default function DNAPackagePage() {
             },
             "offers": {
               "@type": "Offer",
-              "price": "699",
+              "price": "799",
               "priceCurrency": "AUD",
               "availability": "https://schema.org/InStock",
               "url": "https://www.biohackme.com.au/dna-package"
@@ -60,10 +60,10 @@ export default function DNAPackagePage() {
               },
               {
                 "@type": "Question",
-                "name": "What's included in the $699 DNA testing package?",
+                "name": "What's included in the $799 DNA testing package?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "The $699 package includes: NutriPATH Methylation Genetic Test with laboratory analysis, comprehensive analysis of key methylation genes (MTHFR, COMT, detoxification genes), a results consultation with Camilla Thompson, and a personalised health and nutrition plan based on your genetic profile."
+                  "text": "The $799 package includes: NutriPATH Methylation Genetic Test with laboratory analysis, comprehensive analysis of key methylation genes (MTHFR, COMT, detoxification genes), a results consultation with Camilla Thompson, and a personalised health and nutrition plan based on your genetic profile."
                 }
               },
               {
@@ -158,7 +158,7 @@ export default function DNAPackagePage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-ocean via-sky to-ice min-h-[60vh] flex items-center pt-24">
+      <section className="relative bg-ocean min-h-[60vh] flex items-center pt-24">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-32 h-32 border border-white/20 rounded-full"></div>
           <div className="absolute bottom-40 right-20 w-24 h-24 border border-white/20 rounded-full"></div>
@@ -182,7 +182,7 @@ export default function DNAPackagePage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
               <div className="inline-block bg-white rounded-full px-8 py-4 shadow-xl">
-                <p className="text-4xl font-bold text-ocean">$699</p>
+                <p className="text-4xl font-bold text-ocean">$799</p>
               </div>
               <a
                 href="https://buy.stripe.com/4gMaEZ589eWKdW3fHo5Ne07"
@@ -198,8 +198,24 @@ export default function DNAPackagePage() {
         </div>
       </section>
 
+      {/* Book a Call CTA */}
+      <section className="py-10 bg-ice text-center">
+        <div className="container mx-auto px-4">
+          <p className="text-lg text-charcoal/70 mb-4">Not sure if this is for you? Let's chat first.</p>
+          <a
+            href="https://calendly.com/thewellnesscoachsession/15min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center bg-ocean text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:bg-ocean/90 transition-all duration-300"
+          >
+            BOOK A FREE HEALTH OPTIMISATION CALL
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </a>
+        </div>
+      </section>
+
       {/* What's Included */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-ice">
         <div className="container mx-auto px-4 max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -287,7 +303,7 @@ export default function DNAPackagePage() {
                   { step: '6', title: 'Implement & Thrive', desc: 'Follow your customised health protocol' }
                 ].map((item, idx) => (
                   <div key={idx} className="text-center">
-                    <div className="w-16 h-16 bg-gradient-to-r from-ocean to-sky rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-ocean rounded-full flex items-center justify-center mx-auto mb-4">
                       <span className="text-white font-bold text-2xl">{item.step}</span>
                     </div>
                     <h3 className="font-bold text-lg text-charcoal mb-2">{item.title}</h3>
@@ -336,7 +352,7 @@ export default function DNAPackagePage() {
             </div>
 
             {/* CTA Section */}
-            <div className="bg-gradient-to-br from-ocean to-sky rounded-2xl p-8 md:p-12 text-center text-white">
+            <div className="bg-ocean rounded-2xl p-8 md:p-12 text-center text-white">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
                 Ready to Decode Your Methylation Genes?
               </h2>
@@ -345,7 +361,7 @@ export default function DNAPackagePage() {
               </p>
               <div className="flex flex-col md:flex-row items-center justify-center gap-6">
                 <div className="bg-white rounded-2xl px-8 py-6 shadow-xl">
-                  <p className="text-4xl font-bold text-ocean mb-1">$699</p>
+                  <p className="text-4xl font-bold text-ocean mb-1">$799</p>
                   <p className="text-sm text-charcoal/60">Complete package • One-time investment</p>
                 </div>
                 <a
@@ -448,6 +464,23 @@ export default function DNAPackagePage() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-16 bg-ocean text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Want to know if DNA testing is right for you?</h2>
+          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Book a free 15-minute call to discuss your health goals and learn how DNA testing can help.</p>
+          <a
+            href="https://calendly.com/thewellnesscoachsession/15min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:bg-sky hover:text-white transition-all duration-300"
+          >
+            BOOK A FREE HEALTH OPTIMISATION CALL
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </a>
         </div>
       </section>
 

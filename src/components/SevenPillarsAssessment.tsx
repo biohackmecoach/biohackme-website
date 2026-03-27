@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronRight, RotateCcw, Download } from 'lucide-react'
+import { backupToFirestore } from '../utils/mailchimp'
 import PDFDownload from './PDFDownload'
 import CustomVideoPlayer from './CustomVideoPlayer'
 
@@ -118,6 +119,9 @@ export default function SevenPillarsAssessment() {
       const lowestScores = getLowestScores()
       const lowestScoringPillar = lowestScores.length > 0 ? lowestScores[0][0] : ''
       const topRecommendations = lowestScores.slice(0, 3).map(([pillar]) => pillar).join(', ')
+
+      // Firestore backup
+      await backupToFirestore(formData.email.trim().toLowerCase(), 'seven-pillars-assessment', { firstName: formData.firstName.trim() })
 
       // Call Firebase Function to complete assessment and add to Mailchimp
       try {
@@ -259,7 +263,7 @@ export default function SevenPillarsAssessment() {
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-ocean to-sky text-white font-semibold py-4 px-6 rounded-lg hover:shadow-xl transition-all duration-300"
+            className="w-full bg-ocean text-white font-semibold py-4 px-6 rounded-lg hover:shadow-xl transition-all duration-300"
           >
             Get My Results
           </button>
@@ -302,7 +306,7 @@ export default function SevenPillarsAssessment() {
                 </div>
                 <div className="w-full bg-white rounded-full h-3">
                   <div
-                    className="bg-gradient-to-r from-ocean to-sky h-3 rounded-full transition-all duration-500"
+                    className="bg-ocean h-3 rounded-full transition-all duration-500"
                     style={{ width: `${percentage}%` }}
                   ></div>
                 </div>
@@ -386,7 +390,7 @@ export default function SevenPillarsAssessment() {
 
             <a
               href="/payment-checkout?product=biohacking-foundation&price=47&currency=AUD"
-              className="inline-flex items-center bg-gradient-to-r from-ocean to-sky text-white px-8 py-4 rounded-full font-medium text-lg hover:shadow-xl transition-all duration-300"
+              className="inline-flex items-center bg-ocean text-white px-8 py-4 rounded-full font-medium text-lg hover:shadow-xl transition-all duration-300"
             >
               Get Your Masterclass Now
             </a>
@@ -404,7 +408,7 @@ export default function SevenPillarsAssessment() {
 
           <button
             onClick={() => window.print()}
-            className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-ocean to-sky text-white rounded-lg hover:shadow-xl transition-all duration-300"
+            className="flex items-center justify-center px-6 py-3 bg-ocean text-white rounded-lg hover:shadow-xl transition-all duration-300"
           >
             <Download className="w-4 h-4 mr-2" />
             Download Results
@@ -468,7 +472,7 @@ export default function SevenPillarsAssessment() {
           disabled={!initialPrivacyConsent}
           className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all duration-300 ${
             initialPrivacyConsent
-              ? 'bg-gradient-to-r from-ocean to-sky text-white hover:shadow-xl'
+              ? 'bg-ocean text-white hover:shadow-xl'
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
         >
@@ -505,7 +509,7 @@ export default function SevenPillarsAssessment() {
 
         <div className="w-full bg-cloud rounded-full h-2 mb-6">
           <div
-            className="bg-gradient-to-r from-ocean to-sky h-2 rounded-full transition-all duration-300"
+            className="bg-ocean h-2 rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
           ></div>
         </div>

@@ -132,7 +132,7 @@ export default function ConsultancyPage() {
         </script>
       </Helmet>
 
-      <div className="min-h-screen bg-gradient-to-br from-ice via-cloud to-white">
+      <div className="min-h-screen bg-white">
         <Header />
 
         {/* Hero Section */}
@@ -146,7 +146,7 @@ export default function ConsultancyPage() {
               >
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold text-ocean mb-6 font-montserrat leading-tight">
                   Executive Wellness & Longevity
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-ocean to-sky">
+                  <span className="block text-transparent bg-clip-text bg-ocean">
                     Consultancy for Luxury Brands
                   </span>
                 </h1>
@@ -163,7 +163,7 @@ export default function ConsultancyPage() {
                 <div className="flex justify-center">
                   <Link
                     to="/contact"
-                    className="inline-flex items-center bg-gradient-to-r from-ocean to-sky text-white px-10 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300"
+                    className="inline-flex items-center bg-ocean text-white px-10 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300"
                   >
                     Book Consultation Call
                     <ArrowRight className="w-5 h-5 ml-2" />
@@ -175,7 +175,7 @@ export default function ConsultancyPage() {
         </section>
 
         {/* Services Banner */}
-        <section className="py-16 px-4 bg-gradient-to-br from-sky via-ocean to-sky">
+        <section className="py-16 px-4 bg-ocean">
           <div className="max-w-7xl mx-auto">
             <div className="text-center">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-montserrat">
@@ -192,7 +192,7 @@ export default function ConsultancyPage() {
         </section>
 
         {/* Services Content */}
-        <section className="py-20 px-4 bg-gradient-to-br from-sky/10 via-white to-ice/40">
+        <section className="py-20 px-4 bg-sky/10">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-3 gap-8">
               {services.map((service, index) => (
@@ -208,7 +208,7 @@ export default function ConsultancyPage() {
                       <h3 className="text-2xl font-bold text-ocean mb-3 font-montserrat min-h-[3rem]">
                         {service.title}
                       </h3>
-                      <div className="bg-gradient-to-r from-sky to-ocean text-white px-4 py-1 rounded-full text-xs font-medium mb-4 inline-block">
+                      <div className="bg-sky text-white px-4 py-1 rounded-full text-xs font-medium mb-4 inline-block">
                         {service.subtitle}
                       </div>
                       <p className="text-lg text-gray-700 leading-relaxed min-h-[4rem]">
@@ -231,7 +231,7 @@ export default function ConsultancyPage() {
         </section>
 
         {/* Why BiohackMe - Blue Theme */}
-        <section className="py-20 px-4 bg-gradient-to-br from-sky via-ocean to-sky">
+        <section className="py-20 px-4 bg-ocean">
           <div className="max-w-6xl mx-auto">
 
             {/* Header with Image */}
@@ -256,7 +256,7 @@ export default function ConsultancyPage() {
                 <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-montserrat">
                   WHY BIOHACKME?
                 </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-ice to-white mx-auto lg:mx-0 mb-6"></div>
+                <div className="w-24 h-1 bg-white mx-auto lg:mx-0 mb-6"></div>
                 <p className="text-xl text-white/90 leading-relaxed">
                   Founded by Camilla Thompson, BiohackMe brings cutting-edge science and proven strategies to optimise workplace wellness, corporate performance, and premium travel brands.
                 </p>
@@ -272,7 +272,7 @@ export default function ConsultancyPage() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="group relative bg-white/10 backdrop-blur-md rounded-3xl p-8 hover:bg-white/20 transition-all duration-500 text-center border border-white/20 hover:border-white/40"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-white/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="relative z-10">
                     <h3 className="text-xl font-bold text-white mb-4 font-montserrat">
                       {edge.title}
@@ -289,7 +289,7 @@ export default function ConsultancyPage() {
 
 
         {/* Client Focus */}
-        <section className="py-16 px-4 bg-gradient-to-l from-ice/30 via-sky/5 to-white">
+        <section className="py-16 px-4 bg-sky/10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-ocean mb-4 font-montserrat">
@@ -313,7 +313,7 @@ export default function ConsultancyPage() {
                     {client.description}
                   </p>
                   <div className="flex justify-center mt-auto">
-                    <span className="font-semibold text-white bg-gradient-to-r from-ocean to-sky px-4 py-2 rounded-full text-sm">
+                    <span className="font-semibold text-white bg-ocean px-4 py-2 rounded-full text-sm">
                       Now Accepting Partnerships
                     </span>
                   </div>
@@ -325,7 +325,7 @@ export default function ConsultancyPage() {
 
 
         {/* Ready to Pioneer */}
-        <section className="py-16 px-4 bg-gradient-to-r from-ocean to-sky text-white">
+        <section className="py-16 px-4 bg-ocean text-white">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -358,7 +358,7 @@ export default function ConsultancyPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="bg-gradient-to-br from-ice to-white rounded-3xl p-12 shadow-2xl border border-ocean/10"
+              className="bg-white rounded-3xl p-12 shadow-2xl border border-ocean/10"
             >
 
               <div className="text-center space-y-4">
@@ -378,6 +378,23 @@ export default function ConsultancyPage() {
           </div>
         </section>
       </div>
+
+      {/* Bottom CTA */}
+      <section className="py-16 bg-ocean text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to elevate your organisation's wellbeing?</h2>
+          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Book a free consultation call to discuss how BiohackMe can support your team.</p>
+          <a
+            href="https://calendly.com/thewellnesscoachsession/15min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:bg-sky hover:text-white transition-all duration-300"
+          >
+            BOOK A FREE CONSULTATION CALL
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </a>
+        </div>
+      </section>
 
       <Footer />
     </>

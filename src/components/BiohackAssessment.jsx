@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { functions } from '../config/firebase';
 import { httpsCallable } from 'firebase/functions';
+import { backupToFirestore } from '../utils/mailchimp';
 
 const BiohackAssessment = () => {
   const [scores, setScores] = useState({});
@@ -137,6 +138,9 @@ const BiohackAssessment = () => {
 
   const submitForm = async (e) => {
     e.preventDefault();
+
+    // Firestore backup
+    await backupToFirestore(formData.email.trim().toLowerCase(), 'assessment-nurture');
 
     // Call Firebase Function to add to Mailchimp with assessment-lead tag
     try {

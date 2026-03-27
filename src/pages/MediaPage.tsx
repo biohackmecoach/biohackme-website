@@ -7,6 +7,12 @@ import { Headphones } from 'lucide-react'
 
 const mediaImages = [
   {
+    id: 33,
+    image: '/images/media/newscomau-article.png',
+    alt: 'News.com.au - Her Blood Tests Were Fine - They Were Wrong',
+    link: 'https://www.news.com.au/lifestyle/health/wellbeing/her-blood-tests-were-fine-they-were-wrong/news-story/31e585ed721aca002c171d96b2cc5247'
+  },
+  {
     id: 1,
     image: 'https://static.wixstatic.com/media/f5168e_d71d4c180f0e46188e155f51754a72c9~mv2.png/v1/fill/w_1092,h_558,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/Camilla%20Media-13.png',
     alt: '7News The Morning Show - Biohacking Basics',
@@ -37,12 +43,6 @@ const mediaImages = [
     link: 'https://7news.com.au/video/the-morning-show/biohacking-basics-bc-6373764239112'
   },
   {
-    id: 6,
-    image: 'https://static.wixstatic.com/media/f5168e_c51a179d776f4071878544d6507898c4~mv2.png/v1/fill/w_1092,h_540,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/Camilla%20Media-27.png',
-    alt: 'Facebook Watch Interview',
-    link: 'https://www.facebook.com/watch/?v=685180424278747'
-  },
-  {
     id: 7,
     image: 'https://static.wixstatic.com/media/f5168e_b85ce0069cac454594a0d84c3823b840~mv2.png/v1/fill/w_1092,h_613,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/Camilla%20Media%20Template%20Tutorial.png',
     alt: 'YouTube Biohacking Tutorial',
@@ -71,12 +71,6 @@ const mediaImages = [
     image: 'https://static.wixstatic.com/media/f5168e_c0eb76fdf1fc4c6fb19b2644f6826eb1~mv2.png/v1/fill/w_1092,h_597,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/Camilla%20Media-23.png',
     alt: 'Spotify Podcast Feature',
     link: 'https://open.spotify.com/episode/5Whw0wfFTGLHq4R00oVYoi'
-  },
-  {
-    id: 12,
-    image: 'https://static.wixstatic.com/media/f5168e_8114f763cab144b5b623a2000c2de26f~mv2.png/v1/fill/w_1092,h_598,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/Camilla%20Media-22.png',
-    alt: 'Camilla Media Feature',
-    link: null // No link provided for this one in the original
   },
   {
     id: 13,
@@ -179,6 +173,18 @@ const mediaImages = [
     image: 'https://static.wixstatic.com/media/f5168e_a53395a0f9334c08b340333e88199e25~mv2.png/v1/fill/w_1092,h_613,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/Camilla%20Media-04.png',
     alt: 'Spotify Podcast Interview',
     link: 'https://open.spotify.com/episode/3Y1IhKyMKDoXS06XTNGwu1'
+  },
+  {
+    id: 30,
+    image: '/images/media/bodyandsoul-article.png',
+    alt: 'Body and Soul - Health Choices in Your Mid-30s to Mid-40s',
+    link: 'https://www.bodyandsoul.com.au/houseofwellness/why-the-health-choices-you-make-in-your-mid30s-to-mid40s-are-critical/news-story/634d72445b1e69f50b6c20cf44816920'
+  },
+  {
+    id: 32,
+    image: '/images/media/kanebridge-article.png',
+    alt: 'Kanebridge News - The Price of Everlasting Health and Vitality',
+    link: 'https://kanebridgenews.com/the-price-of-everlasting-health-and-vitality/'
   }
 ]
 
@@ -201,7 +207,9 @@ const podcastEpisodes = [
   { id: 16, name: 'Yellow Shelf', link: 'https://podcasts.apple.com/au/podcast/yellow-shelf-podcast/id1767729340?i=1000709056223' },
   { id: 17, name: 'All About You', link: 'https://podcasts.apple.com/au/podcast/all-about-you-with-dr-shauna-watts/id1720112408?i=1000657568176' },
   { id: 18, name: 'Biohack Me Audiobook', link: 'https://podcasts.apple.com/au/podcast/biohack-me-the-practical-guide-to-everyday-biohacks/id1844873615?i=1000730829100' },
-  { id: 19, name: 'Think Better, Feel Better', link: 'https://podcasts.apple.com/au/podcast/overcoming-mould-illness-through-biohacking-with/id1761762675?i=1000690740994' }
+  { id: 19, name: 'Think Better, Feel Better', link: 'https://podcasts.apple.com/au/podcast/overcoming-mould-illness-through-biohacking-with/id1761762675?i=1000690740994' },
+  { id: 20, name: 'Biohacker Babes', link: 'https://podcasts.apple.com/au/podcast/renee-belz-lauren-sambataro/id1470189843?i=1000750999194' },
+  { id: 21, name: 'Dr Avi Charlton', link: 'https://podcasts.apple.com/au/podcast/episode-122-biohackme-with-camilla-thompson/id1743380029?i=1000749377550' }
 ]
 
 const featuredLogos = [
@@ -244,6 +252,41 @@ const featuredLogos = [
     id: 8,
     image: 'https://static.wixstatic.com/media/f5168e_57a3f6e2191945b98595d20dc74e4d69~mv2.png/v1/fill/w_476,h_97,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Screenshot%202025-01-17%20at%2015_38_24.png',
     alt: 'Featured In'
+  },
+  {
+    id: 9,
+    image: '/images/media-logos/bodyandsoul.svg',
+    alt: 'Body and Soul'
+  },
+  {
+    id: 10,
+    image: '/images/media-logos/womens-fitness-logo.png',
+    alt: "Women's Fitness"
+  },
+  {
+    id: 11,
+    image: '/images/media-logos/prevention.png',
+    alt: 'Prevention Australia'
+  },
+  {
+    id: 12,
+    image: '/images/media-logos/ceo-magazine.svg',
+    alt: 'CEO Magazine'
+  },
+  {
+    id: 13,
+    image: '/images/media-logos/newscorp.png',
+    alt: 'News Corp'
+  },
+  {
+    id: 14,
+    image: '/images/media-logos/7news.png',
+    alt: '7News'
+  },
+  {
+    id: 15,
+    image: '/images/media-logos/the morning show.png',
+    alt: 'The Morning Show'
   }
 ]
 
@@ -255,15 +298,15 @@ export default function MediaPage() {
     <div className="min-h-screen bg-white">
       <Helmet>
         <title>Media & Podcasts | BiohackMe - Camilla Thompson Featured in 7News, SMH, Podcasts</title>
-        <meta name="description" content="Explore Camilla Thompson's media appearances on 7News, Sydney Morning Herald, Daily Mail + 19 podcast episodes on biohacking, wellness, health optimization, mold illness recovery, DNA testing & longevity strategies." />
+        <meta name="description" content="Explore Camilla Thompson's media appearances on 7News, Sydney Morning Herald, Daily Mail + 21 podcast episodes on biohacking, wellness, health optimization, mold illness recovery, DNA testing & longevity strategies." />
         <meta name="keywords" content="Camilla Thompson podcasts, biohacking podcasts Australia, health optimization podcasts, wellness coach media, 7News biohacking, Sydney Morning Herald health, biohacking expert interviews, wellness podcast guest, longevity podcasts, DNA testing podcasts, mold illness recovery, SWIISH podcast, Space and Grace podcast, biohacking with Brittany, women's health podcasts Australia" />
         <meta property="og:title" content="Media & Podcasts | Camilla Thompson - BiohackMe Featured in 7News, SMH & Top Health Podcasts" />
-        <meta property="og:description" content="Watch Camilla's TV appearances & listen to 19+ podcast episodes on biohacking, wellness & health optimization" />
+        <meta property="og:description" content="Watch Camilla's TV appearances & listen to 21+ podcast episodes on biohacking, wellness & health optimization" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.biohackme.com.au/media" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Media & Podcasts | Camilla Thompson BiohackMe" />
-        <meta name="twitter:description" content="Featured in 7News, SMH, Daily Mail + 19 health & wellness podcasts" />
+        <meta name="twitter:description" content="Featured in 7News, SMH, News.com.au, Daily Mail + 21 health & wellness podcasts" />
         <link rel="canonical" href="https://www.biohackme.com.au/media" />
 
         {/* Podcast Schema.org Structured Data for SEO */}
@@ -284,16 +327,25 @@ export default function MediaPage() {
                 "https://www.youtube.com/channel/UCMpV7HCXEyIOxuUgK0U5blw"
               ]
             },
-            "hasPart": podcastEpisodes.map(podcast => ({
-              "@type": "PodcastEpisode",
-              "name": podcast.name,
-              "url": podcast.link,
-              "about": "Biohacking, health optimization, and wellness strategies with Camilla Thompson",
-              "partOfSeries": {
-                "@type": "PodcastSeries",
-                "name": podcast.name
-              }
-            }))
+            "hasPart": [
+              ...podcastEpisodes.map(podcast => ({
+                "@type": "PodcastEpisode",
+                "name": podcast.name,
+                "url": podcast.link,
+                "about": "Biohacking, health optimization, and wellness strategies with Camilla Thompson",
+                "contributor": { "@type": "Person", "name": "Camilla Thompson", "url": "https://www.biohackme.com.au/about" },
+                "partOfSeries": {
+                  "@type": "PodcastSeries",
+                  "name": podcast.name
+                }
+              })),
+              ...mediaImages.filter(m => m.link).map(m => ({
+                "@type": "NewsArticle",
+                "name": m.alt,
+                "url": m.link,
+                "about": { "@type": "Person", "name": "Camilla Thompson" }
+              }))
+            ]
           })}
         </script>
         <script type="application/ld+json">
@@ -342,19 +394,19 @@ export default function MediaPage() {
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             <button
               onClick={() => document.getElementById('media-gallery')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+              className="bg-ocean text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
             >
               📺 Media Features
             </button>
             <button
               onClick={() => document.getElementById('podcasts')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-gradient-to-r from-sky to-ocean text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+              className="bg-sky text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
             >
               🎧 Podcasts
             </button>
             <button
               onClick={() => document.getElementById('featured-in')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
+              className="bg-ocean text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
             >
               ⭐ Featured In
             </button>
@@ -398,21 +450,23 @@ export default function MediaPage() {
               className="group cursor-pointer relative"
             >
               {media.link ? (
-                <a href={media.link} target="_blank" rel="noopener noreferrer" className="block">
-                  <img 
+                <a href={media.link} target="_blank" rel="noopener noreferrer" className="block aspect-[16/10] overflow-hidden rounded-lg shadow-lg">
+                  <img
                     src={media.image}
                     alt={media.alt}
-                    className="w-full rounded-lg shadow-lg transition-all duration-500 ease-in-out transform-gpu origin-centre
+                    className="w-full h-full object-cover object-top transition-all duration-500 ease-in-out transform-gpu origin-centre
                       md:hover:scale-[2] md:hover:z-[100] md:hover:shadow-2xl md:hover:relative"
                     style={{ transformOrigin: 'centre centre' }}
                   />
                 </a>
               ) : (
-                <img 
-                  src={media.image}
-                  alt={media.alt}
-                  className="w-full rounded-lg shadow-lg"
-                />
+                <div className="aspect-[16/10] overflow-hidden rounded-lg shadow-lg">
+                  <img
+                    src={media.image}
+                    alt={media.alt}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
               )}
             </motion.div>
           ))}
@@ -477,7 +531,7 @@ export default function MediaPage() {
                 className="group bg-gradient-to-br from-sky/10 to-ocean/10 hover:from-sky/20 hover:to-ocean/20 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-sky/20 hover:border-ocean/40"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-ocean to-sky rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="flex-shrink-0 w-12 h-12 bg-ocean rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Headphones className="w-6 h-6 text-white" />
                   </div>
                   <div className="flex-grow">
@@ -616,7 +670,23 @@ export default function MediaPage() {
 
       </div>
     </div>
-    
+
+    {/* Bottom CTA */}
+    <section className="py-16 bg-ocean text-center">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Want to work with Camilla?</h2>
+        <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Book a free 15-minute health optimisation call to get started.</p>
+        <a
+          href="https://calendly.com/thewellnesscoachsession/15min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:bg-sky hover:text-white transition-all duration-300"
+        >
+          BOOK A FREE HEALTH OPTIMISATION CALL
+        </a>
+      </div>
+    </section>
+
     <Footer />
     </>
   )

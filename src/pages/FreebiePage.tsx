@@ -6,6 +6,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { functions } from '../config/firebase'
 import { httpsCallable } from 'firebase/functions'
+import { backupToFirestore } from '../utils/mailchimp'
 
 export default function FreebiePage() {
   const [formData, setFormData] = useState({
@@ -22,6 +23,9 @@ export default function FreebiePage() {
     if (!formData.email) return
 
     setIsSubmitting(true)
+
+    // Firestore backup
+    await backupToFirestore(formData.email.trim().toLowerCase(), 'freebie-download', { firstName: formData.firstName })
 
     try {
       // Call Firebase Function directly to add to Mailchimp
@@ -238,6 +242,21 @@ export default function FreebiePage() {
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div>
+                        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+                          First Name
+                        </label>
+                        <input
+                          type="text"
+                          id="firstName"
+                          name="firstName"
+                          placeholder="Enter your first name"
+                          value={formData.firstName}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-ocean focus:outline-none transition-colors"
+                        />
+                      </div>
+
+                      <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                           Email Address *
                         </label>
@@ -300,7 +319,7 @@ export default function FreebiePage() {
                     transition={{ duration: 0.5 }}
                     className="bg-white/95 backdrop-blur rounded-3xl shadow-2xl p-8 md:p-10 text-center"
                   >
-                    <div className="w-20 h-20 bg-gradient-to-br from-ocean to-sky rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div className="w-20 h-20 bg-ocean rounded-full flex items-center justify-center mx-auto mb-6">
                       <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
@@ -407,7 +426,7 @@ export default function FreebiePage() {
 
 
       {/* Final CTA */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-ocean to-sky text-white">
+      <section className="py-12 md:py-20 bg-ocean text-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -436,6 +455,22 @@ export default function FreebiePage() {
               No credit card required • Instant download • 100% free
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-16 bg-ocean text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Want personalised guidance?</h2>
+          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Book a free 15-minute call with Camilla to discuss your health goals and next steps.</p>
+          <a
+            href="https://calendly.com/thewellnesscoachsession/15min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:bg-sky hover:text-white transition-all duration-300"
+          >
+            BOOK A FREE HEALTH OPTIMISATION CALL
+          </a>
         </div>
       </section>
 

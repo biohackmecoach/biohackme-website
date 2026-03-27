@@ -45,7 +45,7 @@ export default function CoachingSessionsPage() {
                     "name": "The Well Leader Program",
                     "description": "12-week executive wellbeing coaching program"
                   },
-                  "price": "1900",
+                  "price": "2500",
                   "priceCurrency": "AUD"
                 },
                 {
@@ -54,7 +54,7 @@ export default function CoachingSessionsPage() {
                     "@type": "Service",
                     "name": "60-Minute Coaching Session"
                   },
-                  "price": "300",
+                  "price": "400",
                   "priceCurrency": "AUD"
                 },
                 {
@@ -63,7 +63,7 @@ export default function CoachingSessionsPage() {
                     "@type": "Service",
                     "name": "30-Minute Coaching Session"
                   },
-                  "price": "150",
+                  "price": "200",
                   "priceCurrency": "AUD"
                 }
               ]
@@ -95,7 +95,7 @@ export default function CoachingSessionsPage() {
       <Header />
 
       {/* 1:1 Coaching Section */}
-      <section id="one-on-one-coaching" className="py-12 md:py-20 bg-gradient-to-br from-sky to-ocean text-white min-h-screen pt-32">
+      <section id="one-on-one-coaching" className="py-12 md:py-20 bg-sky text-white min-h-screen pt-32">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -130,7 +130,7 @@ export default function CoachingSessionsPage() {
                     1h
                   </div>
                   <h3 className="text-2xl font-montserrat font-light text-white mb-4">Single Session</h3>
-                  <div className="text-3xl font-bold text-white mb-2">$300</div>
+                  <div className="text-3xl font-bold text-white mb-2">$400</div>
                   <div className="text-white/80">+ GST per session</div>
                 </div>
 
@@ -191,7 +191,7 @@ export default function CoachingSessionsPage() {
                     30m
                   </div>
                   <h3 className="text-2xl font-montserrat font-light text-white mb-4">Quick Session</h3>
-                  <div className="text-3xl font-bold text-white mb-2">$150</div>
+                  <div className="text-3xl font-bold text-white mb-2">$200</div>
                   <div className="text-white/80">+ GST per session</div>
                 </div>
 
@@ -252,8 +252,8 @@ export default function CoachingSessionsPage() {
                     EXEC
                   </div>
                   <h3 className="text-2xl font-montserrat font-light text-white mb-4">Executive Coaching</h3>
-                  <div className="text-3xl font-bold text-white mb-2">TBC</div>
-                  <div className="text-white/80">Cost to be confirmed</div>
+                  <div className="text-3xl font-bold text-white mb-2">$600</div>
+                  <div className="text-white/80">+ GST per hour</div>
                 </div>
 
                 <div className="space-y-4 mb-8 flex-grow">
@@ -275,7 +275,7 @@ export default function CoachingSessionsPage() {
                   </div>
                 </div>
 
-                <div className="text-center mt-auto">
+                <div className="text-center mt-auto space-y-3">
                   <motion.a
                     href="/contact"
                     whileHover={{ scale: 1.05 }}
@@ -284,6 +284,16 @@ export default function CoachingSessionsPage() {
                   >
                     ENQUIRE NOW
                     <ArrowRight className="ml-2 w-3 h-3" />
+                  </motion.a>
+                  <motion.a
+                    href="https://buy.stripe.com/eVq8wRgQR4i62dl0Mu5Ne0a"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-full bg-ocean/20 text-white px-4 py-2 rounded-full font-medium hover:bg-ocean/30 transition-colors inline-flex items-center justify-center text-sm"
+                  >
+                    PAY NOW
                   </motion.a>
                 </div>
               </motion.div>
@@ -406,14 +416,14 @@ export default function CoachingSessionsPage() {
               <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="bg-white rounded-2xl px-8 py-6 shadow-lg">
                   <p className="text-sm text-charcoal/60 mb-1">Investment</p>
-                  <p className="text-4xl font-bold text-ocean">$1,900</p>
+                  <p className="text-4xl font-bold text-ocean">$2,500</p>
                   <p className="text-sm text-charcoal/60">+ GST</p>
                 </div>
                 <motion.a
                   href="/contact"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center justify-center bg-gradient-to-r from-ocean to-sky text-white px-10 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300"
+                  className="inline-flex items-center justify-center bg-ocean text-white px-10 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300"
                 >
                   Enquire About The Well Leader
                   <ArrowRight className="ml-2 w-6 h-6" />
@@ -506,7 +516,7 @@ export default function CoachingSessionsPage() {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center justify-center bg-gradient-to-r from-sky to-ocean text-white px-10 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300"
+                  className="inline-flex items-center justify-center bg-sky text-white px-10 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300"
                 >
                   Book 30-Minute Wellbeing Session
                   <ArrowRight className="ml-2 w-6 h-6" />
@@ -517,6 +527,23 @@ export default function CoachingSessionsPage() {
               </div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-16 bg-ocean text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Not sure where to start?</h2>
+          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Book a free 15-minute call to discuss your health goals and find the right session for you.</p>
+          <a
+            href="https://calendly.com/thewellnesscoachsession/15min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:bg-sky hover:text-white transition-all duration-300"
+          >
+            BOOK A FREE HEALTH OPTIMISATION CALL
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </a>
         </div>
       </section>
 

@@ -15,6 +15,7 @@ const CoachingServicesPage = lazy(() => import('./pages/CoachingServicesPage'))
 const OptimiseYourLifePage = lazy(() => import('./pages/OptimiseYourLifePage'))
 const CoachingSessionsPage = lazy(() => import('./pages/CoachingSessionsPage'))
 const DNAPackagePage = lazy(() => import('./pages/DNAPackagePage'))
+const TheUpgradePage = lazy(() => import('./pages/TheUpgradePage'))
 const ConsultancyPage = lazy(() => import('./pages/ConsultancyPage'))
 const TalksPage = lazy(() => import('./pages/TalksPage'))
 const MediaPage = lazy(() => import('./pages/MediaPage'))
@@ -47,6 +48,8 @@ const PaymentCancelledPage = lazy(() => import('./pages/PaymentCancelledPage'))
 const MasterclassAccessPage = lazy(() => import('./pages/MasterclassAccessPage'))
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'))
+const LinksPage = lazy(() => import('./pages/LinksPage'))
+const CoachingLinksPage = lazy(() => import('./pages/CoachingLinksPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 
 // Loading fallback component
@@ -121,6 +124,7 @@ function App() {
         <Route path="/optimise-your-life" element={<OptimiseYourLifePage />} />
         <Route path="/coaching-sessions" element={<CoachingSessionsPage />} />
         <Route path="/dna-package" element={<DNAPackagePage />} />
+        <Route path="/the-upgrade" element={<TheUpgradePage />} />
         <Route path="/consultancy" element={<ConsultancyPage />} />
         <Route path="/talks" element={<TalksPage />} />
         <Route path="/media" element={<MediaPage />} />
@@ -148,6 +152,8 @@ function App() {
         <Route path="/masterclass-access" element={<MasterclassAccessPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+        <Route path="/links" element={<LinksPage />} />
+        <Route path="/coaching-programs" element={<CoachingLinksPage />} />
         <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>

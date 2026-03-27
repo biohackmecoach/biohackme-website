@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Bell, CheckCircle, ArrowRight } from 'lucide-react';
+import { backupToFirestore } from '../utils/mailchimp';
 
 interface MasterclassPreregisterProps {
   className?: string;
@@ -16,6 +17,9 @@ const MasterclassPreregister: React.FC<MasterclassPreregisterProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
+
+    // Firestore backup
+    await backupToFirestore(email.trim().toLowerCase(), 'masterclass-preregister');
 
     try {
       // Call Firebase Function for Mailchimp masterclass subscription
@@ -91,7 +95,7 @@ const MasterclassPreregister: React.FC<MasterclassPreregisterProps> = ({
             disabled={status === 'loading'}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center justify-center disabled:opacity-50 text-sm whitespace-nowrap"
+            className="bg-ocean text-white px-6 py-3 rounded-full font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center justify-center disabled:opacity-50 text-sm whitespace-nowrap"
           >
             {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
             <ArrowRight className="ml-2 w-4 h-4" />

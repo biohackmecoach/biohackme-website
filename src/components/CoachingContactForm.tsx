@@ -138,7 +138,7 @@ ${formData.enquiry}`
 
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 hover:from-ocean/90 hover:to-sky/90 transition-all duration-300"
+            className="w-full bg-ocean text-white px-6 py-3 rounded-lg font-semibold flex items-center justify-center space-x-2 hover:from-ocean/90 hover:to-sky/90 transition-all duration-300"
           >
             <Send className="w-4 h-4" />
             <span>Send Enquiry</span>

@@ -13,23 +13,6 @@ export default function MasterclassPage() {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [expandedModules, setExpandedModules] = useState<{[key: string]: boolean}>({})
 
-  // Countdown timer for urgency
-  const [timeLeft, setTimeLeft] = useState({ days: 3, hours: 12, minutes: 45, seconds: 0 })
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        let { days, hours, minutes, seconds } = prev
-        seconds--
-        if (seconds < 0) { seconds = 59; minutes-- }
-        if (minutes < 0) { minutes = 59; hours-- }
-        if (hours < 0) { hours = 23; days-- }
-        if (days < 0) { days = 0; hours = 0; minutes = 0; seconds = 0 }
-        return { days, hours, minutes, seconds }
-      })
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [])
 
   const availableMasterclasses = masterclasses.filter(m => m.status === 'available')
   const brainMasterclass = masterclasses.find(m => m.id === 'biohack-brain')
@@ -69,11 +52,59 @@ export default function MasterclassPage() {
         <meta property="og:url" content="https://www.biohackme.com.au/masterclass" />
         <meta property="og:type" content="product" />
         <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is biohacking for beginners?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Biohacking is the practice of using science, technology, and self-experimentation to optimise your body and mind. For beginners, it starts with simple evidence-based strategies like improving sleep quality, optimising nutrition, managing stress, and using tools like cold exposure and red light therapy. The BiohackMe Basics Masterclass teaches the 7-Pillar Framework covering sleep, mood, body, environment, energy, relationships, and health."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What are the 7 pillars of biohacking?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The 7 pillars of biohacking as taught in the BiohackMe framework are: Sleep (optimising circadian rhythms and sleep quality), Mood (emotional regulation and stress management), Body (physical health through movement and nutrition), Environment (creating health-promoting spaces), Energy (boosting mitochondrial function), Relationships (building supportive connections), and Health (monitoring biomarkers for longevity)."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I start biohacking on a budget?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Many effective biohacks are free or low-cost: morning sunlight exposure for circadian rhythm, cold showers for inflammation and energy, breathwork for stress management, sleep hygiene optimisation, and dietary changes based on your body's needs. The BiohackMe Basics Masterclass covers budget-friendly strategies alongside more advanced techniques."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is biohacking safe?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Evidence-based biohacking guided by a qualified coach is safe and effective. It focuses on optimising natural biological processes through lifestyle changes, nutrition, and proven technologies like red light therapy and cold exposure. Working with a qualified biohacking coach like Camilla Thompson ensures protocols are tailored to your individual health profile and goals."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What are the best biohacks for women?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Biohacking for women includes cycle-syncing nutrition and exercise, optimising hormonal health, addressing iron and nutrient deficiencies common in women, adapting cold exposure protocols for female physiology, and using DNA testing to understand individual genetic variations like MTHFR that affect women's health differently. Camilla Thompson specialises in women's health biohacking."
+                }
+              }
+            ]
+          })}
+        </script>
       </Helmet>
       <Header />
       <div className="min-h-screen bg-cloud">
       {/* Header Section - Focused on the ONE available masterclass */}
-      <section className="relative bg-gradient-to-br from-ocean to-sky text-white min-h-[70vh] flex items-center overflow-hidden">
+      <section className="relative bg-ocean text-white min-h-[70vh] flex items-center overflow-hidden">
         {/* Biohacking Framework Background */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -135,28 +166,6 @@ export default function MasterclassPage() {
             <p className="text-white/80 mt-2">One-time payment • Lifetime access • 30-day guarantee</p>
           </motion.div>
 
-          {/* Countdown Timer */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="mb-8"
-          >
-            <p className="text-sm text-white/80 mb-3">Launch price ends in:</p>
-            <div className="flex justify-center gap-3">
-              {[
-                { value: timeLeft.days, label: 'Days' },
-                { value: timeLeft.hours, label: 'Hours' },
-                { value: timeLeft.minutes, label: 'Mins' },
-                { value: timeLeft.seconds, label: 'Secs' }
-              ].map((item, i) => (
-                <div key={i} className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2 min-w-[70px]">
-                  <div className="text-2xl font-bold">{String(item.value).padStart(2, '0')}</div>
-                  <div className="text-xs text-white/80">{item.label}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
 
           {/* Primary CTA */}
           <motion.div
@@ -216,43 +225,85 @@ export default function MasterclassPage() {
         </div>
       </section>
 
-      {/* Hero Video Preview Section */}
-      <section id="hero-preview-video" className="py-16 bg-gradient-to-br from-ice to-cloud">
+      {/* Free Assessment + Video Preview Section */}
+      <section id="hero-preview-video" className="py-12 bg-sky/10">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <h2 className="text-3xl md:text-4xl font-montserrat font-light text-ocean mb-6">
-              See What You'll Learn
-            </h2>
-            <p className="text-lg text-charcoal/80 mb-8">
-              Get a preview of the Biohacking Basics Masterclass
-            </p>
-
-            {/* Loom Video Embed */}
-            <div className="bg-white rounded-2xl shadow-xl p-6 border border-sky/20">
-              <div className="aspect-video relative rounded-xl overflow-hidden">
-                <div style={{position: 'relative', paddingBottom: '56.25%', height: 0}}>
-                  <iframe
-                    src="https://www.loom.com/embed/5cfa26c06d2d474d8964c13023ae935a?sid=423eca8b-2406-4f9c-9fe0-eaf240234230&speed=1"
-                    frameBorder="0"
-                    allowFullScreen
-                    style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}
-                    title="Biohacking Masterclass Preview"
-                  />
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-5 gap-8 items-start">
+              {/* Free Assessment - Left Side (smaller) */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="lg:col-span-2"
+              >
+                <div className="bg-white rounded-xl shadow-lg p-6 border-2 border-ocean/30">
+                  <div className="inline-block bg-ocean text-white px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wide mb-3">
+                    100% Free
+                  </div>
+                  <h3 className="text-xl font-montserrat font-medium text-ocean mb-3">
+                    Free Biohacking Assessment
+                  </h3>
+                  <p className="text-sm text-charcoal/80 mb-4">
+                    Discover where you stand across the 7 pillars of biohacking. Get your personalized baseline score and tailored recommendations.
+                  </p>
+                  <div className="space-y-2 mb-5">
+                    <div className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-ocean flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-charcoal/70">Score yourself across all 7 pillars</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-ocean flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-charcoal/70">Assess sleep, energy, brain & more</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-ocean flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-charcoal/70">Identify your optimization opportunities</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-ocean flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-charcoal/70">Get personalized next steps</span>
+                    </div>
+                  </div>
+                  <Link
+                    to="/masterclass/biohacking-foundation-assessment"
+                    className="bg-ocean hover:from-sky hover:to-ocean text-white px-6 py-3 rounded-full font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center w-full"
+                  >
+                    <Check className="mr-2 w-4 h-4" />
+                    Take Free Assessment
+                  </Link>
+                  <p className="text-xs text-charcoal/60 text-center mt-3">Takes only 2 minutes</p>
                 </div>
-              </div>
-              <div className="mt-4 text-center">
-                <p className="text-sm text-charcoal/70">
-                  🎥 Preview of the Biohacking Basics Masterclass
-                </p>
-              </div>
+              </motion.div>
+
+              {/* Video Preview - Right Side (larger) */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="lg:col-span-3"
+              >
+                <h2 className="text-2xl md:text-3xl font-montserrat font-light text-ocean mb-4 text-center lg:text-left">
+                  See What You'll Learn
+                </h2>
+                <div className="bg-white rounded-xl shadow-lg p-4 border border-sky/20">
+                  <div className="aspect-video relative rounded-lg overflow-hidden">
+                    <div style={{position: 'relative', paddingBottom: '56.25%', height: 0}}>
+                      <iframe
+                        src="https://www.loom.com/embed/5cfa26c06d2d474d8964c13023ae935a?sid=423eca8b-2406-4f9c-9fe0-eaf240234230&speed=1"
+                        frameBorder="0"
+                        allowFullScreen
+                        style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'}}
+                        title="Biohacking Masterclass Preview"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -290,7 +341,7 @@ export default function MasterclassPage() {
             <div className="text-center">
               <button
                 onClick={() => window.location.href = import.meta.env.VITE_STRIPE_PAYMENT_LINK}
-                className="bg-gradient-to-r from-ocean to-sky hover:from-sky hover:to-ocean text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center"
+                className="bg-ocean hover:from-sky hover:to-ocean text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center"
               >
                 <Zap className="mr-2 w-5 h-5" />
                 Yes! I Want This - $27
@@ -355,7 +406,7 @@ export default function MasterclassPage() {
                         </div>
                       ) : (
                         /* Placeholder for other masterclasses */
-                        <div className="aspect-video bg-gradient-to-br from-ice to-sky/20 flex items-center justify-center rounded-2xl">
+                        <div className="aspect-video bg-sky/10 flex items-center justify-center rounded-2xl">
                           <button className="w-20 h-20 bg-ocean text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
                             <Play className="w-8 h-8 ml-1" />
                           </button>
@@ -483,7 +534,7 @@ export default function MasterclassPage() {
 
                     {/* Price and Enhanced CTA - Fixed at bottom */}
                     <div className="mt-auto">
-                      <div className="bg-gradient-to-r from-ocean/5 to-sky/5 rounded-xl p-4">
+                      <div className="bg-sky/10 rounded-xl p-4">
                         <div className="flex items-center justify-between mb-3">
                           <div>
                             <div className="flex items-center gap-3">
@@ -510,13 +561,13 @@ export default function MasterclassPage() {
                             onClick={() => window.location.href = import.meta.env.VITE_STRIPE_PAYMENT_LINK}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="w-full flex items-center justify-center gap-3 py-4 px-6 rounded-lg font-semibold transition-all duration-300 bg-gradient-to-r from-ocean to-sky text-white hover:shadow-xl"
+                            className="w-full flex items-center justify-center gap-3 py-4 px-6 rounded-lg font-semibold transition-all duration-300 bg-ocean text-white hover:shadow-xl"
                           >
                             <CreditCard className="w-5 h-5" />
                             Get Instant Access
                           </motion.button>
                         ) : (
-                          <button className="w-full bg-gradient-to-r from-sky/20 to-ice text-ocean py-4 rounded-full font-medium text-lg">
+                          <button className="w-full bg-sky/20 text-ocean py-4 rounded-full font-medium text-lg">
                             Coming Soon - Notify Me
                           </button>
                         )}
@@ -525,7 +576,7 @@ export default function MasterclassPage() {
 
                     {/* Biohacking Basics Assessment for Biohacking Foundation */}
                     {masterclass.id === 'biohacking-foundation' && (
-                      <div className="bg-gradient-to-r from-ice/50 to-cloud/50 rounded-xl p-4 border border-ocean/20">
+                      <div className="bg-sky/10 rounded-xl p-4 border border-ocean/20">
                         <h4 className="font-medium text-ocean mb-2 flex items-center text-sm">
                           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -537,7 +588,7 @@ export default function MasterclassPage() {
                         </p>
                         <Link
                           to="/masterclass/biohacking-foundation-assessment"
-                          className="bg-gradient-to-r from-ocean to-sky text-white px-4 py-2 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center"
+                          className="bg-ocean text-white px-4 py-2 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center"
                         >
                           <svg className="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -548,7 +599,7 @@ export default function MasterclassPage() {
                     )}
 
                     {masterclass.id === 'biohack-brain' && (
-                      <div className="bg-gradient-to-r from-ice/50 to-sky/10 rounded-xl p-4 border border-sky/20">
+                      <div className="bg-sky/10 rounded-xl p-4 border border-sky/20">
                         <h4 className="font-medium text-ocean mb-2 flex items-center text-sm">
                           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -560,7 +611,7 @@ export default function MasterclassPage() {
                         </p>
                         <Link
                           to="/brain-assessment"
-                          className="bg-gradient-to-r from-sky to-ocean text-white px-4 py-2 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center"
+                          className="bg-sky text-white px-4 py-2 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center"
                         >
                           <svg className="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -571,7 +622,7 @@ export default function MasterclassPage() {
                     )}
 
                     {masterclass.id === 'biohack-sleep' && (
-                      <div className="bg-gradient-to-r from-indigo/50 to-purple/10 rounded-xl p-4 border border-indigo/20">
+                      <div className="bg-ocean/10 rounded-xl p-4 border border-indigo/20">
                         <h4 className="font-medium text-ocean mb-2 flex items-center text-sm">
                           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
@@ -583,7 +634,7 @@ export default function MasterclassPage() {
                         </p>
                         <Link
                           to="/sleep-assessment"
-                          className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center"
+                          className="bg-ocean text-white px-4 py-2 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center"
                         >
                           <svg className="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
@@ -594,7 +645,7 @@ export default function MasterclassPage() {
                     )}
 
                     {masterclass.id === 'biohack-environment' && (
-                      <div className="bg-gradient-to-r from-green-500/50 to-teal-500/10 rounded-xl p-4 border border-green-500/20">
+                      <div className="bg-sky/10 rounded-xl p-4 border border-green-500/20">
                         <h4 className="font-medium text-ocean mb-2 flex items-center text-sm">
                           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2L2 7v3c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
@@ -606,7 +657,7 @@ export default function MasterclassPage() {
                         </p>
                         <Link
                           to="/environment-assessment"
-                          className="bg-gradient-to-r from-green-500 to-teal-600 text-white px-4 py-2 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center"
+                          className="bg-sky text-white px-4 py-2 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center"
                         >
                           <svg className="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2L2 7v3c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
@@ -632,7 +683,7 @@ export default function MasterclassPage() {
                     <div className="space-y-6 p-8">
                       {/* Video/Image Section */}
                       <div className="relative">
-                        <div className="aspect-video bg-gradient-to-br from-ice to-sky/20 flex items-center justify-center rounded-2xl">
+                        <div className="aspect-video bg-sky/10 flex items-center justify-center rounded-2xl">
                           <div className="w-16 h-16 bg-ocean/20 rounded-full flex items-center justify-center">
                             <Lock className="w-8 h-8 text-ocean" />
                           </div>
@@ -769,7 +820,7 @@ export default function MasterclassPage() {
                         <p className="text-sm text-charcoal/60">One-time payment</p>
                       </div>
 
-                      <button className="w-full flex items-center justify-center gap-3 py-4 px-6 rounded-lg font-semibold transition-all duration-300 bg-gradient-to-r from-ocean to-sky text-white hover:shadow-xl mb-4">
+                      <button className="w-full flex items-center justify-center gap-3 py-4 px-6 rounded-lg font-semibold transition-all duration-300 bg-ocean text-white hover:shadow-xl mb-4">
                         Coming Soon - Notify Me
                       </button>
 
@@ -788,7 +839,7 @@ export default function MasterclassPage() {
                     </div>
 
                     {/* Brain Assessment section */}
-                    <div className="bg-gradient-to-r from-ice/50 to-cloud/50 rounded-xl p-4 border border-ocean/20 mt-4">
+                    <div className="bg-sky/10 rounded-xl p-4 border border-ocean/20 mt-4">
                       <h4 className="font-medium text-ocean mb-2 flex items-center text-sm">
                         <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -800,7 +851,7 @@ export default function MasterclassPage() {
                       </p>
                       <Link
                         to="/brain-assessment"
-                        className="bg-gradient-to-r from-ocean to-sky text-white px-4 py-2 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center"
+                        className="bg-ocean text-white px-4 py-2 rounded-full text-xs font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center"
                       >
                         <svg className="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -849,7 +900,7 @@ export default function MasterclassPage() {
       </section>
 
       {/* Biohacking Framework Section */}
-      <section className="py-20 bg-gradient-to-br from-ocean to-sky text-white relative overflow-hidden">
+      <section className="py-20 bg-ocean text-white relative overflow-hidden">
         {/* Background Decorative Elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/20 rounded-full blur-2xl"></div>
@@ -866,7 +917,7 @@ export default function MasterclassPage() {
             className="text-4xl md:text-6xl font-montserrat font-light mb-4"
           >
             The 8-Pillar 
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white to-ice">
+            <span className="block text-white">
               Biohacking Framework
             </span>
           </motion.h2>
@@ -933,7 +984,7 @@ export default function MasterclassPage() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-ocean to-sky text-white">
+      <section className="py-16 bg-ocean text-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -996,7 +1047,23 @@ export default function MasterclassPage() {
         </div>
       </section>
     </div>
-    
+
+    {/* Bottom CTA */}
+    <section className="py-16 bg-ocean text-center">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Want personalised 1:1 coaching instead?</h2>
+        <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Book a free 15-minute call to explore how Camilla can help you achieve your health goals.</p>
+        <a
+          href="https://calendly.com/thewellnesscoachsession/15min"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:bg-sky hover:text-white transition-all duration-300"
+        >
+          BOOK A FREE HEALTH OPTIMISATION CALL
+        </a>
+      </div>
+    </section>
+
     <Footer />
     </>
   )

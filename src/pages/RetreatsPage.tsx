@@ -124,7 +124,7 @@ const RetreatsPage = () => {
 
       <Header />
 
-      <div className="min-h-screen bg-gradient-to-b from-ice/30 via-white to-ice/20 font-montserrat">
+      <div className="min-h-screen bg-white font-montserrat">
 
         {/* Hero Section */}
         <section className="relative pt-24 sm:pt-28 md:pt-32 pb-16 px-4 sm:px-6 lg:px-8">
@@ -265,7 +265,7 @@ const RetreatsPage = () => {
         </section>
 
         {/* Meet Your Hosts */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ice/30 to-white">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-sky/10">
           <div className="max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -414,7 +414,7 @@ const RetreatsPage = () => {
         </section>
 
         {/* Testimonials */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ice/30 to-white">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-sky/10">
           <div className="max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -480,7 +480,7 @@ const RetreatsPage = () => {
         </section>
 
         {/* Final CTA */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ocean to-sky">
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-ocean">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}

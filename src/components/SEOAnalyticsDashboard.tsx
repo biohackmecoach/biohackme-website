@@ -399,7 +399,7 @@ export default function SEOAnalyticsDashboard() {
               onClick={() => setActiveTab(tab.id as any)}
               className={`flex items-center px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-ocean to-sky text-white shadow-lg'
+                  ? 'bg-ocean text-white shadow-lg'
                   : 'text-ocean hover:bg-ocean/10'
               }`}
             >

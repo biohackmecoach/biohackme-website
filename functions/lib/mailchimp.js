@@ -24,7 +24,7 @@ function getMailchimpConfig() {
  * Saves to TWO separate collections for maximum redundancy
  */
 async function saveLeadToFirestore(leadData) {
-    const leadDocument = Object.assign(Object.assign({}, leadData), { createdAt: admin.firestore.FieldValue.serverTimestamp(), source: 'website' });
+    const leadDocument = Object.assign(Object.assign({}, leadData), { createdAt: admin.firestore.FieldValue.serverTimestamp(), source: leadData.type || leadData.source || 'website' });
     try {
         // PRIMARY BACKUP: Save to 'leads' collection
         await admin.firestore().collection('leads').add(leadDocument);
@@ -90,7 +90,7 @@ exports.subscribeToNewsletter = functions
             return;
         }
         try {
-            const { email, firstName, lastName } = req.body;
+            const { email, firstName, lastName, tags: requestTags } = req.body;
             if (!email) {
                 res.status(400).json({ error: 'Email is required' });
                 return;
@@ -101,13 +101,16 @@ exports.subscribeToNewsletter = functions
                 res.status(400).json({ error: 'Invalid email format' });
                 return;
             }
+            // Determine tags and type
+            const tagsToApply = Array.isArray(requestTags) ? requestTags : [];
+            const leadType = tagsToApply.length > 0 ? 'guide-download' : 'newsletter';
             // CRITICAL: Save to Firestore FIRST (safety backup)
             await saveLeadToFirestore({
                 email: email.toLowerCase().trim(),
                 firstName: firstName || '',
                 lastName: lastName || '',
-                type: 'newsletter',
-                tags: []
+                type: leadType,
+                tags: tagsToApply
             });
             // Prepare subscriber data
             const subscriberData = {
@@ -135,10 +138,15 @@ exports.subscribeToNewsletter = functions
             });
             const data = await response.json();
             if (response.ok) {
+                // Apply tags if provided
+                if (tagsToApply.length > 0) {
+                    await applyMailchimpTags(email, tagsToApply);
+                }
                 res.status(200).json({
                     success: true,
-                    message: 'Successfully subscribed to newsletter!',
-                    email: email
+                    message: 'Successfully subscribed!',
+                    email: email,
+                    tagsApplied: tagsToApply.length > 0
                 });
             }
             else {
@@ -364,6 +372,10 @@ exports.addToMailchimp = functions
         else if (source === 'book' || source === 'book-promo') {
             tags = ['book-interest', 'reader', 'website-subscriber'];
             leadType = 'book';
+        }
+        else if (source === 'theupgrade') {
+            tags = ['theUpgrade'];
+            leadType = 'theUpgrade';
         }
         else {
             tags = ['website-subscriber'];

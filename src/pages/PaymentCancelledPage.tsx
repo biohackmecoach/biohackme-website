@@ -70,7 +70,7 @@ export default function PaymentCancelledPage() {
               >
                 <Link
                   to="/biohacking-foundation-assessment"
-                  className="group bg-gradient-to-r from-ocean to-sky text-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 block"
+                  className="group bg-ocean text-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 block"
                 >
                   <h3 className="text-lg font-semibold mb-2 group-hover:scale-105 transition-transform">
                     🏠 Back to Assessment

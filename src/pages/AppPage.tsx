@@ -225,7 +225,7 @@ export default function AppPage() {
             <div className="flex items-center justify-center mb-4">
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div 
-                  className="bg-gradient-to-r from-ocean to-sky h-3 rounded-full transition-all duration-500"
+                  className="bg-ocean h-3 rounded-full transition-all duration-500"
                   style={{ width: `${overallScore * 10}%` }}
                 ></div>
               </div>
@@ -315,7 +315,7 @@ export default function AppPage() {
             </a>
           </div>
 
-          <div className="bg-gradient-to-r from-ocean to-sky rounded-2xl p-6 shadow-lg text-white">
+          <div className="bg-ocean rounded-2xl p-6 shadow-lg text-white">
             <div className="flex items-center justify-between mb-3">
               <div>
                 <h3 className="text-lg font-bold">Get the Complete Guide</h3>
@@ -334,7 +334,7 @@ export default function AppPage() {
             </a>
           </div>
 
-          <div className="bg-gradient-to-r from-sky to-ocean rounded-2xl p-6 shadow-lg text-white">
+          <div className="bg-sky rounded-2xl p-6 shadow-lg text-white">
             <div className="flex items-center justify-between mb-3">
               <div>
                 <h3 className="text-lg font-bold">1:1 Personalised Guidance</h3>
@@ -583,7 +583,7 @@ export default function AppPage() {
               return (
                 <div key={masterclass.id} className="bg-white rounded-2xl p-4 shadow-lg border border-ocean/10">
                   <div className="flex items-start space-x-4">
-                    <div className="w-16 h-16 bg-gradient-to-r from-ocean to-sky rounded-lg flex items-center justify-center">
+                    <div className="w-16 h-16 bg-ocean rounded-lg flex items-center justify-center">
                       <BookOpen className="w-8 h-8 text-white" />
                     </div>
                     <div className="flex-1">

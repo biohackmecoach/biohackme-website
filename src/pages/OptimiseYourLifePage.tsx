@@ -182,22 +182,7 @@ export default function CoachingPage() {
       <section className="relative min-h-screen bg-white overflow-hidden">
         <Header />
         
-        {/* Ocean Wave Background */}
-        <div className="absolute inset-0">
-          {/* Ocean wave pattern */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-ocean/10 to-transparent"></div>
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-sky/15 to-transparent"></div>
-          
-          {/* Floating ocean elements */}
-          <div className="absolute top-1/4 left-10 w-96 h-96 bg-gradient-to-r from-ocean/5 to-sky/10 rounded-full blur-3xl opacity-60"></div>
-          <div className="absolute bottom-1/3 right-10 w-80 h-80 bg-gradient-to-l from-sky/8 to-ice/15 rounded-full blur-2xl opacity-50"></div>
-          <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-gradient-to-br from-ocean/8 to-transparent rounded-full blur-xl opacity-40"></div>
-          
-          
-          {/* Wave-like gradients */}
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-ice via-cloud/50 to-transparent opacity-30"></div>
-        </div>
-        
+                
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-32 h-32 border border-white/20 rounded-full"></div>
@@ -219,7 +204,7 @@ export default function CoachingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.8 }}
               >
-                <span className="bg-gradient-to-r from-ocean to-sky text-white px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-medium">
+                <span className="bg-ocean text-white px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-medium">
                   <span className="hidden sm:inline">SIGNATURE </span>COACHING PROGRAM
                 </span>
               </motion.div>
@@ -230,7 +215,7 @@ export default function CoachingPage() {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-montserrat font-bold leading-tight"
               >
-                <span className="bg-gradient-to-r from-ocean to-sky bg-clip-text text-transparent">
+                <span className="text-ocean">
                   OPTIMISE
                 </span>{' '}
                 <span className="text-charcoal font-light">YOUR LIFE</span>
@@ -259,7 +244,7 @@ export default function CoachingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
-                className="bg-gradient-to-r from-sky/10 to-ocean/10 rounded-2xl p-6 border border-ocean/20"
+                className="bg-sky/10 rounded-2xl p-6 border border-ocean/20"
               >
                 <h3 className="text-xl font-semibold text-ocean mb-3">My Point of Difference</h3>
                 <p className="text-charcoal/80 leading-relaxed">
@@ -267,57 +252,50 @@ export default function CoachingPage() {
                 </p>
               </motion.div>
 
-              {/* Photo - Square Frame */}
+              {/* Photo + Testimonial Side by Side */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.0, duration: 0.8 }}
                 className="mt-12"
               >
-                <div className="relative max-w-md mx-auto">
-                  <img
-                    src="/images/How we work together/Biohackme website images13.webp"
-                    alt="Camilla - Biohacking Coach"
-                    className="shadow-2xl w-full rounded-2xl object-cover aspect-square"
-                  />
-                </div>
-              </motion.div>
+                <div className="grid md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
+                  {/* Photo - Left */}
+                  <div className="relative">
+                    <img
+                      src="/images/How we work together/Biohackme website images13.webp"
+                      alt="Camilla - Biohacking Coach"
+                      className="shadow-2xl w-full rounded-2xl object-cover aspect-square"
+                    />
+                  </div>
 
-              {/* Carmen Bekker Testimonial */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2, duration: 0.8 }}
-                className="mt-8"
-              >
-                <div className="bg-gradient-to-r from-ice/50 to-cloud/50 rounded-2xl p-6 border border-sky/20 max-w-2xl mx-auto">
-                  <blockquote className="text-lg text-charcoal/80 italic leading-relaxed mb-4">
-                    "Camilla is an absolutely fantastic wellness coach—highly recommended to anyone wanting to supercharge personal performance. She brings deep biohacking expertise into every coaching session."
-                  </blockquote>
-                  <div className="text-ocean font-semibold">
-                    Carmen Bekker, Lead Partner, KPMG Consulting
+                  {/* Testimonial + Button - Right */}
+                  <div className="text-left">
+                    <div className="bg-sky/10 rounded-2xl p-6 border border-sky/20">
+                      <blockquote className="text-lg text-charcoal/80 italic leading-relaxed mb-4">
+                        "Camilla is an absolutely fantastic wellness coach—highly recommended to anyone wanting to supercharge personal performance. She brings deep biohacking expertise into every coaching session."
+                      </blockquote>
+                      <div className="text-ocean font-semibold">
+                        Carmen Bekker, Lead Partner, KPMG Consulting
+                      </div>
+                    </div>
+
+                    {/* Book Discovery Call Button */}
+                    <div className="mt-6">
+                      <motion.a
+                        href="https://calendly.com/thewellnesscoachsession/15min"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="bg-ocean text-white px-8 py-3 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
+                      >
+                        BOOK HEALTH OPTIMISATION CALL
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </motion.a>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
-
-              {/* Book Discovery Call Button */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4, duration: 0.6 }}
-                className="mt-8"
-              >
-                <motion.a
-                  href="https://calendly.com/thewellnesscoachsession/15-minute-check-in-session"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-ocean to-sky text-white px-8 py-3 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
-                >
-                  BOOK DISCOVERY CALL
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </motion.a>
               </motion.div>
             </motion.div>
           </div>
@@ -325,12 +303,7 @@ export default function CoachingPage() {
       </section>
 
       {/* This Program is Right for You */}
-      <section id="program-details" className="py-12 md:py-20 bg-ice relative">
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 right-10 w-64 h-64 border border-ocean rounded-full"></div>
-          <div className="absolute bottom-10 left-10 w-48 h-48 border border-sky rounded-full"></div>
-        </div>
+      <section id="program-details" className="py-12 md:py-20 bg-ocean relative">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -339,7 +312,7 @@ export default function CoachingPage() {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto text-center mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-montserrat font-light text-ocean mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-montserrat font-light text-white mb-8">
               This program is right for you if...
             </h2>
           </motion.div>
@@ -359,10 +332,10 @@ export default function CoachingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
                   viewport={{ once: true }}
-                  className="flex items-start bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition-shadow duration-300 border border-sky/10"
+                  className="flex items-start bg-sky/20 rounded-xl p-4"
                 >
                   <CheckCircle className="w-5 h-5 text-sky mr-3 mt-1 flex-shrink-0" />
-                  <p className="text-charcoal/80 leading-relaxed text-base">{item}</p>
+                  <p className="text-white/90 leading-relaxed text-base">{item}</p>
                 </motion.div>
               ))}
             </div>
@@ -407,7 +380,7 @@ export default function CoachingPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="bg-gradient-to-br from-ice to-white rounded-2xl p-6 shadow-lg border border-sky/20"
+                    className="bg-white rounded-2xl p-6 shadow-lg border border-sky/20"
                   >
                     <div className="flex items-start">
                       <CheckCircle className="w-6 h-6 text-sky mr-4 mt-1 flex-shrink-0" />
@@ -427,7 +400,7 @@ export default function CoachingPage() {
               className="mb-12"
             >
               <div className="max-w-4xl mx-auto">
-                <div className="bg-gradient-to-br from-cloud to-ice rounded-2xl p-8 border border-ocean/10 shadow-lg">
+                <div className="bg-sky/10 rounded-2xl p-8 border border-ocean/10 shadow-lg">
                   <h3 className="text-2xl font-semibold text-ocean mb-6 text-center">Optional Testing</h3>
                   <div className="max-w-3xl mx-auto">
                     <div className="space-y-3 text-charcoal/80 leading-relaxed text-left">
@@ -461,9 +434,9 @@ export default function CoachingPage() {
             >
               <div className="text-center">
                 <h3 className="text-2xl font-semibold text-ocean mb-8">Program Investment</h3>
-                <div className="bg-gradient-to-br from-ice to-white rounded-2xl p-8 border border-ocean/10 shadow-lg max-w-2xl mx-auto">
+                <div className="bg-white rounded-2xl p-8 border border-ocean/10 shadow-lg max-w-2xl mx-auto">
                   <div className="text-center mb-6">
-                    <div className="text-4xl font-bold text-ocean mb-2">$1,500</div>
+                    <div className="text-4xl font-bold text-ocean mb-2">$2,500</div>
                     <div className="text-charcoal/80">+ GST (3-month program)</div>
                     <div className="text-sm text-charcoal/60 mt-2">Including DNA Methylation test valued at $350</div>
                   </div>
@@ -475,19 +448,19 @@ export default function CoachingPage() {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
+                      className="bg-ocean text-white px-6 py-3 rounded-full font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
                     >
                       PAY NOW - START TODAY
                     </motion.a>
                     <motion.a
-                      href="https://calendly.com/thewellnesscoachsession/15-minute-check-in-session"
+                      href="https://calendly.com/thewellnesscoachsession/15min"
                       target="_blank"
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="bg-white border-2 border-ocean text-ocean px-6 py-3 rounded-full font-medium text-base hover:bg-ocean hover:text-white transition-all duration-300 inline-flex items-center justify-center"
                     >
-                      BOOK DISCOVERY CALL
+                      BOOK HEALTH OPTIMISATION CALL
                     </motion.a>
                   </div>
                   
@@ -502,7 +475,7 @@ export default function CoachingPage() {
       </section>
 
       {/* Outcomes Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-ocean to-sky text-white">
+      <section className="py-12 md:py-20 bg-ocean text-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -531,7 +504,7 @@ export default function CoachingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="flex items-start bg-white/10 backdrop-blur rounded-xl p-6"
+                  className="flex items-start bg-sky/20 rounded-xl p-6"
                 >
                   <CheckCircle className="w-6 h-6 text-white mr-4 mt-1 flex-shrink-0" />
                   <p className="text-white/90 leading-relaxed">{outcome}</p>
@@ -558,7 +531,7 @@ export default function CoachingPage() {
                 whileTap={{ scale: 0.95 }}
                 className="bg-white text-ocean px-8 py-3 rounded-full font-medium hover:bg-ice transition-colors inline-flex items-center"
               >
-                Start with a Discovery Call
+                Book a Health Optimisation Call
                 <ArrowRight className="ml-2 w-4 h-4" />
               </motion.a>
             </motion.div>
@@ -591,7 +564,7 @@ export default function CoachingPage() {
                 viewport={{ once: true }}
                 className="bg-white rounded-2xl p-8 shadow-lg"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-ocean to-sky rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
+                <div className="w-16 h-16 bg-ocean rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
                   1
                 </div>
                 <h3 className="text-2xl font-montserrat font-light text-ocean mb-6">MONTH ONE</h3>
@@ -627,7 +600,7 @@ export default function CoachingPage() {
                 viewport={{ once: true }}
                 className="bg-white rounded-2xl p-8 shadow-lg"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-sky to-ocean rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
+                <div className="w-16 h-16 bg-sky rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
                   2
                 </div>
                 <h3 className="text-2xl font-montserrat font-light text-ocean mb-6">MONTH TWO</h3>
@@ -658,7 +631,7 @@ export default function CoachingPage() {
                 viewport={{ once: true }}
                 className="bg-white rounded-2xl p-8 shadow-lg"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-ocean to-sky rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
+                <div className="w-16 h-16 bg-ocean rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
                   3
                 </div>
                 <h3 className="text-2xl font-montserrat font-light text-ocean mb-6">MONTH THREE</h3>
@@ -687,12 +660,7 @@ export default function CoachingPage() {
 
       {/* Biohacking Framework Section */}
       <section className="py-12 md:py-20 bg-white relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-0 w-96 h-96 bg-gradient-to-r from-ice to-transparent rounded-full opacity-30 -translate-x-48"></div>
-          <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-gradient-to-l from-cloud to-transparent rounded-full opacity-40 translate-x-40"></div>
-        </div>
-        
+                
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -735,7 +703,7 @@ export default function CoachingPage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-gradient-to-br from-ice to-white rounded-2xl p-6 text-center shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 border border-ocean/10"
+                  className="bg-white rounded-2xl p-6 text-center shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 border border-ocean/10"
                 >
                   <div className="text-ocean mb-3">
                     <IconComponent className="w-8 h-8 mx-auto" />
@@ -792,7 +760,7 @@ export default function CoachingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-ocean to-sky text-white">
+      <section className="py-12 md:py-20 bg-ocean text-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -805,7 +773,7 @@ export default function CoachingPage() {
               Ready to Optimise Your Life?
             </h2>
             
-            <div className="bg-white/10 backdrop-blur rounded-2xl p-8 mb-8">
+            <div className="bg-sky/20 rounded-2xl p-8 mb-8">
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div>
                   <div className="text-3xl font-bold mb-2">3</div>
@@ -830,11 +798,11 @@ export default function CoachingPage() {
               whileTap={{ scale: 0.95 }}
               className="inline-block bg-white text-ocean px-6 py-3 rounded-full text-base font-medium shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              BOOK YOUR DISCOVERY CALL
+              BOOK YOUR HEALTH OPTIMISATION CALL
             </motion.a>
             
             <p className="mt-6 text-white/80">
-              $1,500 + GST including DNA test • Payment plans available
+              $2,500 + GST including DNA test • Payment plans available
             </p>
           </motion.div>
         </div>
@@ -894,7 +862,7 @@ export default function CoachingPage() {
                   href="/freebie"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center"
+                  className="bg-ocean text-white px-6 py-3 rounded-full font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center"
                 >
                   CLICK HERE TO DOWNLOAD
                   <ArrowRight className="ml-2 w-4 h-4" />
@@ -903,14 +871,14 @@ export default function CoachingPage() {
                 <div className="text-center">
                   <p className="text-charcoal/60 mb-3">Ready for personalised guidance?</p>
                   <motion.a
-                    href="https://calendly.com/thewellnesscoachsession/15-minute-check-in-session"
+                    href="https://calendly.com/thewellnesscoachsession/15min"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className="bg-white border-2 border-ocean text-ocean px-4 py-2 rounded-full font-medium text-sm hover:bg-ocean hover:text-white transition-colors"
                   >
-                    Book Your Discovery Call
+                    Book Your Health Optimisation Call
                   </motion.a>
                 </div>
               </div>

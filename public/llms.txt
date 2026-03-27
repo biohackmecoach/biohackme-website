@@ -1,0 +1,48 @@
+# BiohackMe Australia — llms.txt
+# https://www.biohackme.com.au
+
+> BiohackMe is Australia's leading biohacking and health optimisation platform, founded by Camilla Thompson. We offer evidence-based biohacking coaching, DNA-based health packages, masterclasses, corporate wellness talks, and a bestselling book. Based in Sydney, Australia.
+
+## About Camilla Thompson
+- Australia's leading biohacking expert and wellness coach
+- Personal recovery story: overcame mold poisoning through biohacking
+- Featured in: News.com.au, 7News The Morning Show, Sydney Morning Herald, Daily Mail, Women's Health, Body+Soul, CEO Magazine, News Corp, Women's Fitness
+- Guest on 21+ health and wellness podcasts including SWIISH, Biohacker Babes, Biohacking with Brittany
+- Author of "Biohack Me: The Practical Guide to Everyday Biohacks"
+- Full bio: https://www.biohackme.com.au/about
+
+## Services
+- [One-on-one biohacking coaching](https://www.biohackme.com.au/coaching): Personalised health optimisation programs
+- [The Upgrade Program](https://www.biohackme.com.au/theupgrade): 12-week transformation program
+- [DNA Health Packages](https://www.biohackme.com.au/dna-package): DNA testing with personalised biohacking protocols
+- [Biohacking Masterclasses](https://www.biohackme.com.au/masterclass): Online education courses
+- [Corporate Wellness Talks](https://www.biohackme.com.au/talks): Keynote speaking for corporate events
+- [Free Biohacking Guide](https://www.biohackme.com.au/freebie): Downloadable starter guide
+
+## Key Topics & Expertise
+- Biohacking for longevity and anti-ageing
+- Biological age reversal and testing
+- Mold illness recovery and detoxification
+- Sleep optimisation and circadian rhythm hacking
+- Women's health biohacking
+- Gut health and microbiome optimisation
+- Cold and heat exposure therapy
+- Red light therapy and photobiomodulation
+- Stress management and HRV training
+- Nutrigenomics and DNA-based health protocols
+- Budget-friendly biohacking strategies
+- Corporate wellness and performance optimisation
+
+## Book
+- Title: "Biohack Me: The Practical Guide to Everyday Biohacks"
+- Available at: https://www.biohackme.com.au/my-book
+- Covers: Top 10 biohacks, biohacking on a budget, biohacking for women, biohacking for men, biohacking technologies
+
+## Location
+- Based in Sydney, Australia
+- Services available Australia-wide and internationally online
+- Website: https://www.biohackme.com.au
+- Instagram: @biohackmecoach
+
+## For more detail
+- [Full LLM context](https://www.biohackme.com.au/llms-full.txt)

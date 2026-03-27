@@ -4,6 +4,9 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { functions } from '../config/firebase'
+import { httpsCallable } from 'firebase/functions'
+import { backupToFirestore } from '../utils/mailchimp'
 
 export default function GuidePage() {
   const [formData, setFormData] = useState({
@@ -25,38 +28,42 @@ export default function GuidePage() {
 
     setIsSubmitting(true)
 
+    // Firestore backup
+    await backupToFirestore(formData.email.trim().toLowerCase(), 'guide-download', { firstName: formData.firstName })
+
     try {
-      // Submit to Mailchimp via Firebase function
-      const response = await fetch('https://us-central1-biohackme-app-379de.cloudfunctions.net/subscribeToNewsletter', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          firstName: formData.firstName,
-          lastName: '',
-          tags: ['guide-download', 'guide-page-lead']
-        }),
+      // Call Firebase Function to add to Mailchimp with proper tags
+      const addToMailchimp = httpsCallable(functions, 'addToMailchimp')
+
+      const result = await addToMailchimp({
+        email: formData.email.trim().toLowerCase(),
+        firstName: formData.firstName,
+        source: 'guide-download'
       })
 
-      if (response.ok) {
-        setShowSuccess(true)
-        // Trigger PDF download
-        setTimeout(() => {
-          const link = document.createElement('a')
-          link.href = '/biohackme-guide.pdf'
-          link.download = 'BiohackMe-Guide.pdf'
-          document.body.appendChild(link)
-          link.click()
-          document.body.removeChild(link)
-        }, 1000)
-      } else {
-        throw new Error('Subscription failed')
-      }
+      console.log('✅ Guide Lead added to Mailchimp:', result)
+
+      setShowSuccess(true)
+
+      // Trigger PDF download
+      const link = document.createElement('a')
+      link.href = '/biohackme-guide.pdf'
+      link.download = 'BiohackMe-Guide.pdf'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+
     } catch (error) {
-      console.error('Error:', error)
-      alert('Something went wrong. Please try again.')
+      console.error('❌ Mailchimp subscription failed:', error)
+      // Still show success and download - don't block user
+      setShowSuccess(true)
+
+      const link = document.createElement('a')
+      link.href = '/biohackme-guide.pdf'
+      link.download = 'BiohackMe-Guide.pdf'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
     } finally {
       setIsSubmitting(false)
     }

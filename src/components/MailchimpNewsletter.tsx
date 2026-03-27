@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, CheckCircle, ArrowRight } from 'lucide-react';
+import { backupToFirestore } from '../utils/mailchimp';
 
 interface MailchimpNewsletterProps {
   title?: string;
@@ -42,6 +43,9 @@ const MailchimpNewsletter: React.FC<MailchimpNewsletterProps> = ({
 
     setStatus('loading');
     setMessage('');
+
+    // Firestore backup
+    await backupToFirestore(trimmedEmail, 'newsletter');
 
     try {
       // Call Firebase Function for Mailchimp subscription
@@ -126,7 +130,7 @@ const MailchimpNewsletter: React.FC<MailchimpNewsletterProps> = ({
           disabled={status === 'loading'}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-gradient-to-r from-ocean to-sky text-white px-8 py-3 rounded-full font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center justify-center disabled:opacity-50"
+          className="bg-ocean text-white px-8 py-3 rounded-full font-medium hover:shadow-lg transition-all duration-300 inline-flex items-center justify-center disabled:opacity-50"
         >
           {status === 'loading' ? 'Subscribing...' : buttonText}
           <ArrowRight className="ml-2 w-4 h-4" />

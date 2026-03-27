@@ -104,7 +104,7 @@ export default function CourseViewPage() {
                 <span className="text-sm text-charcoal/60">Progress:</span>
                 <div className="w-24 h-2 bg-ice rounded-full">
                   <div 
-                    className="h-full bg-gradient-to-r from-ocean to-sky rounded-full transition-all duration-500"
+                    className="h-full bg-ocean rounded-full transition-all duration-500"
                     style={{ width: `${getOverallProgress()}%` }}
                   />
                 </div>
@@ -115,7 +115,7 @@ export default function CourseViewPage() {
 
               {/* User Info */}
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-ocean to-sky rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-ocean rounded-full flex items-center justify-center">
                   <span className="text-white text-sm font-medium">C</span>
                 </div>
                 <span className="text-sm text-charcoal/80">Camilla</span>
@@ -182,7 +182,7 @@ export default function CourseViewPage() {
           {/* Sidebar - Course Navigation */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl shadow-lg overflow-hidden sticky top-8">
-              <div className="p-6 bg-gradient-to-r from-ocean to-sky text-white">
+              <div className="p-6 bg-ocean text-white">
                 <h3 className="font-montserrat font-light text-lg mb-2">Course Modules</h3>
                 <div className="text-sm opacity-90">
                   {completedModules.size} of {course.modules.length} completed
@@ -248,7 +248,7 @@ export default function CourseViewPage() {
 
               {/* Course Completion */}
               {getOverallProgress() === 100 && (
-                <div className="p-6 bg-gradient-to-r from-sky to-ocean text-white text-center">
+                <div className="p-6 bg-sky text-white text-center">
                   <CheckCircle className="w-12 h-12 mx-auto mb-3" />
                   <h4 className="font-montserrat font-light text-lg mb-2">
                     Congratulations!

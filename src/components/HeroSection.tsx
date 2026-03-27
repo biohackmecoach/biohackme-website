@@ -95,7 +95,7 @@ export default function HeroSection({
               href={primaryCTA.href}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-ocean to-sky text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center min-w-[200px] justify-center"
+              className="bg-ocean text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center min-w-[200px] justify-center"
             >
               {primaryCTA.text}
               <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

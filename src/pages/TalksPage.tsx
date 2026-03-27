@@ -27,6 +27,7 @@ export default function TalksPage() {
     { src: '/images/Talks/media-logos/download (2).png', alt: 'The Age' },
     { src: '/images/Talks/media-logos/download (1).png', alt: 'Kanebridge News' },
     { src: '/images/Talks/media-logos/images.png', alt: 'The CEO Magazine' },
+    { src: '/images/media-logos/newscorp.png', alt: 'News Corp' },
   ]
 
   // Corporate & venue logos - from media kit page 4
@@ -290,7 +291,7 @@ export default function TalksPage() {
             >
               <p className="text-sm font-medium tracking-[0.3em] uppercase text-white/70 mb-4">AUSTRALIA'S LEADING BIOHACKING EXPERT</p>
 
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold mb-6 leading-tight text-[#6b8cae]">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold mb-6 leading-tight text-sky">
                 KEYNOTE<br />SPEAKER
               </h1>
 
@@ -312,7 +313,7 @@ export default function TalksPage() {
               <div className="flex flex-wrap gap-4">
                 <a
                   href="#book-camilla"
-                  className="inline-flex items-center bg-[#6b8cae] text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#5a7a9a] transition-all duration-300 shadow-lg"
+                  className="inline-flex items-center bg-sky text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-sky/80 transition-all duration-300 shadow-lg"
                 >
                   Book Camilla
                   <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -322,7 +323,7 @@ export default function TalksPage() {
                 <a
                   href="/BioHackMe-Media-Kit.pdf"
                   download
-                  className="inline-flex items-center border-2 border-[#6b8cae] text-[#6b8cae] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#6b8cae] hover:text-white transition-all duration-300"
+                  className="inline-flex items-center border-2 border-sky text-sky px-8 py-4 rounded-full font-semibold text-lg hover:bg-sky hover:text-white transition-all duration-300"
                 >
                   <svg className="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -421,7 +422,7 @@ export default function TalksPage() {
       </section>
 
       {/* Testimonials Section - Media Kit Style */}
-      <section className="py-10 bg-[#6b8cae]">
+      <section className="py-10 bg-sky">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <motion.div
@@ -431,8 +432,8 @@ export default function TalksPage() {
               viewport={{ once: true }}
               className="mb-6"
             >
-              <div className="inline-block border-2 border-white/30 rounded-full px-8 py-3">
-                <span className="text-white font-bold tracking-[0.15em] uppercase text-sm">Testimonials</span>
+              <div className="inline-block border-2 border-ocean/30 rounded-full px-8 py-3">
+                <span className="text-ocean font-bold tracking-[0.15em] uppercase text-sm">Testimonials</span>
               </div>
             </motion.div>
 
@@ -444,14 +445,14 @@ export default function TalksPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-white/10 backdrop-blur rounded-xl p-8"
+                  className="bg-white/50 backdrop-blur rounded-xl p-8"
                 >
-                  <p className="text-white leading-relaxed mb-6">
+                  <p className="text-ocean leading-relaxed mb-6">
                     "{testimonial.quote}"
                   </p>
                   <div>
-                    <p className="font-bold text-white">{testimonial.name}</p>
-                    <p className="text-white/70 text-sm">{testimonial.title}, {testimonial.company}</p>
+                    <p className="font-bold text-ocean">{testimonial.name}</p>
+                    <p className="text-ocean/70 text-sm">{testimonial.title}, {testimonial.company}</p>
                   </div>
                 </motion.div>
               ))}
@@ -460,8 +461,44 @@ export default function TalksPage() {
         </div>
       </section>
 
+      {/* As Featured In - Media Logo Carousel */}
+      <section className="py-8 bg-white overflow-hidden">
+        <p className="text-center text-xs text-gray-500 font-light tracking-wider uppercase mb-6">As Featured In</p>
+        <div className="relative">
+          <motion.div
+            className="flex gap-16 items-center"
+            animate={{
+              x: [0, -1000],
+            }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 25,
+                ease: "linear",
+              },
+            }}
+          >
+            {[...mediaLogos, ...mediaLogos].map((logo, index) => (
+              <div
+                key={index}
+                className="flex-shrink-0 h-10 flex items-center"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="h-8 object-contain"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* Talks Delivered To Section - Logo Carousel */}
-      <section className="py-10 bg-white overflow-hidden">
+      <section className="py-8 bg-white overflow-hidden">
+        <p className="text-center text-xs text-gray-500 font-light tracking-wider uppercase mb-6">Talks Delivered To</p>
         <div className="relative">
           <motion.div
             className="flex gap-16 items-center"
@@ -477,7 +514,6 @@ export default function TalksPage() {
               },
             }}
           >
-            {/* Double the logos for seamless loop */}
             {[...corporateLogos, ...corporateLogos].map((logo, index) => (
               <div
                 key={index}
@@ -562,11 +598,11 @@ export default function TalksPage() {
       </section>
 
       {/* Why Work With Camilla - Banner Style */}
-      <section className="py-8 bg-[#6b8cae]">
+      <section className="py-8 bg-sky">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="inline-block border-2 border-white/30 rounded-full px-8 py-3 mb-8">
-              <span className="text-white font-bold tracking-[0.15em] uppercase text-sm">Why Work With Camilla</span>
+            <div className="inline-block border-2 border-ocean/30 rounded-full px-8 py-3 mb-8">
+              <span className="text-ocean font-bold tracking-[0.15em] uppercase text-sm">Why Work With Camilla</span>
             </div>
             <div className="grid lg:grid-cols-2 gap-8 items-start">
               <motion.div
@@ -574,23 +610,23 @@ export default function TalksPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="text-white pt-2"
+                className="text-ocean pt-2"
               >
-                <ul className="space-y-3 text-white/90">
+                <ul className="space-y-3 text-ocean/90">
                   <li className="flex items-start">
-                    <span className="text-white mr-3">✓</span>
+                    <span className="text-ocean mr-3">✓</span>
                     Delivers practical, science-backed strategies that are easy to apply and get real results.
                   </li>
                   <li className="flex items-start">
-                    <span className="text-white mr-3">✓</span>
+                    <span className="text-ocean mr-3">✓</span>
                     Known for her engaging, relatable, and grounded approach — no extremes, no over complication.
                   </li>
                   <li className="flex items-start">
-                    <span className="text-white mr-3">✓</span>
+                    <span className="text-ocean mr-3">✓</span>
                     Equally at home on stage, in the boardroom, or leading retreats, bringing clarity, connection, and transformation to every audience.
                   </li>
                   <li className="flex items-start">
-                    <span className="text-white mr-3">✓</span>
+                    <span className="text-ocean mr-3">✓</span>
                     Combines lived experience, evidence-based frameworks, and behaviour-change expertise to help people feel better, think clearer, and lead stronger.
                   </li>
                 </ul>
@@ -601,12 +637,12 @@ export default function TalksPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+                className="bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-ocean/20"
               >
-                <p className="italic text-white leading-relaxed">
+                <p className="italic text-ocean leading-relaxed">
                   "I have worked with Camilla on numerous occasions in various corporate settings, she is an amazing executive coach and an accomplished, highly polished public speaker. Camilla doesn't just do well-being lip service she truly walks the talk and speaks wisely and informatively from lived experience. It all comes from the heart, experience and an innate passion for people to thrive and live their best lives. I cannot recommend Camilla more highly."
                 </p>
-                <p className="text-white/80 mt-4 font-medium">
+                <p className="text-ocean/80 mt-4 font-medium">
                   — Matthew Johnstone, Author & Keynote Speaker
                 </p>
               </motion.div>
@@ -789,7 +825,7 @@ export default function TalksPage() {
       </section>
 
       {/* Speaker Packages Section - Media Kit Style */}
-      <section className="py-20 bg-[#6b8cae]">
+      <section className="py-20 bg-sky">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <motion.div
@@ -799,8 +835,8 @@ export default function TalksPage() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <div className="inline-block border-2 border-white/30 rounded-full px-8 py-3 mb-6">
-                <span className="text-white font-bold tracking-[0.15em] uppercase text-sm">Speaker Packages</span>
+              <div className="inline-block border-2 border-ocean/30 rounded-full px-8 py-3 mb-6">
+                <span className="text-ocean font-bold tracking-[0.15em] uppercase text-sm">Speaker Packages</span>
               </div>
             </motion.div>
 
@@ -817,11 +853,11 @@ export default function TalksPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="border-2 border-white/30 rounded-full aspect-square p-6 text-center text-white hover:bg-white/10 transition-colors flex flex-col items-center justify-center"
+                  className="border-2 border-ocean/30 rounded-full aspect-square p-6 text-center text-ocean hover:bg-white/30 transition-colors flex flex-col items-center justify-center"
                 >
                   <h3 className="text-base font-bold mb-1">{pkg.title}</h3>
-                  <p className="text-white/70 text-xs mb-2">{pkg.duration}</p>
-                  <p className="text-white/80 text-xs leading-relaxed">{pkg.desc}</p>
+                  <p className="text-ocean/70 text-xs mb-2">{pkg.duration}</p>
+                  <p className="text-ocean/80 text-xs leading-relaxed">{pkg.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -942,31 +978,39 @@ export default function TalksPage() {
 
               <a
                 href="mailto:hello@biohackme.com.au"
-                className="text-2xl font-bold text-[#1a365d] hover:text-[#6b8cae] transition-colors block mb-2"
+                className="text-2xl font-bold text-[#1a365d] hover:text-sky transition-colors block mb-2"
               >
                 hello@biohackme.com.au
               </a>
 
               <a
                 href="https://www.biohackme.com.au"
-                className="text-lg text-[#6b8cae] hover:text-[#1a365d] transition-colors block mb-2"
+                className="text-lg text-sky hover:text-[#1a365d] transition-colors block mb-2"
               >
                 www.biohackme.com.au
               </a>
 
               <p className="text-gray-600">
-                Instagram: <a href="https://www.instagram.com/biohackmecoach/" target="_blank" rel="noopener noreferrer" className="text-[#1a365d] hover:text-[#6b8cae]">@biohackmecoach</a>
+                Instagram: <a href="https://www.instagram.com/biohackmecoach/" target="_blank" rel="noopener noreferrer" className="text-[#1a365d] hover:text-sky">@biohackmecoach</a>
               </p>
 
-              <div className="mt-12">
+              <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="mailto:hello@biohackme.com.au?subject=Speaking Enquiry"
-                  className="inline-flex items-center bg-[#1a365d] text-white px-10 py-4 rounded-full font-semibold text-lg hover:bg-[#6b8cae] transition-colors shadow-lg"
+                  className="inline-flex items-center bg-[#1a365d] text-white px-10 py-4 rounded-full font-semibold text-lg hover:bg-sky transition-colors shadow-lg"
                 >
                   Send Enquiry
                   <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
+                </a>
+                <a
+                  href="https://calendly.com/thewellnesscoachsession/15min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center bg-sky text-white px-10 py-4 rounded-full font-semibold text-lg hover:bg-[#1a365d] transition-colors shadow-lg"
+                >
+                  Book a Free Call
                 </a>
               </div>
             </motion.div>

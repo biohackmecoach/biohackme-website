@@ -197,6 +197,33 @@ export default function AboutPage() {
               </a>
             </div>
           </motion.div>
+
+          {/* Book a Call CTA & Media Kit */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="text-center mb-8 flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <a
+              href="https://calendly.com/thewellnesscoachsession/15min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center bg-ocean text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:bg-ocean/90 transition-all duration-300"
+            >
+              BOOK A FREE HEALTH OPTIMISATION CALL
+            </a>
+            <a
+              href="/BioHackMe-Media-Kit.pdf"
+              download
+              className="inline-flex items-center border-2 border-ocean text-ocean px-8 py-4 rounded-full font-semibold text-lg hover:bg-ocean hover:text-white transition-all duration-300"
+            >
+              <svg className="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Media Kit
+            </a>
+          </motion.div>
         </motion.div>
 
         {/* Main Content Section */}
@@ -286,7 +313,7 @@ export default function AboutPage() {
               </div>
 
               {/* Mission Statement */}
-              <div className="text-center bg-gradient-to-r from-ocean to-sky text-white p-8 rounded-2xl">
+              <div className="text-center bg-ocean text-white p-8 rounded-2xl">
                 <p className="text-xl leading-relaxed">
                   <em>"I'm committed to empowering individuals to supercharge their lives, one biohack at a time."</em>
                 </p>
@@ -374,7 +401,7 @@ export default function AboutPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="bg-gradient-to-r from-ocean to-sky text-white p-8 rounded-2xl shadow-xl mb-8 md:mb-12 text-center"
+          className="bg-ocean text-white p-8 rounded-2xl shadow-xl mb-8 md:mb-12 text-center"
         >
           <h3 className="text-2xl md:text-3xl font-montserrat font-light mb-4">
             Media & Speaking Enquiries
@@ -494,7 +521,23 @@ export default function AboutPage() {
         </motion.div>
 
       </div>
-      
+
+      {/* Bottom CTA */}
+      <section className="py-16 bg-ocean text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to work with Camilla?</h2>
+          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Book a free 15-minute health optimisation call to discuss your goals.</p>
+          <a
+            href="https://calendly.com/thewellnesscoachsession/15min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:bg-sky hover:text-white transition-all duration-300"
+          >
+            BOOK A FREE HEALTH OPTIMISATION CALL
+          </a>
+        </div>
+      </section>
+
       <Footer />
     </div>
   )

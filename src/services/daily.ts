@@ -112,7 +112,7 @@ export const DAILY_CONFIG = {
       accent: '#022D4E', // BiohackMe Ocean color
       accentText: '#FFFFFF',
       background: '#F3F5F6', // BiohackMe Cloud color
-      backgroundAccent: '#E9EFF2', // BiohackMe Ice color
+      backgroundAccent: '#f8fafc', // BiohackMe Ice color
       baseText: '#022D4E',
       border: '#5780AB', // BiohackMe Sky color
       mainAreaBg: '#F3F5F6',

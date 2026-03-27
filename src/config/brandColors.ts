@@ -5,14 +5,14 @@ export const brandColors = {
   // Primary Brand Colors
   ocean: '#022D4E',     // Primary dark blue - RGB: 2 45 78
   sky: '#5780AB',       // Medium blue - RGB: 87 128 171  
-  ice: '#E9EFF2',       // Light blue/white - RGB: 233 239 242
+  ice: '#f8fafc',       // Light blue/white - RGB: 233 239 242
   cloud: '#F3F5F6',     // Off-white - RGB: 243 245 246
   charcoal: '#161616',  // Dark text - RGB: 22 22 22
 
   // Extended palette for UI
   primary: '#022D4E',   // Ocean - primary brand color
   secondary: '#5780AB', // Sky - secondary brand color
-  accent: '#E9EFF2',    // Ice - accent color
+  accent: '#f8fafc',    // Ice - accent color
   background: '#F3F5F6', // Cloud - background color
   text: '#161616',      // Charcoal - text color
   
@@ -24,8 +24,8 @@ export const brandColors = {
 
   // Gradients
   oceanGradient: 'linear-gradient(135deg, #022D4E 0%, #5780AB 100%)',
-  skyGradient: 'linear-gradient(135deg, #5780AB 0%, #E9EFF2 100%)',
-  iceGradient: 'linear-gradient(135deg, #E9EFF2 0%, #F3F5F6 100%)',
+  skyGradient: 'linear-gradient(135deg, #5780AB 0%, #f8fafc 100%)',
+  iceGradient: 'linear-gradient(135deg, #f8fafc 0%, #F3F5F6 100%)',
 }
 
 // Brand typography scale

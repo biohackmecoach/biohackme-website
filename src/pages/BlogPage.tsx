@@ -285,7 +285,7 @@ export default function BlogPage() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] overflow-hidden bg-gradient-to-br from-ocean via-sky to-ocean">
+      <section className="relative min-h-[60vh] overflow-hidden bg-ocean">
         <Header />
         
         {/* Animated Background */}
@@ -413,7 +413,7 @@ export default function BlogPage() {
                 rel="noopener noreferrer"
                 variants={fadeInUp}
                 whileHover={{ y: -5 }}
-                className="group bg-gradient-to-br from-sky/5 to-ocean/5 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-ocean/10"
+                className="group bg-sky/10 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-ocean/10"
               >
                 {/* Blog Image */}
                 <div className="aspect-[16/10] overflow-hidden">
@@ -464,7 +464,7 @@ export default function BlogPage() {
                 href="https://biohackme.substack.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center bg-gradient-to-r from-ocean to-sky text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300 shadow-lg"
+                className="inline-flex items-center bg-ocean text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-xl transition-all duration-300 shadow-lg"
               >
                 Subscribe to my Substack
                 <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -489,7 +489,7 @@ export default function BlogPage() {
       </section>
 
       {/* Women Love Travel Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -668,7 +668,7 @@ export default function BlogPage() {
 
 
       {/* Newsletter Section */}
-      <section className="py-20 bg-gradient-to-br from-ice to-cloud">
+      <section className="py-20 bg-sky/10">
         <div className="container mx-auto px-4 max-w-4xl">
           <MailchimpNewsletter
             title="Stay Updated with Latest Blog Posts"

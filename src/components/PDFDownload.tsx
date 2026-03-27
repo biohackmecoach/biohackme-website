@@ -38,7 +38,7 @@ export default function PDFDownload({
   return (
     <div className={`bg-white rounded-xl p-6 shadow-lg border border-sky/20 ${className}`}>
       <div className="flex items-start gap-4">
-        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-ocean to-sky rounded-lg flex items-center justify-center">
+        <div className="flex-shrink-0 w-12 h-12 bg-ocean rounded-lg flex items-center justify-center">
           <FileText className="w-6 h-6 text-white" />
         </div>
 
@@ -50,7 +50,7 @@ export default function PDFDownload({
             onClick={handleDownload}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300"
+            className="inline-flex items-center gap-2 bg-ocean text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all duration-300"
           >
             <Download className="w-4 h-4" />
             Download PDF

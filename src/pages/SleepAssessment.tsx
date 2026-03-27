@@ -349,7 +349,7 @@ const SleepAssessment: React.FC = () => {
           <meta name="description" content="Discover your sleep biohacking potential with Camilla Thompson's comprehensive sleep assessment." />
         </Helmet>
 
-        <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #E9EFF2 0%, #5780AB 100%)' }}>
+        <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #5780AB 100%)' }}>
           <div className="max-w-2xl mx-auto px-4 pt-20 pb-16">
             <div className="bg-white/95 rounded-3xl p-8 shadow-xl">
               <div className="text-center mb-8">
@@ -425,7 +425,7 @@ const SleepAssessment: React.FC = () => {
           <meta name="description" content="Enter your email to receive your personalised sleep optimisation results and recommendations." />
         </Helmet>
 
-        <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #E9EFF2 0%, #5780AB 100%)' }}>
+        <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #5780AB 100%)' }}>
           <div className="max-w-md mx-auto px-4 pt-20 pb-16">
             <div className="bg-white/95 rounded-3xl p-8 shadow-xl text-center">
               <div className="w-16 h-16 bg-[#5780AB] rounded-full mx-auto mb-6 flex items-center justify-center">
@@ -481,7 +481,7 @@ const SleepAssessment: React.FC = () => {
           <meta name="description" content="Your personalised sleep optimisation assessment results with biohacking recommendations from Camilla Thompson." />
         </Helmet>
 
-        <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #E9EFF2 0%, #5780AB 100%)' }}>
+        <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #5780AB 100%)' }}>
           <div className="max-w-4xl mx-auto px-4 pt-12 pb-8">
             <div className="bg-white/95 rounded-3xl p-8 shadow-xl text-center">
               <div className={`w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center text-3xl font-bold text-white ${resultData.class}`}>
@@ -577,7 +577,7 @@ const SleepAssessment: React.FC = () => {
         <meta name="description" content="Discover your sleep biohacking potential with Camilla Thompson's comprehensive sleep assessment. Get personalised optimisation strategies." />
       </Helmet>
 
-      <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #E9EFF2 0%, #5780AB 100%)' }}>
+      <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #5780AB 100%)' }}>
         <div className="max-w-4xl mx-auto px-4 pt-12 pb-8">
           {/* Header */}
           <div className="bg-white/95 rounded-3xl p-8 shadow-xl text-center mb-8">
@@ -619,7 +619,7 @@ const SleepAssessment: React.FC = () => {
                 <label key={index} className={`block p-4 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                   currentAnswer === option.value
                     ? 'bg-[#5780AB] text-white border-[#022D4E]'
-                    : 'bg-gray-50 border-gray-200 hover:border-[#5780AB] hover:bg-[#E9EFF2]'
+                    : 'bg-gray-50 border-gray-200 hover:border-[#5780AB] hover:bg-[#f8fafc]'
                 }`}>
                   <input
                     type="radio"

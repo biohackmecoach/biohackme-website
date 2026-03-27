@@ -14,7 +14,8 @@ import {
   CheckCircle,
   Download,
   Brain,
-  Heart
+  Heart,
+  CalendarHeart
 } from 'lucide-react'
 
 export default function HomePage() {
@@ -81,7 +82,30 @@ export default function HomePage() {
               "@type": "Person",
               "name": "Camilla Thompson",
               "jobTitle": "Biohacking Expert, Nutritionist & Wellbeing Coach",
-              "description": "Expert biohacking coach, nutritionist, and wellbeing coach specialising in personalised health optimisation strategies"
+              "description": "Expert biohacking coach, nutritionist, and wellbeing coach specialising in personalised health optimisation strategies",
+              "subjectOf": [
+                { "@type": "NewsArticle", "name": "Her blood tests were 'fine' – they were wrong", "url": "https://www.news.com.au/lifestyle/health/wellbeing/her-blood-tests-were-fine-they-were-wrong/news-story/31e585ed721aca002c171d96b2cc5247", "publisher": { "@type": "Organization", "name": "News.com.au" }, "datePublished": "2026-03-13" },
+                { "@type": "NewsArticle", "name": "Why the health choices you make in your mid-30s to mid-40s are critical", "url": "https://www.bodyandsoul.com.au/houseofwellness/why-the-health-choices-you-make-in-your-mid30s-to-mid40s-are-critical/news-story/634d72445b1e69f50b6c20cf44816920", "publisher": { "@type": "Organization", "name": "Body+Soul" } },
+                { "@type": "NewsArticle", "name": "This 48-year-old wellbeing coach has a bio age of 38", "url": "https://www.smh.com.au/lifestyle/health-and-wellness/this-48-year-old-wellbeing-coach-has-a-bio-age-of-38-here-s-what-she-eats-in-a-day-20250617-p5m80d.html", "publisher": { "@type": "Organization", "name": "Sydney Morning Herald" } },
+                { "@type": "NewsArticle", "name": "Secrets of a biohacker", "url": "https://www.dailymail.co.uk/femail/article-14749127/Secrets-biohacker-peel-five-years-body-clock-FAST-no-millionaire-budget-required.html", "publisher": { "@type": "Organization", "name": "Daily Mail" } },
+                { "@type": "NewsArticle", "name": "The Price of Everlasting Health and Vitality", "url": "https://kanebridgenews.com/the-price-of-everlasting-health-and-vitality/", "publisher": { "@type": "Organization", "name": "Kanebridge News" } },
+                { "@type": "NewsArticle", "name": "Biohacking for Women", "url": "https://womenlovetech.com/biohacks-for-women-how-females-are-using-tech-to-control-their-health/", "publisher": { "@type": "Organization", "name": "Women Love Tech" } },
+                { "@type": "NewsArticle", "name": "Affordable Health Tips", "url": "https://womenshealth.com.au/affordable-health-tips-biohacking/", "publisher": { "@type": "Organization", "name": "Women's Health Australia" } },
+                { "@type": "NewsArticle", "name": "10 Biohacks to Transform Your Health", "url": "https://musepaper.au/wellness/10-biohacks-to-transform-your-health-routine", "publisher": { "@type": "Organization", "name": "Muse Paper" } },
+                { "@type": "NewsArticle", "name": "Are You a Rushing Woman?", "url": "https://ramonamag.com/2025/06/are-you-a-rushing-woman-it-could-be-taking-years-off-your-life/", "publisher": { "@type": "Organization", "name": "Ramona Magazine" } },
+                { "@type": "NewsArticle", "name": "From Mold Poisoning to Reversing Age", "url": "https://www.thelight.com.au/news/from-mold-poisoning-to-reversing-age-how-camilla-thompson-biohacked-her-way-back-to-health", "publisher": { "@type": "Organization", "name": "The Light" } },
+                { "@type": "NewsArticle", "name": "How to Sleep Better and Live Healthy", "url": "https://www.thesenior.com.au/story/8955962/how-to-sleep-better-at-night-eat-better-and-live-a-healthy-life/", "publisher": { "@type": "Organization", "name": "The Senior" } },
+                { "@type": "TVEpisode", "name": "Biohacking Basics", "url": "https://7news.com.au/video/the-morning-show/biohacking-basics-bc-6373764239112", "partOfSeries": { "@type": "TVSeries", "name": "The Morning Show" }, "publisher": { "@type": "Organization", "name": "7News" } },
+                { "@type": "PodcastEpisode", "name": "SWIISH Wellness Unlocked", "url": "https://podcasts.apple.com/au/podcast/swiish-wellness-unlocked/id1827844661?i=1000730856816" },
+                { "@type": "PodcastEpisode", "name": "Biohacker Babes", "url": "https://podcasts.apple.com/au/podcast/renee-belz-lauren-sambataro/id1470189843?i=1000750999194" },
+                { "@type": "PodcastEpisode", "name": "Dr Avi Charlton", "url": "https://podcasts.apple.com/au/podcast/episode-122-biohackme-with-camilla-thompson/id1743380029?i=1000749377550" },
+                { "@type": "PodcastEpisode", "name": "Biohacking with Brittany", "url": "https://podcasts.apple.com/au/podcast/biohacking-with-brittany/id1466703200?i=1000731782155" },
+                { "@type": "PodcastEpisode", "name": "Unstress with Dr Ron Ehrlich", "url": "https://podcasts.apple.com/au/podcast/unstress-with-dr-ron-ehrlich/id1333795919?i=1000679644767" },
+                { "@type": "PodcastEpisode", "name": "Well Hello Anxiety with Dr Jodi Richardson", "url": "https://podcasts.apple.com/au/podcast/well-hello-anxiety-with-dr-jodi-richardson/id1585382774?i=1000712290311" },
+                { "@type": "PodcastEpisode", "name": "Space and Grace", "url": "https://podcasts.apple.com/au/podcast/space-and-grace-podcast-abundant-business-without-burnout/id1776927699?i=1000710666463" },
+                { "@type": "PodcastEpisode", "name": "The Dynamic Leader", "url": "https://podcasts.apple.com/au/podcast/the-dynamic-leader-podcast/id1500435928?i=1000725784936" },
+                { "@type": "PodcastEpisode", "name": "The Hustle Rebellion", "url": "https://podcasts.apple.com/au/podcast/the-hustle-rebellion/id1498288852?i=1000714417499" }
+              ]
             },
             "sameAs": [
               "https://www.instagram.com/biohackmecoach/",
@@ -136,7 +160,7 @@ export default function HomePage() {
                   "name": "Executive Wellbeing Coaching",
                   "description": "Leadership coaching for sustainable performance"
                 },
-                "price": "1900",
+                "price": "2500",
                 "priceCurrency": "AUD"
               }
             ],
@@ -171,10 +195,58 @@ export default function HomePage() {
             }]
           })}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is biohacking?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Biohacking is the practice of using science, data, and self-experimentation to take control of and optimise your own biology. It ranges from simple lifestyle changes like cold exposure and sleep optimisation to advanced techniques like DNA methylation testing and biological age testing. BiohackMe in Australia offers personalised biohacking coaching to help you optimise your health based on your unique genetic profile."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Who is Camilla Thompson?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Camilla Thompson is Australia's leading biohacking expert and the founder of BiohackMe. Based in Sydney, she specialises in personalised health optimisation using DNA testing, biological age testing, and evidence-based biohacking protocols. She is the author of 'Biohack Me: The Practical Guide to Everyday Biohacks' and has been featured in News.com.au, Sydney Morning Herald, Daily Mail, 7News The Morning Show, and 21+ health podcasts."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is biohacking in Australia?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Biohacking in Australia is a growing movement focused on health optimisation through personalised science-backed strategies. BiohackMe, founded by Camilla Thompson in Sydney, is Australia's leading biohacking platform offering one-on-one coaching, DNA health packages, masterclasses, corporate wellness talks, and retreats. Services are available Australia-wide via Zoom and internationally."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How can I reverse my biological age?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Biological age can be improved through targeted lifestyle interventions including optimised sleep, personalised nutrition based on your DNA, stress management, cold and heat exposure therapy, exercise protocols, and gut health optimisation. BiohackMe's 'The Upgrade' program uses GlycanAge biological age testing and MyDNA genetic testing to create personalised protocols, with clients typically seeing 5-7 years improvement in biological age within 12 weeks."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the best biohacking book in Australia?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "'Biohack Me: The Practical Guide to Everyday Biohacks' by Camilla Thompson covers the top 10 biohacks, biohacking on a budget, biohacking for women, biohacking for men, and biohacking technologies. It is available at biohackme.com.au and is designed to make biohacking accessible to everyone regardless of budget or experience level."
+                }
+              }
+            ]
+          })}
+        </script>
       </Helmet>
 
       <Header />
-      
+
       {/* Hero Section - Side by Side Layout */}
       <section className="bg-white pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -183,48 +255,51 @@ export default function HomePage() {
             {/* Content Side - Left */}
             <div className="space-y-4 sm:space-y-6 lg:space-y-8 order-2 lg:order-1">
               {/* Main Headline - Hidden on mobile, shown on desktop */}
-              <h1 className="hidden lg:block text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold leading-tight text-center lg:text-left">
+              <h1 className="hidden lg:block text-2xl xs:text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold leading-tight text-center lg:text-left">
                 <span className="text-ocean block">Optimise Your Life</span>
                 <span className="text-sky block">One BioHack at a Time.</span>
               </h1>
 
               {/* New Tagline - Hidden on mobile, shown on desktop */}
-              <p className="hidden lg:block text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed text-center lg:text-left">
+              <p className="hidden lg:block text-base sm:text-lg md:text-lg lg:text-xl leading-relaxed text-center lg:text-left">
                 <span className="text-ocean font-bold">Australia's leading biohacking coach</span> <span className="text-gray-600">specialising in health optimisation and personalised longevity strategies.</span>
               </p>
 
               {/* Media Logos Row - Animated Logo Loop */}
               <div className="py-6 sm:py-8">
-                <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6 font-light tracking-wider text-center">AS FEATURED IN</p>
+                <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6 font-light tracking-wider text-center lg:text-left">AS FEATURED IN</p>
                 <div className="block sm:hidden">
                   {/* Mobile: Static logo grid */}
                   <div className="grid grid-cols-3 gap-4 max-w-xs mx-auto items-center">
-                    <img src="/images/media-logos/Sunrise.png" alt="Sunrise" width="120" height="32" className="h-8 w-auto object-contain opacity-60 mx-auto" />
-                    <img src="/images/media-logos/the morning show.png" alt="The Morning Show" width="120" height="32" className="h-8 w-auto object-contain opacity-60 mx-auto" />
-                    <img src="/images/media-logos/daily mail.png" alt="Daily Mail" width="120" height="32" className="h-8 w-auto object-contain opacity-60 mx-auto" />
-                    <img src="/images/media-logos/SMH.png" alt="SMH" width="120" height="32" className="h-8 w-auto object-contain opacity-60 mx-auto" />
-                    <img src="/images/media-logos/womens fitness.png" alt="Women's Fitness" width="120" height="32" className="h-8 w-auto object-contain opacity-60 mx-auto" />
-                    <img src="/images/media-logos/womens health.png" alt="Women's Health" width="120" height="32" className="h-8 w-auto object-contain opacity-60 mx-auto" />
+                    <img src="/images/media-logos/Sunrise.png" alt="Sunrise" width="100" height="24" className="h-6 w-auto object-contain opacity-60 mx-auto" />
+                    <img src="/images/media-logos/the morning show.png" alt="The Morning Show" width="100" height="24" className="h-6 w-auto object-contain opacity-60 mx-auto" />
+                    <img src="/images/media-logos/daily mail.png" alt="Daily Mail" width="100" height="24" className="h-6 w-auto object-contain opacity-60 mx-auto" />
+                    <img src="/images/media-logos/SMH.png" alt="SMH" width="100" height="24" className="h-6 w-auto object-contain opacity-60 mx-auto" />
+                    <img src="/images/media-logos/womens fitness.png" alt="Women's Fitness" width="100" height="24" className="h-6 w-auto object-contain opacity-60 mx-auto" />
+                    <img src="/images/media-logos/womens health.png" alt="Women's Health" width="100" height="24" className="h-6 w-auto object-contain opacity-60 mx-auto" />
                   </div>
                 </div>
                 <div className="hidden sm:block">
                   {/* Desktop: Animated logo loop */}
                   <LogoLoop
                     logos={[
-                      { src: "/images/media-logos/Sunrise.png", alt: "Sunrise", scale: 1.8 },
+                      { src: "/images/media-logos/Sunrise.png", alt: "Sunrise", scale: 1.4 },
                       "/images/media-logos/the morning show.png",
                       "/images/media-logos/daily mail.png",
-                      "/images/media-logos/SMH.png",
-                      "/images/media-logos/images.png",
                       "/images/media-logos/womens fitness.png",
+                      "/images/media-logos/SMH.png",
                       "/images/media-logos/womens health.png",
-                      { src: "/images/media-logos/Sunrise.png", alt: "Sunrise", scale: 1.8 },
+                      { src: "/images/media-logos/images.png", alt: "The CEO" },
+                      "/images/media-logos/bodyandsoul.svg",
+                      { src: "/images/media-logos/Sunrise.png", alt: "Sunrise", scale: 1.4 },
+                      "/images/media-logos/womens fitness.png",
                       "/images/media-logos/the morning show.png",
+                      "/images/media-logos/womens health.png",
                       "/images/media-logos/daily mail.png"
                     ]}
                     speed={30}
-                    logoHeight={60}
-                    gap={60}
+                    logoHeight={40}
+                    gap={50}
                     pauseOnHover={true}
                     fadeOut={true}
                     fadeOutColor="white"
@@ -235,15 +310,18 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Future Proof Message - Softer Style */}
-              <div className="border-2 border-ocean/20 bg-gradient-to-r from-ice/50 to-cloud/50 px-4 sm:px-6 py-3 rounded-full my-4 sm:my-6 max-w-lg mx-auto">
-                <p className="text-base sm:text-lg md:text-xl font-medium text-ocean text-center tracking-wide">
-                  Future Proof Your Health
-                </p>
-              </div>
+              {/* CTA + Action Buttons */}
+              <a
+                href="https://calendly.com/thewellnesscoachsession/15min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-ocean text-white px-6 py-4 rounded-full font-bold hover:bg-ocean/90 transition-colors text-center text-base sm:text-lg shadow-lg min-h-[44px] max-w-lg mx-auto lg:mx-0"
+              >
+                <CalendarHeart className="inline mr-2 w-5 h-5 -mt-0.5" />
+                BOOK A FREE HEALTH OPTIMISATION CALL
+              </a>
 
-              {/* 4 Action Buttons - Mobile Optimized with 44px+ Touch Targets */}
-              <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4 pt-4 max-w-lg mx-auto">
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 sm:gap-4 pt-4 max-w-lg mx-auto lg:mx-0">
                 <a
                   href="/freebie"
                   className="bg-ocean text-white px-4 sm:px-6 py-4 sm:py-4 rounded-full font-semibold hover:bg-ocean/90 transition-colors inline-flex items-center justify-center text-sm sm:text-base shadow-lg min-h-[44px]"
@@ -284,11 +362,11 @@ export default function HomePage() {
             <div className="relative order-1 lg:order-2 mb-6 lg:mb-0">
               {/* Mobile Hero Text - Only visible on mobile */}
               <div className="lg:hidden text-center mb-6">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
                   <span className="text-ocean block">Optimise Your Life</span>
                   <span className="text-sky block">One BioHack at a Time.</span>
                 </h1>
-                <p className="text-base sm:text-lg leading-relaxed mt-4">
+                <p className="text-sm sm:text-base leading-relaxed mt-4">
                   <span className="text-ocean font-bold">Australia's leading biohacking coach</span> <span className="text-gray-600">specialising in health optimisation and personalised longevity strategies.</span>
                 </p>
               </div>
@@ -342,7 +420,7 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 md:mb-8 text-ocean text-center lg:text-left">
+                <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 text-ocean text-center lg:text-left">
                   Hi I'm Camilla
                 </h2>
 
@@ -407,7 +485,7 @@ export default function HomePage() {
       </section>
 
       {/* How can we work together Section */}
-      <section className="py-12 md:py-20 bg-white">
+      <section className="py-12 md:py-20 bg-ocean">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -416,8 +494,8 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8">
-              <span className="bg-gradient-to-r from-ocean via-sky to-ocean bg-clip-text text-transparent">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8">
+              <span className="text-white">
                 How can we work together?
               </span>
             </h2>
@@ -467,18 +545,18 @@ export default function HomePage() {
                 </div>
                 
                 <h3 className="text-3xl font-bold mb-4">
-                  <span className="text-ocean">{service.title}</span>
+                  <span className="text-white">{service.title}</span>
                 </h3>
-                <p className="text-sky/80 leading-relaxed mb-8 text-lg max-w-md mx-auto flex-grow">
+                <p className="text-white/70 leading-relaxed mb-8 text-lg max-w-md mx-auto flex-grow">
                   {service.description}
                 </p>
-                
+
                 <motion.a
                   href={service.link}
                   {...(service.link.startsWith('http') ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="inline-block bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium hover:from-sky hover:to-ocean shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm mt-auto"
+                  className="inline-block bg-white text-ocean px-6 py-3 rounded-full font-medium hover:bg-sky hover:text-white shadow-lg hover:shadow-xl transition-all duration-300 mt-auto"
                 >
                   {service.cta}
                 </motion.a>
@@ -539,7 +617,7 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8">
                 <span className="text-ocean">BIOHACKING WITH</span> <span className="text-sky">CAMILLA</span>
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -581,7 +659,7 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
                 <span className="text-ocean">Ready to</span> <span className="text-sky">Take Action?</span>
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -621,7 +699,7 @@ export default function HomePage() {
                   href="/shop"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="bg-gradient-to-r from-ocean to-sky text-white px-8 py-4 rounded-full font-semibold hover:from-sky hover:to-ocean shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
+                  className="bg-ocean text-white px-8 py-4 rounded-full font-semibold hover:from-sky hover:to-ocean shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
                 >
                   <ShoppingBag className="mr-2 w-5 h-5" />
                   EXPLORE SHOP
@@ -659,7 +737,7 @@ export default function HomePage() {
                   href="/masterclass"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="bg-gradient-to-r from-sky to-ocean text-white px-8 py-4 rounded-full font-semibold hover:from-ocean hover:to-sky shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
+                  className="bg-sky text-white px-8 py-4 rounded-full font-semibold hover:from-ocean hover:to-sky shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
                 >
                   <PlayCircle className="mr-2 w-5 h-5" />
                   START LEARNING
@@ -671,7 +749,7 @@ export default function HomePage() {
       </section>
 
       {/* Get in touch - Free Guide Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-sky/5 via-ice/20 to-sky/5">
+      <section className="py-12 md:py-20 bg-ocean">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <motion.h2
@@ -679,9 +757,9 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold mb-8"
+              className="text-2xl md:text-3xl font-bold mb-8"
             >
-              <span className="bg-gradient-to-r from-ocean via-sky to-ocean bg-clip-text text-transparent">
+              <span className="text-white">
                 Get in touch
               </span>
             </motion.h2>
@@ -691,7 +769,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
               viewport={{ once: true }}
-              className="text-2xl md:text-3xl font-bold text-ocean mb-8"
+              className="text-2xl md:text-3xl font-bold text-white mb-8"
             >
               Download my FREE BIOHACKME GUIDE!
             </motion.h3>
@@ -701,7 +779,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.8 }}
               viewport={{ once: true }}
-              className="text-lg text-ocean/70 leading-relaxed mb-8 max-w-3xl mx-auto"
+              className="text-lg text-white/70 leading-relaxed mb-8 max-w-3xl mx-auto"
             >
               I've spent a long time perfecting this guide to offer you the ideal starting point for your biohacking journey.
             </motion.p>
@@ -714,8 +792,8 @@ export default function HomePage() {
               className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12"
             >
               <div className="text-left">
-                <p className="text-lg font-bold text-ocean mb-4">WHAT'S IN THIS GUIDE?</p>
-                <ul className="text-lg text-sky/80 space-y-2">
+                <p className="text-lg font-bold text-white mb-4">WHAT'S IN THIS GUIDE?</p>
+                <ul className="text-lg text-white/70 space-y-2">
                   <li>✓ WTF is Biohacking?</li>
                   <li>✓ What is a Biohacker Mindset?</li>
                   <li>✓ Biohacking Framework</li>
@@ -723,7 +801,7 @@ export default function HomePage() {
                   <li>✓ Biohacking Technologies</li>
                   <li>✓ Top 10 Biohacks</li>
                 </ul>
-                <p className="text-lg text-ocean/70 mt-4">
+                <p className="text-lg text-white/70 mt-4">
                   This guide provides all the information, tips, and tricks you need to get started.
                 </p>
               </div>
@@ -743,10 +821,20 @@ export default function HomePage() {
               href="/freebie"
               whileHover={{ scale: 1.02, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium hover:from-sky hover:to-ocean shadow-xl hover:shadow-2xl transition-all duration-300 backdrop-blur-sm"
+              className="inline-flex items-center bg-white text-ocean px-6 py-3 rounded-full font-medium hover:bg-sky hover:text-white shadow-xl hover:shadow-2xl transition-all duration-300"
             >
               <Download className="mr-2 w-4 h-4" />
               CLICK HERE TO DOWNLOAD
+            </motion.a>
+            <motion.a
+              href="https://calendly.com/thewellnesscoachsession/15min"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center bg-white/20 border-2 border-white text-white px-6 py-3 rounded-full font-medium hover:bg-white hover:text-ocean shadow-xl hover:shadow-2xl transition-all duration-300 mt-4 sm:mt-0 sm:ml-4"
+            >
+              BOOK A FREE HEALTH OPTIMISATION CALL
             </motion.a>
           </div>
         </div>

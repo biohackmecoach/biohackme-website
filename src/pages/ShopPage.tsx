@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
-import { ExternalLink, Star, Shield, Award, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, Star, Shield, Award, Sparkles, ChevronDown } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const ShopPage = () => {
+  const [expandedId, setExpandedId] = useState<number | null>(null);
   const products = [
     {
       id: 1,
@@ -50,17 +52,32 @@ const ShopPage = () => {
     },
     {
       id: 4,
-      name: "Found Space Saunas",
+      name: "Clearlight Saunas",
       category: "Infrared Sauna & Cold Plunge",
-      benefit: "Australia's leaders in hormetic technologies with premium infrared saunas and cold plunge systems",
+      benefit: "Australia's leaders in infrared sauna technology with premium full-spectrum infrared saunas",
       bullets: [
-        "Advanced infrared sauna collections (Nu-a, Marrkan S, Nyssa) with cutting-edge technology",
-        "Professional cold plunge systems (Yirri Steel & Cedar) for complete contrast therapy",
-        "FS-1 Operating System with 10-inch display and phone app control for total convenience",
-        "Australia-wide delivery and installation with trained technicians and industry-leading warranties"
+        "Full-spectrum infrared saunas with low EMF and low ELF technology",
+        "Lifetime warranty on all heaters and electrical components",
+        "True Wave II carbon/ceramic heaters for optimal infrared output",
+        "Australia-wide delivery and installation with expert support"
       ],
-      image: "/shop-images/foundspace.png",
-      link: "https://foundspace.com.au/",
+      image: "/shop-images/clearlight.png",
+      link: "https://clearlightsaunas.com.au/?ref=BIOHACKME",
+      discount: "BIOHACKME"
+    },
+    {
+      id: 12,
+      name: "Helsi",
+      category: "Saunas & Cold Plunges",
+      benefit: "Premium saunas and cold plunge pools designed to support recovery, longevity and overall vitality",
+      bullets: [
+        "High-quality infrared saunas and ice baths for home use",
+        "Designed to support cellular repair, recovery and energy production",
+        "Sleek, premium Australian-focused design with easy setup",
+        "Supports muscle recovery, detoxification and sleep optimisation"
+      ],
+      image: "/shop-images/helsi.png",
+      link: "https://au.helsi.life/?ref=BIOHACKME",
       discount: "BIOHACKME"
     },
     {
@@ -243,14 +260,8 @@ const ShopPage = () => {
 
       <Header />
 
-      <div className="min-h-screen bg-gradient-to-br from-ice via-cloud to-sky/30 font-montserrat">
-        {/* Floating Background Elements */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-ocean/20 to-sky/20 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-gradient-to-r from-sky/20 to-ice/30 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-gradient-to-r from-ice/30 to-ocean/20 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse animation-delay-4000"></div>
-        </div>
-
+      <div className="min-h-screen bg-white font-montserrat">
+        
         <div className="relative z-10">
           {/* Hero Section */}
           <section className="pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-12 px-4 sm:px-6 lg:px-8">
@@ -261,7 +272,7 @@ const ShopPage = () => {
                 transition={{ duration: 0.8 }}
                 className="mb-8"
               >
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-montserrat font-bold text-transparent bg-clip-text bg-gradient-to-r from-ocean to-sky mb-8 leading-tight">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-montserrat font-bold text-transparent bg-clip-text bg-ocean mb-8 leading-tight">
                   Biohacking Shop
                 </h1>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-montserrat font-bold text-ocean mb-6 leading-tight">
@@ -303,89 +314,106 @@ const ShopPage = () => {
 
 
           {/* Products Grid */}
-          <section className="py-20 px-4 sm:px-6 lg:px-8">
+          <section className="py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
               <motion.div
                 variants={stagger}
                 initial="initial"
                 animate="animate"
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
               >
-                {products.map((product) => (
-                  <motion.div
-                    key={product.id}
-                    initial={{ opacity: 0, y: 60 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: product.id * 0.1 }}
-                    className="group bg-white/70 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col h-full"
-                  >
-                    <div className="flex-1 flex flex-col">
-                      <div className="relative mb-6">
-                        <div className="aspect-w-16 aspect-h-12 bg-white rounded-2xl overflow-hidden border border-gray-100">
-                          <img 
-                            src={product.image} 
-                            alt={product.name}
-                            className={`w-full object-contain object-center p-4 group-hover:scale-105 transition-transform duration-500 ${
-                              ['BON CHARGE Red Light Therapy', 'BrainTap Brain Fitness Headset', 'Pulsetto Vagus Nerve Stimulator', 'HEALR Hydrogen Water', 'Genetic Labs Australia NMN Collection'].includes(product.name) 
-                                ? 'h-8' 
-                                : 'h-14'
-                            }`}
-                            loading="lazy"
-                          />
+                {products.map((product) => {
+                  const isExpanded = expandedId === product.id;
+                  return (
+                    <motion.div
+                      key={product.id}
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: product.id * 0.05 }}
+                      className="group bg-white/70 backdrop-blur-lg rounded-2xl border border-white/20 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                    >
+                      <div className="p-5">
+                        <div className="relative mb-3">
+                          <div className="h-24 bg-white rounded-xl overflow-hidden border border-gray-100 flex items-center justify-center">
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              className="max-h-20 w-auto object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                              loading="lazy"
+                            />
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="mb-2">
-                        <span className="text-sm font-medium text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
+                        <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
                           {product.category}
                         </span>
+
+                        <h3 className="text-base font-bold text-gray-900 mt-2 mb-1 group-hover:text-blue-600 transition-colors leading-tight">
+                          {product.name}
+                        </h3>
+
+                        <p className="text-sm text-gray-600 leading-snug line-clamp-2">
+                          {product.benefit}
+                        </p>
+
+                        <button
+                          onClick={() => setExpandedId(isExpanded ? null : product.id)}
+                          className="flex items-center text-xs font-medium text-ocean mt-2 hover:text-blue-700 transition-colors"
+                        >
+                          {isExpanded ? 'Hide details' : 'View details'}
+                          <ChevronDown className={`w-3.5 h-3.5 ml-1 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        <AnimatePresence>
+                          {isExpanded && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden"
+                            >
+                              <ul className="space-y-2 mt-3 pt-3 border-t border-gray-100">
+                                {product.bullets.map((bullet, index) => (
+                                  <li key={index} className="flex items-start text-xs text-gray-600">
+                                    <div className="w-1.5 h-1.5 bg-ocean rounded-full mt-1.5 mr-2 flex-shrink-0"></div>
+                                    {bullet}
+                                  </li>
+                                ))}
+                              </ul>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
 
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
-                        {product.name}
-                      </h3>
+                      <div className="mt-auto p-5 pt-0">
+                        {product.discount && (
+                          <div className="mb-3 text-center">
+                            <span className="inline-block bg-sky/10 text-ocean px-3 py-1 rounded-full text-xs font-medium border border-sky/20">
+                              Code: {product.discount}
+                            </span>
+                          </div>
+                        )}
 
-                      <p className="text-gray-700 mb-6 leading-relaxed">
-                        {product.benefit}
-                      </p>
-
-                      <ul className="space-y-3 mb-8 flex-1">
-                        {product.bullets.map((bullet, index) => (
-                          <li key={index} className="flex items-start text-sm text-gray-600">
-                            <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                            {bullet}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="mt-auto">
-                      {product.discount && (
-                        <div className="mb-4 text-center">
-                          <span className="inline-block bg-gradient-to-r from-ice to-cloud text-ocean px-4 py-2 rounded-full text-sm font-medium border border-sky/20">
-                            Use code: {product.discount}
-                          </span>
-                        </div>
-                      )}
-
-                      <a
-                        href={product.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-premium w-full inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-ocean to-sky text-white font-medium rounded-full hover:from-ocean/90 hover:to-sky/90 transition-all duration-300 group-hover:shadow-xl"
-                      >
-                        Shop {product.name.split(' ')[0]}
-                        <ExternalLink className="w-5 h-5 ml-2" />
-                      </a>
-                    </div>
-                  </motion.div>
-                ))}
+                        <a
+                          href={product.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-premium w-full inline-flex items-center justify-center px-4 py-2.5 bg-ocean text-white text-sm font-medium rounded-full hover:from-ocean/90 hover:to-sky/90 transition-all duration-300"
+                        >
+                          Shop {product.name.split(' ')[0]}
+                          <ExternalLink className="w-4 h-4 ml-1.5" />
+                        </a>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </motion.div>
             </div>
           </section>
 
           {/* Disclaimers Section */}
-          <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-slate-100 to-gray-100">
+          <section className="py-16 px-4 sm:px-6 lg:px-8 bg-sky/10">
             <div className="max-w-4xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 60 }}
@@ -435,7 +463,7 @@ const ShopPage = () => {
                 initial={{ opacity: 0, y: 60 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="bg-gradient-to-r from-blue-600 to-teal-600 rounded-3xl p-12 text-white"
+                className="bg-ocean rounded-3xl p-12 text-white"
               >
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
                   Ready to Optimise Your Life?

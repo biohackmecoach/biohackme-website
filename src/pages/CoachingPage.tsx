@@ -175,6 +175,62 @@ export default function CoachingPage() {
             }
           })}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is a biohacking coach?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A biohacking coach helps you optimise your health using science-backed strategies tailored to your unique biology. This includes DNA testing, personalised nutrition plans, sleep optimisation, stress management, and lifestyle protocols designed to improve energy, focus, and longevity."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How much does biohacking coaching cost in Australia?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "BiohackMe offers personalised coaching programs starting with a 3-month program that includes DNA methylation testing, regular coaching sessions, and weekly accountability check-ins. Contact us for current pricing and package options."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is DNA methylation testing?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "DNA methylation testing analyses how your genes are expressed, revealing insights into your body's detoxification pathways, nutrient metabolism, and stress response. It goes beyond standard genetic testing to show how lifestyle and environment are affecting your gene expression, allowing for truly personalised health protocols."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can biohacking help with energy and fatigue?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Biohacking addresses the root causes of fatigue including poor sleep quality, nutrient deficiencies, gut health imbalances, and mitochondrial dysfunction. Through personalised testing and targeted protocols, most clients report significantly improved energy levels within the first few weeks of coaching."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is biohacking coaching available online in Australia?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. BiohackMe offers coaching sessions via Zoom, available Australia-wide and internationally. DNA test kits and other testing materials are shipped directly to your door. Camilla Thompson is based in Sydney but works with clients across Australia and overseas."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the difference between biohacking and functional medicine?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Biohacking focuses on self-experimentation and optimisation using tools like DNA testing, wearable technology, cold exposure, red light therapy, and personalised nutrition. Functional medicine focuses on diagnosing and treating root causes of disease. Biohacking coaching often complements functional medicine by adding performance optimisation and preventive health strategies."
+                }
+              }
+            ]
+          })}
+        </script>
       </Helmet>
 
 
@@ -221,7 +277,7 @@ export default function CoachingPage() {
                 transition={{ delay: 0.1, duration: 0.8 }}
                 className="text-left mb-8"
               >
-                <span className="bg-gradient-to-r from-ocean to-sky text-white px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-medium">
+                <span className="bg-ocean text-white px-6 sm:px-8 py-3 rounded-full text-base sm:text-lg font-medium">
                   <span className="hidden sm:inline">SIGNATURE </span>COACHING PROGRAM
                 </span>
               </motion.div>
@@ -232,7 +288,7 @@ export default function CoachingPage() {
                 transition={{ delay: 0.2, duration: 0.8 }}
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-montserrat font-bold leading-tight mb-4"
               >
-                <span className="bg-gradient-to-r from-ocean to-sky bg-clip-text text-transparent">
+                <span className="bg-ocean bg-clip-text text-transparent">
                   OPTIMISE
                 </span>{' '}
                 <span className="text-charcoal font-light">YOUR LIFE</span>
@@ -299,7 +355,7 @@ export default function CoachingPage() {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-ocean to-sky text-white px-8 py-3 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
+                  className="bg-ocean text-white px-8 py-3 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
                 >
                   BOOK DISCOVERY CALL
                   <ArrowRight className="ml-2 w-4 h-4" />
@@ -343,7 +399,7 @@ export default function CoachingPage() {
                       href="#one-on-one-coaching"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="bg-gradient-to-r from-ocean to-sky text-white px-8 py-3 rounded-full font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
+                      className="bg-ocean text-white px-8 py-3 rounded-full font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
                     >
                       VIEW 1:1 COACHING OPTIONS
                     </motion.a>
@@ -506,7 +562,7 @@ export default function CoachingPage() {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
+                      className="bg-ocean text-white px-6 py-3 rounded-full font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
                     >
                       PAY NOW - START TODAY
                     </motion.a>
@@ -533,7 +589,7 @@ export default function CoachingPage() {
       </section>
 
       {/* Outcomes Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-ocean to-sky text-white">
+      <section className="py-12 md:py-20 bg-ocean text-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -622,7 +678,7 @@ export default function CoachingPage() {
                 viewport={{ once: true }}
                 className="bg-white rounded-2xl p-8 shadow-lg"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-ocean to-sky rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
+                <div className="w-16 h-16 bg-ocean rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
                   1
                 </div>
                 <h3 className="text-2xl font-montserrat font-light text-ocean mb-6">MONTH ONE</h3>
@@ -658,7 +714,7 @@ export default function CoachingPage() {
                 viewport={{ once: true }}
                 className="bg-white rounded-2xl p-8 shadow-lg"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-sky to-ocean rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
+                <div className="w-16 h-16 bg-sky rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
                   2
                 </div>
                 <h3 className="text-2xl font-montserrat font-light text-ocean mb-6">MONTH TWO</h3>
@@ -689,7 +745,7 @@ export default function CoachingPage() {
                 viewport={{ once: true }}
                 className="bg-white rounded-2xl p-8 shadow-lg"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-ocean to-sky rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
+                <div className="w-16 h-16 bg-ocean rounded-full flex items-center justify-center text-white font-bold text-2xl mb-6">
                   3
                 </div>
                 <h3 className="text-2xl font-montserrat font-light text-ocean mb-6">MONTH THREE</h3>
@@ -823,7 +879,7 @@ export default function CoachingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-ocean to-sky text-white">
+      <section className="py-12 md:py-20 bg-ocean text-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -873,7 +929,7 @@ export default function CoachingPage() {
 
 
       {/* 1:1 Coaching Section */}
-      <section id="one-on-one-coaching" className="py-12 md:py-20 bg-gradient-to-br from-sky to-ocean text-white">
+      <section id="one-on-one-coaching" className="py-12 md:py-20 bg-sky text-white">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1152,7 +1208,7 @@ export default function CoachingPage() {
                   href="/freebie"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-ocean to-sky text-white px-6 py-3 rounded-full font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center"
+                  className="bg-ocean text-white px-6 py-3 rounded-full font-medium text-base shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center"
                 >
                   CLICK HERE TO DOWNLOAD
                   <ArrowRight className="ml-2 w-4 h-4" />

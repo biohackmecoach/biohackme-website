@@ -81,7 +81,7 @@ exports.createCheckoutSession = functions.https.onCall(async (data, context) => 
  * No reliance on Mailchimp automation delays
  */
 exports.handlePaymentSuccess = functions.https.onRequest(async (req, res) => {
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
     const sig = req.headers['stripe-signature'];
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
     // Log webhook received
@@ -116,6 +116,42 @@ exports.handlePaymentSuccess = functions.https.onRequest(async (req, res) => {
                 return;
             }
             console.log('✅ Customer email found:', customerEmail);
+            // Detect product type from metadata or amount
+            const amountPaid = session.amount_total || 0; // in cents
+            let productType = ((_b = session.metadata) === null || _b === void 0 ? void 0 : _b.productType) || 'unknown';
+            // Fallback detection by amount if metadata not set (includes GST ranges)
+            if (productType === 'unknown') {
+                if (amountPaid >= 69000 && amountPaid <= 80000) {
+                    // DNA Package: $699 + GST = $768.90
+                    productType = 'dna-package';
+                }
+                else if (amountPaid >= 2500 && amountPaid <= 3500) {
+                    // Masterclass: $27 + GST = $29.70
+                    productType = 'masterclass';
+                }
+                else if (amountPaid >= 150000) {
+                    // Coaching: $1500 + GST = $1650
+                    productType = 'coaching-program';
+                }
+                else {
+                    productType = 'other';
+                }
+            }
+            console.log(`🏷️ Product type detected: ${productType} (amount: $${(amountPaid / 100).toFixed(2)})`);
+            // Define product-specific tags (one tag per product type)
+            const productTags = {
+                'masterclass': ['masterclass-customer'],
+                'dna-package': ['DNA package customer'],
+                'coaching-program': ['coaching-customer'],
+                'other': ['paid-customer']
+            };
+            // Define product-specific access
+            const productAccess = {
+                'masterclass': { masterclass: true, masterclassDate: admin.firestore.FieldValue.serverTimestamp() },
+                'dna-package': { dnaPackage: true, dnaPackageDate: admin.firestore.FieldValue.serverTimestamp() },
+                'coaching-program': { coachingProgram: true, coachingProgramDate: admin.firestore.FieldValue.serverTimestamp() },
+                'other': {}
+            };
             console.log('🔍 Step 2: Creating user in Firestore...');
             // Step 1: Create or update user in Firestore
             const userRef = admin.firestore().collection('users').doc();
@@ -123,10 +159,7 @@ exports.handlePaymentSuccess = functions.https.onRequest(async (req, res) => {
             await userRef.set({
                 email: customerEmail,
                 stripeCustomerId: session.customer,
-                access: {
-                    masterclass: true,
-                    masterclassDate: admin.firestore.FieldValue.serverTimestamp()
-                },
+                access: productAccess[productType] || {},
                 createdAt: admin.firestore.FieldValue.serverTimestamp()
             }, { merge: true });
             console.log('✅ User created in Firestore:', userId);
@@ -137,14 +170,14 @@ exports.handlePaymentSuccess = functions.https.onRequest(async (req, res) => {
                 userEmail: customerEmail,
                 stripeCustomerId: session.customer,
                 paymentIntentId: session.payment_intent,
-                amountPaid: session.amount_total,
+                amountPaid: amountPaid,
                 currency: session.currency,
-                productType: 'masterclass',
+                productType: productType,
                 status: 'completed',
                 completedAt: admin.firestore.FieldValue.serverTimestamp()
             });
             console.log('✅ Payment recorded');
-            // Step 3: Add to Mailchimp with tags
+            // Step 3: Add to Mailchimp with product-specific tags
             try {
                 const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
                 const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
@@ -172,29 +205,24 @@ exports.handlePaymentSuccess = functions.https.onRequest(async (req, res) => {
                     }
                     else {
                         console.log('✅ Mailchimp member created/updated');
-                        // Step 3b: Add tags (separate API call required)
+                        // Step 3b: Add product-specific tags (separate API call required)
                         const tagsUrl = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members/${emailHash}/tags`;
-                        console.log('📧 Step 3b: Adding tags to Mailchimp member');
+                        console.log('📧 Step 3b: Adding tags to Mailchimp member:', productTags[productType]);
+                        const tagsToApply = (productTags[productType] || ['paid-customer']).map(tag => ({ name: tag, status: 'active' }));
                         const tagsResponse = await fetch(tagsUrl, {
                             method: 'POST',
                             headers: {
                                 'Authorization': `Basic ${Buffer.from(`anystring:${MAILCHIMP_API_KEY}`).toString('base64')}`,
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({
-                                tags: [
-                                    { name: 'masterclass-customer', status: 'active' },
-                                    { name: 'paid-customer', status: 'active' },
-                                    { name: 'high-value-customer', status: 'active' }
-                                ]
-                            }),
+                            body: JSON.stringify({ tags: tagsToApply }),
                         });
                         if (!tagsResponse.ok) {
                             const errorText = await tagsResponse.text();
                             console.error('❌ Mailchimp tags failed:', tagsResponse.status, errorText);
                         }
                         else {
-                            console.log('✅ Mailchimp tags applied successfully');
+                            console.log('✅ Mailchimp tags applied successfully:', productTags[productType]);
                         }
                     }
                 }
@@ -214,7 +242,7 @@ exports.handlePaymentSuccess = functions.https.onRequest(async (req, res) => {
             const loginInstructions = `Your masterclass is accessible at any time using this email: ${customerEmail}. Simply visit the access link above and you'll be automatically logged in.`;
             const emailSent = await (0, email_sender_1.sendMasterclassWelcomeEmail)({
                 email: customerEmail,
-                firstName: (_c = (_b = session.customer_details) === null || _b === void 0 ? void 0 : _b.name) === null || _c === void 0 ? void 0 : _c.split(' ')[0],
+                firstName: (_d = (_c = session.customer_details) === null || _c === void 0 ? void 0 : _c.name) === null || _d === void 0 ? void 0 : _d.split(' ')[0],
                 accessLink: accessLink,
                 pdfDownloadLink: pdfDownloadLink,
                 loginInstructions: loginInstructions

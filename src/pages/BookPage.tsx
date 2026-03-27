@@ -24,7 +24,7 @@ export default function BookPage() {
       <Header />
 
       {/* Hero Section with Dark Background */}
-      <section className="relative bg-gradient-to-br from-ocean to-sky text-white min-h-[60vh] flex items-center overflow-hidden">
+      <section className="relative bg-ocean text-white min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-white/20 rounded-full blur-2xl"></div>
           <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-white/15 rounded-full blur-3xl"></div>
@@ -143,7 +143,7 @@ export default function BookPage() {
 
 
         {/* What's Inside Section */}
-        <section className="py-20 bg-gradient-to-br from-ocean to-sky text-white mb-16">
+        <section className="py-20 bg-ocean text-white mb-16">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -209,7 +209,7 @@ export default function BookPage() {
           className="mb-16 max-w-5xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-montserrat font-light text-center mb-12">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-ocean to-sky">
+            <span className="text-transparent bg-clip-text bg-ocean">
               Supercharge your life. One biohack at a time.
             </span>
           </h2>
@@ -283,7 +283,7 @@ export default function BookPage() {
           </div>
 
           {/* Final Call to Action */}
-          <div className="text-center bg-gradient-to-r from-ocean to-sky text-white p-8 rounded-3xl">
+          <div className="text-center bg-ocean text-white p-8 rounded-3xl">
             <p className="text-xl leading-relaxed font-light">
               Once you master the biohacking basics, you will unlock your full potential and transform your mind and body for the better. Whether you're a health newbie or a seasoned wellness warrior, <span className="font-medium">Biohack Me is your ticket to supercharging your life.</span>
             </p>
@@ -332,7 +332,7 @@ export default function BookPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.2 }}
-          className="text-center bg-gradient-to-r from-ocean to-sky text-white p-12 rounded-3xl"
+          className="text-center bg-ocean text-white p-12 rounded-3xl"
           id="buy-now"
         >
           <h3 className="text-3xl md:text-4xl font-montserrat font-light mb-4">Ready to Transform Your Health?</h3>
@@ -391,11 +391,19 @@ export default function BookPage() {
             >
               Want 1:1 Coaching Instead?
             </Link>
+            <a
+              href="https://calendly.com/thewellnesscoachsession/15min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white text-ocean px-8 py-4 rounded-full font-medium hover:bg-sky hover:text-white transition-colors inline-block"
+            >
+              Book a Free Health Optimisation Call
+            </a>
           </div>
         </motion.div>
 
       </div>
-      
+
       <Footer />
     </div>
   )

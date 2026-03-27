@@ -92,7 +92,7 @@ export default function VideoPlayer({
     <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
       {/* Video Container */}
       <div 
-        className="relative aspect-video bg-gradient-to-br from-ocean to-sky flex items-center justify-center cursor-pointer group"
+        className="relative aspect-video bg-ocean flex items-center justify-center cursor-pointer group"
         onMouseEnter={() => setShowControls(true)}
         onMouseLeave={() => setShowControls(false)}
         onClick={togglePlay}

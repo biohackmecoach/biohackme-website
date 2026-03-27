@@ -764,7 +764,7 @@ const BrainAssessmentPage: React.FC = () => {
 
               {/* Medical Disclaimer */}
               <div style={{
-                background: '#E9EFF2',
+                background: '#f8fafc',
                 border: '2px solid rgba(30, 107, 184, 0.3)',
                 borderRadius: '12px',
                 padding: '20px',

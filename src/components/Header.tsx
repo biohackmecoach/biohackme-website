@@ -56,6 +56,7 @@ export default function Header() {
               </button>
               <div className="absolute left-0 top-full mt-1 w-56 bg-ocean border border-white/20 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className="p-4 space-y-3">
+                  <Link to="/the-upgrade" className="block text-white hover:text-ice font-medium">The Upgrade</Link>
                   <Link to="/optimise-your-life" className="block text-white hover:text-ice font-medium">Optimise Your Life</Link>
                   <Link to="/coaching-sessions" className="block text-white hover:text-ice font-medium">1:1 Coaching Sessions</Link>
                   <Link to="/dna-package" className="block text-white hover:text-ice font-medium">DNA Package</Link>
@@ -126,6 +127,7 @@ export default function Header() {
               {/* Coaching Section */}
               <div className="border-t border-white/10 pt-2 mt-2">
                 <div className="text-ice/70 text-sm font-medium py-2 px-4">COACHING</div>
+                <Link to="/the-upgrade" className="text-white hover:text-ice py-3 px-6 min-h-[44px] flex items-center">The Upgrade</Link>
                 <Link to="/optimise-your-life" className="text-white hover:text-ice py-3 px-6 min-h-[44px] flex items-center">Optimise Your Life</Link>
                 <Link to="/coaching-sessions" className="text-white hover:text-ice py-3 px-6 min-h-[44px] flex items-center">1:1 Coaching Sessions</Link>
                 <Link to="/dna-package" className="text-white hover:text-ice py-3 px-6 min-h-[44px] flex items-center">DNA Package</Link>

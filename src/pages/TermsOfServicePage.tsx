@@ -26,7 +26,7 @@ export default function TermsOfServicePage() {
             {/* Header */}
             <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
               <div className="flex items-center justify-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-ocean to-sky rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 bg-ocean rounded-full flex items-center justify-center">
                   <FileText className="w-8 h-8 text-white" />
                 </div>
               </div>

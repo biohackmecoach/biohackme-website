@@ -267,7 +267,7 @@ export default function KeywordAudit() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8 }}
-        className="bg-gradient-to-r from-ocean to-sky text-white rounded-3xl p-8"
+        className="bg-ocean text-white rounded-3xl p-8"
       >
         <h3 className="text-2xl font-montserrat font-light mb-6">
           Immediate Action Plan

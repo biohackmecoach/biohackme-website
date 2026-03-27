@@ -1,3 +1,6 @@
+import { db } from '../config/firebase'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+
 export interface MailchimpSubscription {
   email: string
   source: string
@@ -8,7 +11,24 @@ export interface MailchimpSubscription {
   }
 }
 
+// Firestore backup for all lead captures
+export const backupToFirestore = async (email: string, source: string, extra?: Record<string, unknown>) => {
+  try {
+    await addDoc(collection(db, 'leads'), {
+      email,
+      source,
+      createdAt: serverTimestamp(),
+      ...extra
+    })
+  } catch (err) {
+    console.error('Firestore backup error:', err)
+  }
+}
+
 export const subscribeToMailchimp = async ({ email, source, firstName }: MailchimpSubscription): Promise<{ success: boolean; error?: string }> => {
+  // Always backup to Firestore first
+  await backupToFirestore(email, source, firstName ? { firstName } : undefined)
+
   try {
     // Import Firebase functions
     const { getFunctions, httpsCallable } = await import('firebase/functions')

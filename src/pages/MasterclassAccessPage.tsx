@@ -42,7 +42,7 @@ export default function MasterclassAccessPage() {
 
               {/* Quick Access - Download & Video */}
               <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-4xl mx-auto">
-                <div className="bg-gradient-to-br from-ocean to-sky text-white rounded-2xl p-6 shadow-xl">
+                <div className="bg-ocean text-white rounded-2xl p-6 shadow-xl">
                   <h3 className="text-xl font-bold mb-3 flex items-center">
                     <Download className="w-6 h-6 mr-2" />
                     Instant Download
@@ -179,7 +179,7 @@ export default function MasterclassAccessPage() {
                   </p>
                   <button
                     onClick={handleDownloadPDF}
-                    className="w-full bg-gradient-to-r from-ocean to-sky text-white py-3 px-6 rounded-full font-medium hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full bg-ocean text-white py-3 px-6 rounded-full font-medium hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <Download className="w-4 h-4" />
                     Download Masterclass PDF

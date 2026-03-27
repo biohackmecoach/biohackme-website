@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Check, X } from 'lucide-react'
+import { backupToFirestore } from '../utils/mailchimp'
 
 export default function PopupPage() {
   const [formData, setFormData] = useState({
@@ -23,6 +24,9 @@ export default function PopupPage() {
     setIsSubmitting(true)
 
     try {
+      // Backup to Firestore
+      await backupToFirestore(formData.email, 'popup-guide-download', { firstName: formData.firstName })
+
       // Submit to Mailchimp via Firebase function
       const response = await fetch('https://us-central1-biohackme-app-379de.cloudfunctions.net/subscribeToNewsletter', {
         method: 'POST',
@@ -78,7 +82,7 @@ export default function PopupPage() {
           <title>Download Starting - BiohackMe Guide</title>
         </Helmet>
 
-        <div className="min-h-screen bg-gradient-to-br from-ocean to-sky flex items-center justify-center p-4">
+        <div className="min-h-screen bg-ocean flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -119,7 +123,7 @@ export default function PopupPage() {
         <meta name="description" content="Download your FREE comprehensive biohacking guide. Learn science-backed strategies to defy traditional limitations of ageing." />
       </Helmet>
 
-      <div className="min-h-screen bg-gradient-to-br from-ocean to-sky flex items-center justify-center p-4">
+      <div className="min-h-screen bg-ocean flex items-center justify-center p-4">
         {/* Close button */}
         <button
           onClick={handleClose}
@@ -190,7 +194,7 @@ export default function PopupPage() {
               className={`w-full font-semibold py-4 px-6 rounded-lg text-white text-lg transition-all duration-300 ${
                 isSubmitting
                   ? 'bg-charcoal/50 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-ocean to-sky hover:shadow-xl'
+                  : 'bg-ocean hover:shadow-xl'
               }`}
             >
               {isSubmitting ? 'Sending...' : 'Download FREE Guide Now'}

@@ -39,7 +39,7 @@ async function saveLeadToFirestore(leadData: any): Promise<boolean> {
   const leadDocument = {
     ...leadData,
     createdAt: admin.firestore.FieldValue.serverTimestamp(),
-    source: 'website'
+    source: leadData.type || leadData.source || 'website'
   };
 
   try {
@@ -115,7 +115,7 @@ export const subscribeToNewsletter = functions
     }
 
     try {
-      const { email, firstName, lastName } = req.body;
+      const { email, firstName, lastName, tags: requestTags } = req.body;
 
       if (!email) {
         res.status(400).json({ error: 'Email is required' });
@@ -129,13 +129,17 @@ export const subscribeToNewsletter = functions
         return;
       }
 
+      // Determine tags and type
+      const tagsToApply: string[] = Array.isArray(requestTags) ? requestTags : [];
+      const leadType = tagsToApply.length > 0 ? 'guide-download' : 'newsletter';
+
       // CRITICAL: Save to Firestore FIRST (safety backup)
       await saveLeadToFirestore({
         email: email.toLowerCase().trim(),
         firstName: firstName || '',
         lastName: lastName || '',
-        type: 'newsletter',
-        tags: []
+        type: leadType,
+        tags: tagsToApply
       });
 
       // Prepare subscriber data
@@ -169,10 +173,16 @@ export const subscribeToNewsletter = functions
       const data = await response.json();
 
       if (response.ok) {
+        // Apply tags if provided
+        if (tagsToApply.length > 0) {
+          await applyMailchimpTags(email, tagsToApply);
+        }
+
         res.status(200).json({
           success: true,
-          message: 'Successfully subscribed to newsletter!',
-          email: email
+          message: 'Successfully subscribed!',
+          email: email,
+          tagsApplied: tagsToApply.length > 0
         });
       } else {
         console.error('Mailchimp API error:', data);
@@ -418,6 +428,9 @@ export const addToMailchimp = functions
       } else if (source === 'book' || source === 'book-promo') {
         tags = ['book-interest', 'reader', 'website-subscriber'];
         leadType = 'book';
+      } else if (source === 'theupgrade') {
+        tags = ['theUpgrade'];
+        leadType = 'theUpgrade';
       } else {
         tags = ['website-subscriber'];
       }

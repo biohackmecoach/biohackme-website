@@ -16,15 +16,15 @@ export default {
       colors: {
         // BiohackMe Brand Colors
         ocean: '#022D4E',     // Primary dark blue
-        sky: '#5780AB',       // Medium blue  
-        ice: '#E9EFF2',       // Light blue/white
+        sky: '#8FC1E3',       // Light blue (brightened for visibility)
+        ice: '#f8fafc',       // Light blue/white (warm)
         cloud: '#F3F5F6',     // Off-white
         charcoal: '#161616',  // Dark text
         
         // Semantic mappings
         primary: '#022D4E',   // Ocean
-        secondary: '#5780AB', // Sky
-        accent: '#E9EFF2',    // Ice
+        secondary: '#8FC1E3', // Sky
+        accent: '#f8fafc',    // Ice
         background: '#F3F5F6', // Cloud
         text: '#161616',      // Charcoal
         

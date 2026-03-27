@@ -222,6 +222,20 @@ export default function CoachingServicesPage() {
             <p className="text-lg text-white/80 max-w-3xl mx-auto">
               Transform your health with personalised DNA methylation testing, expert genetic coaching, and science-backed biohacking protocols
             </p>
+            <motion.a
+              href="https://calendly.com/thewellnesscoachsession/15min"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-8 inline-flex items-center bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              BOOK A FREE HEALTH OPTIMISATION CALL
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </motion.a>
           </motion.div>
         </div>
       </section>
@@ -238,7 +252,7 @@ export default function CoachingServicesPage() {
           >
             <button
               onClick={() => toggleSection('optimise')}
-              className="w-full bg-gradient-to-r from-ocean to-sky text-white rounded-2xl p-6 flex items-center justify-between hover:shadow-xl transition-all duration-300"
+              className="w-full bg-ocean text-white rounded-2xl p-6 flex items-center justify-between hover:shadow-xl transition-all duration-300"
             >
               <div className="flex items-center space-x-4">
                 <Users className="w-8 h-8" />
@@ -315,7 +329,7 @@ export default function CoachingServicesPage() {
                         </div>
                         <a
                           href="/contact"
-                          className="inline-flex items-center justify-center bg-gradient-to-r from-ocean to-sky text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-300"
+                          className="inline-flex items-center justify-center bg-ocean text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-300"
                         >
                           Apply Now
                           <ArrowRight className="ml-2 w-5 h-5" />
@@ -337,7 +351,7 @@ export default function CoachingServicesPage() {
           >
             <button
               onClick={() => toggleSection('coaching')}
-              className="w-full bg-gradient-to-r from-sky to-ocean text-white rounded-2xl p-6 flex items-center justify-between hover:shadow-xl transition-all duration-300"
+              className="w-full bg-sky text-white rounded-2xl p-6 flex items-center justify-between hover:shadow-xl transition-all duration-300"
             >
               <div className="flex items-center space-x-4">
                 <Clock className="w-8 h-8" />
@@ -368,7 +382,7 @@ export default function CoachingServicesPage() {
                       {/* 60-Minute Session */}
                       <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
                         <div className="text-center mb-4">
-                          <div className="w-16 h-16 bg-gradient-to-r from-ocean to-sky rounded-full flex items-center justify-center mx-auto mb-4">
+                          <div className="w-16 h-16 bg-ocean rounded-full flex items-center justify-center mx-auto mb-4">
                             <Clock className="w-8 h-8 text-white" />
                           </div>
                           <h3 className="text-2xl font-bold text-ocean mb-2">60 Minutes</h3>
@@ -393,7 +407,7 @@ export default function CoachingServicesPage() {
                           href="https://calendly.com/thewellnesscoachsession/60-minute-coaching-session"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-full bg-gradient-to-r from-ocean to-sky text-white py-3 rounded-full font-semibold hover:shadow-lg transition-all inline-flex items-center justify-center"
+                          className="w-full bg-ocean text-white py-3 rounded-full font-semibold hover:shadow-lg transition-all inline-flex items-center justify-center"
                         >
                           <Calendar className="w-4 h-4 mr-2" />
                           Book Now
@@ -403,7 +417,7 @@ export default function CoachingServicesPage() {
                       {/* 30-Minute Session */}
                       <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
                         <div className="text-center mb-4">
-                          <div className="w-16 h-16 bg-gradient-to-r from-sky to-ocean rounded-full flex items-center justify-center mx-auto mb-4">
+                          <div className="w-16 h-16 bg-sky rounded-full flex items-center justify-center mx-auto mb-4">
                             <Clock className="w-8 h-8 text-white" />
                           </div>
                           <h3 className="text-2xl font-bold text-ocean mb-2">30 Minutes</h3>
@@ -428,7 +442,7 @@ export default function CoachingServicesPage() {
                           href="https://calendly.com/thewellnesscoachsession/15-minute-check-in-session"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-full bg-gradient-to-r from-sky to-ocean text-white py-3 rounded-full font-semibold hover:shadow-lg transition-all inline-flex items-center justify-center"
+                          className="w-full bg-sky text-white py-3 rounded-full font-semibold hover:shadow-lg transition-all inline-flex items-center justify-center"
                         >
                           <Calendar className="w-4 h-4 mr-2" />
                           Book Now
@@ -438,7 +452,7 @@ export default function CoachingServicesPage() {
                       {/* 15-Minute Session */}
                       <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
                         <div className="text-center mb-4">
-                          <div className="w-16 h-16 bg-gradient-to-r from-ocean to-sky rounded-full flex items-center justify-center mx-auto mb-4">
+                          <div className="w-16 h-16 bg-ocean rounded-full flex items-center justify-center mx-auto mb-4">
                             <Clock className="w-8 h-8 text-white" />
                           </div>
                           <h3 className="text-2xl font-bold text-ocean mb-2">15 Minutes</h3>
@@ -463,7 +477,7 @@ export default function CoachingServicesPage() {
                           href="https://calendly.com/thewellnesscoachsession/15-minute-check-in-session"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="w-full bg-gradient-to-r from-ocean to-sky text-white py-3 rounded-full font-semibold hover:shadow-lg transition-all inline-flex items-center justify-center"
+                          className="w-full bg-ocean text-white py-3 rounded-full font-semibold hover:shadow-lg transition-all inline-flex items-center justify-center"
                         >
                           <Calendar className="w-4 h-4 mr-2" />
                           Book Now
@@ -593,6 +607,23 @@ export default function CoachingServicesPage() {
             </AnimatePresence>
           </motion.div>
 
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-16 bg-ocean text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Not sure which program is right for you?</h2>
+          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Book a free 15-minute call and Camilla will help you find the best path for your health goals.</p>
+          <a
+            href="https://calendly.com/thewellnesscoachsession/15min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center bg-white text-ocean px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:bg-sky hover:text-white transition-all duration-300"
+          >
+            BOOK A FREE HEALTH OPTIMISATION CALL
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </a>
         </div>
       </section>
 

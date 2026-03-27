@@ -210,7 +210,7 @@ export default function PaymentCheckoutPage() {
                       className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-full font-semibold text-lg transition-all duration-300 ${
                         loading
                           ? 'bg-charcoal/20 text-charcoal/60 cursor-not-allowed'
-                          : 'bg-gradient-to-r from-ocean to-sky text-white hover:shadow-xl'
+                          : 'bg-ocean text-white hover:shadow-xl'
                       }`}
                     >
                       {loading ? (
