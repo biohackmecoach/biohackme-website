@@ -59,7 +59,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white">
       <Helmet>
         <title>Contact | BiohackMe - Get In Touch with Camilla</title>
-        <meta name="description" content="Contact Camilla Arnoldussen for biohacking coaching, speaking engagements, media inquiries, and wellness consultations. Please reach out with any questions." />
+        <meta name="description" content="Contact Camilla Thompson for biohacking coaching, speaking engagements, media inquiries, and wellness consultations. Please reach out with any questions." />
         <meta name="keywords" content="contact Camilla, biohacking coach contact, health coaching inquiries, speaking engagements, media inquiries" />
         <meta property="og:title" content="Contact | BiohackMe - Get In Touch" />
         <meta property="og:description" content="Contact Camilla for biohacking coaching, speaking engagements, and wellness consultations." />

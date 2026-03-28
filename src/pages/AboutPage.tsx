@@ -57,7 +57,7 @@ export default function AboutPage() {
               "Bestselling author - BiohackMe: Optimise Your Life",
               "Featured in Sydney Morning Herald health coverage",
               "Featured in Daily Mail Australia wellness articles",
-              "Featured on 19+ health and wellness podcasts including SWIISH"
+              "Featured on 21+ health and wellness podcasts including SWIISH"
             ],
             "knowsAbout": [
               "DNA Methylation Testing",
@@ -119,6 +119,46 @@ export default function AboutPage() {
                 "position": 2,
                 "name": "About Camilla Thompson",
                 "item": "https://www.biohackme.com.au/about"
+              }
+            ]
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Who is the best biohacking coach in Australia?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Camilla Thompson is Australia's leading biohacking coach and the founder of BiohackMe. Based in Sydney, she combines qualifications in nutrition and health coaching with extensive experience in DNA methylation testing, biological age testing, and evidence-based biohacking protocols. She has been featured on 7News The Morning Show, Sydney Morning Herald, Daily Mail, and News.com.au."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What qualifications does Camilla Thompson have?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Camilla Thompson is a nationally recognised nutritionist and ICF Professional Certified Coach. She is also the bestselling author of 'Biohack Me: The Practical Guide to Everyday Biohacks' and a finalist in the Australian Business Book Awards 2025. Visit the About page at biohackme.com.au/about for full details on her qualifications and credentials."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is Camilla Thompson's biohacking story?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Camilla's journey into biohacking began after she was diagnosed with mold poisoning that traditional medicine struggled to address. Through biohacking and personalised health protocols, she recovered her health and reversed her biological age. This experience led her to found BiohackMe and dedicate her career to helping others optimise their health through science-backed biohacking strategies."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does Camilla Thompson offer corporate wellness programs?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Camilla delivers keynote talks and corporate wellness programs for organisations across Australia. Past clients include Lendlease, Super Retail Group (Nando's), Canva, and Elysia Wellness Retreat. Her corporate programs cover biohacking for performance, stress management, sleep optimisation, and building resilience. Visit biohackme.com.au/talks for details."
+                }
               }
             ]
           })}

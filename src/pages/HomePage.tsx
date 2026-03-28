@@ -284,18 +284,18 @@ export default function HomePage() {
                   <LogoLoop
                     logos={[
                       { src: "/images/media-logos/Sunrise.png", alt: "Sunrise", scale: 1.4 },
-                      "/images/media-logos/the morning show.png",
-                      "/images/media-logos/daily mail.png",
-                      "/images/media-logos/womens fitness.png",
-                      "/images/media-logos/SMH.png",
-                      "/images/media-logos/womens health.png",
-                      { src: "/images/media-logos/images.png", alt: "The CEO" },
-                      "/images/media-logos/bodyandsoul.svg",
+                      { src: "/images/media-logos/the morning show.png", alt: "The Morning Show" },
+                      { src: "/images/media-logos/daily mail.png", alt: "Daily Mail" },
+                      { src: "/images/media-logos/womens fitness.png", alt: "Women's Fitness" },
+                      { src: "/images/media-logos/SMH.png", alt: "Sydney Morning Herald" },
+                      { src: "/images/media-logos/womens health.png", alt: "Women's Health" },
+                      { src: "/images/media-logos/images.png", alt: "CEO Magazine" },
+                      { src: "/images/media-logos/bodyandsoul.svg", alt: "Body and Soul" },
                       { src: "/images/media-logos/Sunrise.png", alt: "Sunrise", scale: 1.4 },
-                      "/images/media-logos/womens fitness.png",
-                      "/images/media-logos/the morning show.png",
-                      "/images/media-logos/womens health.png",
-                      "/images/media-logos/daily mail.png"
+                      { src: "/images/media-logos/womens fitness.png", alt: "Women's Fitness" },
+                      { src: "/images/media-logos/the morning show.png", alt: "The Morning Show" },
+                      { src: "/images/media-logos/womens health.png", alt: "Women's Health" },
+                      { src: "/images/media-logos/daily mail.png", alt: "Daily Mail" }
                     ]}
                     speed={30}
                     logoHeight={40}

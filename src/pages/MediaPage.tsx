@@ -216,22 +216,22 @@ const featuredLogos = [
   {
     id: 1,
     image: 'https://static.wixstatic.com/media/6b4c52_654db5976893422ab1600e6e88e361ee~mv2.png/v1/fill/w_365,h_157,al_c,lg_1,q_85,enc_avif,quality_auto/download%20(2).png',
-    alt: 'Featured In'
+    alt: 'Sunrise TV'
   },
   {
     id: 2,
     image: 'https://static.wixstatic.com/media/6b4c52_8a0896699e80453dbd932857201bdb0b~mv2.png/v1/fill/w_280,h_173,al_c,lg_1,q_85,enc_avif,quality_auto/download%20(1).png',
-    alt: 'Featured In'
+    alt: 'Sydney Morning Herald'
   },
   {
     id: 3,
     image: 'https://static.wixstatic.com/media/6b4c52_14c31dd67fa34e4281b0531a03f4b31d~mv2.png/v1/fill/w_301,h_131,al_c,q_85,enc_avif,quality_auto/download.png',
-    alt: 'Featured In'
+    alt: 'The Age'
   },
   {
     id: 4,
     image: 'https://static.wixstatic.com/media/6b4c52_067830ea1254421fab9a752b20f4555e~mv2.png/v1/fill/w_402,h_77,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/download%20(6).png',
-    alt: 'Featured In'
+    alt: 'News.com.au'
   },
   {
     id: 5,
@@ -241,17 +241,17 @@ const featuredLogos = [
   {
     id: 6,
     image: 'https://static.wixstatic.com/media/f5168e_869e20b9a7004f878446286f520a9e5d~mv2.png/v1/fill/w_534,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/aa302758-32db-2949-6468-200db2ad35bb.png',
-    alt: 'Featured In'
+    alt: "Women's Health Australia"
   },
   {
     id: 7,
     image: 'https://static.wixstatic.com/media/f5168e_f30bc1fe4c954ad5bc599c405b93fe7b~mv2.png/v1/fill/w_437,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Screenshot%202025-01-17%20at%2015_38_12.png',
-    alt: 'Featured In'
+    alt: 'Women Love Tech'
   },
   {
     id: 8,
     image: 'https://static.wixstatic.com/media/f5168e_57a3f6e2191945b98595d20dc74e4d69~mv2.png/v1/fill/w_476,h_97,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Screenshot%202025-01-17%20at%2015_38_24.png',
-    alt: 'Featured In'
+    alt: 'Kanebridge News'
   },
   {
     id: 9,

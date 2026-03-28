@@ -19,6 +19,76 @@ export default function BookPage() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="BiohackMe: The Complete Guide to Optimizing Your Health" />
         <meta name="twitter:description" content="Transform your health with evidence-based biohacking strategies and personalised protocols." />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Book",
+            "name": "Biohack Me: The Practical Guide to Everyday Biohacks",
+            "author": {
+              "@type": "Person",
+              "name": "Camilla Thompson",
+              "url": "https://www.biohackme.com.au/about"
+            },
+            "description": "Australia's first biohacking book covering longevity, anti-ageing, sleep optimisation, gut health, and personalised health strategies for every age and gender.",
+            "genre": "Health & Wellness",
+            "inLanguage": "en-AU",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Wiley"
+            },
+            "datePublished": "2024",
+            "bookFormat": "https://schema.org/Paperback",
+            "numberOfPages": "256",
+            "url": "https://www.biohackme.com.au/my-book",
+            "offers": [
+              {
+                "@type": "Offer",
+                "availability": "https://schema.org/InStock",
+                "url": "https://www.amazon.com.au/Biohack-Me-Practical-Everyday-Longevity/dp/1394334036",
+                "seller": { "@type": "Organization", "name": "Amazon Australia" }
+              },
+              {
+                "@type": "Offer",
+                "availability": "https://schema.org/InStock",
+                "url": "https://www.booktopia.com.au/search.ep?keywords=biohack+me+camilla+thompson",
+                "seller": { "@type": "Organization", "name": "Booktopia" }
+              }
+            ],
+            "award": "Australian Business Book Awards 2025 Finalist - Health and Wellbeing"
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is the best biohacking book for beginners?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "'Biohack Me: The Practical Guide to Everyday Biohacks' by Camilla Thompson is designed for beginners and experienced biohackers alike. It covers the top 10 biohacks, biohacking on a budget, strategies specifically for women and men, and an overview of biohacking technologies. It was a finalist in the Australian Business Book Awards 2025."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Where can I buy Biohack Me by Camilla Thompson?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Biohack Me is available on Amazon Australia, Booktopia, and in bookstores across Australia. You can also order it directly through biohackme.com.au/my-book."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What topics does the Biohack Me book cover?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The book covers longevity and anti-ageing strategies, sleep optimisation, gut health, cold and heat exposure, red light therapy, stress management, nutrigenomics, biohacking for women, biohacking for men, budget-friendly biohacks, and biohacking technologies. It provides practical, science-backed strategies for everyday health optimisation."
+                }
+              }
+            ]
+          })}
+        </script>
       </Helmet>
       
       <Header />
